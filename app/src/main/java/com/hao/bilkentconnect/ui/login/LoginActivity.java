@@ -1,16 +1,12 @@
-package com.hao.bilkentconnect.ui.login;
+package  com.hao.bilkentconnect.ui.login;
 
 import android.app.Activity;
-
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -30,14 +26,14 @@ import com.hao.bilkentconnect.databinding.ActivityLoginBinding;
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
-    private ActivityLoginBinding binding;
+private ActivityLoginBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+     binding = ActivityLoginBinding.inflate(getLayoutInflater());
+     setContentView(binding.getRoot());
 
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);

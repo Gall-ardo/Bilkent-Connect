@@ -4,6 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EAFAFF"
     tools:context=".ForgetPaswordPage">
 
+    <TextView
+        android:id="@+id/logoText"
+        android:layout_width="203dp"
+        android:layout_height="127dp"
+        android:gravity="center"
+        android:text="Bilkent Connect"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toTopOf="@+id/ForgotPasswordText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ForgotPasswordText"
+        android:layout_width="249dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="Forgot Password"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/infoText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/infoText"
+        android:layout_width="366dp"
+        android:layout_height="86dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="302dp"
+        android:layout_marginBottom="46dp"
+        android:gravity="center"
+        android:text="Enter your Bilkent email or username and we will send you a mail to get your account back."
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.526" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="354dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="30dp"
+        android:text="Bilkent Mail or Username"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoText" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="348dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="101dp"
+        android:text="Send Mail"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

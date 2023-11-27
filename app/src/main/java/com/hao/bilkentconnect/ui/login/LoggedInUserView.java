@@ -1,4 +1,4 @@
-package com.hao.bilkentconnect.ui.login;
+package  com.hao.bilkentconnect.ui.login;
 
 /**
  * Class exposing authenticated user details to the UI.
