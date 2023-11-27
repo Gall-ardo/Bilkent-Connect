@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        gotoMainFragment();
     }
     // altttaki butonlara tiklayinca olusacaklar
     public void gotoChatPage() {
@@ -21,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void gotoMainFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        MainFlowFragment mainFlowFragment = new MainFlowFragment();
+        fragmentTransaction.replace(R.id.frame_layout, mainFlowFragment).commit();
 
     }
     //
