@@ -8,5 +8,134 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.LoginActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundBlue"
+        android:orientation="vertical"/>
+        <TextView
+            android:id="@+id/bilkentConnectText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Bilkent \nConnect"
+            android:textAlignment="center"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.137" />
+
+        <Button
+            android:id="@+id/signInButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="224dp"
+            android:backgroundTint="#008952"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Sign In"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/enterMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:hint="Bilkent Mail"
+            android:inputType="text"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/signInButton"
+            app:layout_constraintTop_toBottomOf="@+id/bilkentConnectText"
+            app:layout_constraintVertical_bias="0.313"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/goForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:onClick="goForgotPassword"
+            android:text="Forgot Password?"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signInButton"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <EditText
+            android:id="@+id/enterPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/ubuntu_bold"
+            android:hint="Password"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:inputType="textPassword"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/signInButton"
+            app:layout_constraintTop_toBottomOf="@+id/enterMail"
+            app:layout_constraintVertical_bias="0.232"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/dontHaveAcc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="Don't have an account?"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/goSignUp"
+            app:layout_constraintEnd_toStartOf="@+id/goSignUp"
+            app:layout_constraintTop_toTopOf="@+id/goSignUp" />
+
+        <TextView
+            android:id="@+id/goSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="Sign up!"
+            android:textColor="#4098FF"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.751"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/goForgotPassword" />
+
+        <CheckBox
+            android:id="@+id/rememberMe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="100dp"
+            android:text="Remember Me"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/goForgotPassword"
+            app:layout_constraintEnd_toStartOf="@+id/goForgotPassword"
+            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/goForgotPassword"
+            app:layout_constraintVertical_bias="0.484" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
