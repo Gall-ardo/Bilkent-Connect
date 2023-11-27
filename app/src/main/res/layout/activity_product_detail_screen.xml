@@ -4,6 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EAFAFF"
     tools:context=".ProductDetailScreen">
+
+
+    <Button
+        android:id="@+id/Button_makeContact"
+        android:layout_width="212dp"
+        android:layout_height="34dp"
+
+
+        android:layout_marginEnd="44dp"
+        android:backgroundTint="#7CB5C2"
+        android:text="Make Contact"
+        android:textColor="#FFFFFF"
+        android:textSize="11.5sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView_Description"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.485" />
+
+    <TextView
+        android:id="@+id/textView_Description"
+        android:layout_width="83dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="40dp"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="Description"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.488" />
+
+    <ImageView
+        android:id="@+id/item_toSold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.142"
+        app:srcCompat="@drawable/basysSH" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="367dp"
+        android:layout_height="298dp"
+        android:background="#EAFAFF"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum euismod lacus, non varius dui viverra in. Aliquam nec tincidunt nisi, quis placerat dui. Curabitur vitae malesuada ipsum, efficitur aliquet felis. Integer mattis volutpat aliquam. Aenean volutpat elementum viverra. Donec quis velit nec turpis varius lacinia. Etiam blandit varius ligula, ut lobortis ipsum malesuada id. Aenean faucibus lectus id leo tincidunt ultricies. Cras non sem a nulla tempor congue.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum euismod lacus, non varius dui viverra in. Aliquam nec tincidunt nisi, quis placerat dui. Curabitur vitae malesuada ipsum, efficitur aliquet felis. Integer mattis volutpat aliquam. Aenean volutpat elementum viverra. Donec quis velit nec turpis varius lacinia. Etiam blandit varius ligula, ut lobortis ipsum malesuada id. Aenean faucibus lectus id leo tincidunt ultricies. Cras non sem a nulla tempor congue."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.955" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="68dp"
+        android:layout_height="21dp"
+
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#7CB5C2"
+        android:text="2000tl"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_toSold"
+        app:layout_constraintEnd_toEndOf="@+id/item_toSold"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/item_toSold"
+        app:layout_constraintTop_toTopOf="@+id/item_toSold"
+        app:layout_constraintVertical_bias="0.951" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
