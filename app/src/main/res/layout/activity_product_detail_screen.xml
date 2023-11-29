@@ -113,4 +113,35 @@
         app:layout_constraintStart_toStartOf="@+id/item_toSold"
         app:layout_constraintTop_toTopOf="@+id/item_toSold"
         app:layout_constraintVertical_bias="0.951" />
+
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:backgroundTint="#7CB5C2"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/item_toSold"
+        app:layout_constraintEnd_toStartOf="@+id/item_toSold"
+        app:layout_constraintHorizontal_bias="0.661"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_toSold"
+        app:layout_constraintVertical_bias="0.505"
+
+        />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:backgroundTint="#7CB5C2"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/item_toSold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.323"
+        app:layout_constraintStart_toEndOf="@+id/item_toSold"
+        app:layout_constraintTop_toTopOf="@+id/item_toSold"
+        app:layout_constraintVertical_bias="0.51" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
