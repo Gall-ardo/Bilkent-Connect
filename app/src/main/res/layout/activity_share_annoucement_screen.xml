@@ -4,6 +4,151 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundBlue"
     tools:context=".ShareAnnoucementScreen">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B2B9BB"></LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:background="@drawable/linear_gradient_top"
+
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButtonImage"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="5dp"
+            app:srcCompat="@drawable/arrowVector"
+            />
+
+        <TextView
+            android:id="@+id/advertiseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Advertise"
+            android:textColor="@color/menuGray"
+            android:textSize="28sp"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="360sp"
+        android:background="@drawable/half_rounded_top"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        />
+
+
+
+
+
+
+
+    <Button
+        android:id="@+id/selectButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:backgroundTint="#7CB5C2"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="Select Image"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.454" />
+
+    <EditText
+        android:id="@+id/enterTitleText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/rounded_text_plain"
+        android:ems="10"
+        android:hint="Enter Title"
+        android:inputType="text"
+        android:textColorHint="#414141"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/selectButton"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <EditText
+        android:id="@+id/setPriceText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_text_plain"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Set the Price"
+        android:textColorHint="#414141"
+        app:layout_constraintTop_toBottomOf="@+id/enterTitleText"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        />
+
+    <EditText
+        android:id="@+id/discriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_text_plain"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Write a Description"
+        android:textColorHint="#414141"
+        app:layout_constraintTop_toBottomOf="@+id/setPriceText"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        />
+
+    <Button
+        android:id="@+id/advertiseButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#008952"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="Advertise"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/discriptionText"
+        app:layout_constraintVertical_bias="0.804"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"/>
+
+    <ImageView
+        android:id="@+id/imageImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/selectButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/image_image" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
