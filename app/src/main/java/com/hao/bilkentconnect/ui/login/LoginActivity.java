@@ -3,6 +3,9 @@ package  com.hao.bilkentconnect.ui.login;
 import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -13,32 +16,50 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hao.bilkentconnect.MainActivity;
 import com.hao.bilkentconnect.R;
 import com.hao.bilkentconnect.ui.login.LoginViewModel;
 import com.hao.bilkentconnect.ui.login.LoginViewModelFactory;
 import com.hao.bilkentconnect.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
-
-    EditText emailText;
-    EditText passwordText;
+    private ActivityLoginBinding binding;
+    private CheckBox rememberMeCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        emailText = findViewById(R.id.enterMail);
-        passwordText = findViewById(R.id.enterPassword);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        View viewRoot = binding.getRoot();
+        setContentView(viewRoot);
+
+        rememberMeCheckBox = binding.rememberMeCheckBox;
+
+        if (isRemembered()) {
+            // User has chosen to be remembered. Navigate to Main Activity or Dashboard
+            navigateToMainActivity();
+        }
 
     }
 
     public void signInClicked(View view) {
-
+        String email = binding.enterMail.getText().toString();
+        String password = binding.enterPassword.getText().toString();
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // if successful
+        saveLoginState(rememberMeCheckBox.isChecked());
+        navigateToMainActivity();
+        // else
+        // give error
     }
     public void goForgotPassword(View view) {
 
@@ -47,6 +68,21 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private void saveLoginState(boolean isRemembered){
+        SharedPreferences sharedPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isRemembered", isRemembered);
+        editor.apply();
+    }
+    private void navigateToMainActivity(){
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    private boolean isRemembered() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        return sharedPreferences.getBoolean("REMEMBER_ME", false);
+    }
 
 
 
