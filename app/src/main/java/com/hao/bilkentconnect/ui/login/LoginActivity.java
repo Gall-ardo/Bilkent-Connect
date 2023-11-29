@@ -25,7 +25,32 @@ import com.hao.bilkentconnect.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private LoginViewModel loginViewModel;
+    EditText emailText;
+    EditText passwordText;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        emailText = findViewById(R.id.enterMail);
+        passwordText = findViewById(R.id.enterPassword);
+
+    }
+
+    public void signInClicked(View view) {
+
+    }
+    public void goForgotPassword(View view) {
+
+    }
+    public void goToRegisterPage(View view) {
+
+    }
+
+
+
+
+    /*private LoginViewModel loginViewModel;
 private ActivityLoginBinding binding;
 
     @Override
@@ -128,5 +153,5 @@ private ActivityLoginBinding binding;
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
-    }
+    }*/
 }
