@@ -15,7 +15,7 @@
         android:layout_marginLeft="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrowLeft" />
+        app:srcCompat="@drawable/arrow_left" />
 
     <TextView
         android:id="@+id/logoText"

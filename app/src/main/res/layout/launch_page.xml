@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/bilkent_connect_logo_bilkentsiz_renkli" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/bilkentConnectText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
@@ -46,5 +46,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/bilkentConnectText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

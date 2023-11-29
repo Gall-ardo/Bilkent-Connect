@@ -24,7 +24,7 @@
             android:layout_height="35dp"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="5dp"
-            app:srcCompat="@drawable/arrowVector"
+            app:srcCompat="@drawable/arrow_vector"
             />
 
         <TextView
@@ -49,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:srcCompat="@drawable/cropdedProfilePhoto"
+        app:srcCompat="@drawable/cropped_profile_photo"
         />
 
     <TextView

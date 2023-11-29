@@ -22,7 +22,7 @@
             android:layout_height="35dp"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="5dp"
-            app:srcCompat="@drawable/arrowVector"
+            app:srcCompat="@drawable/arrow_vector"
             />
 
         <TextView
@@ -80,7 +80,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.142"
-        app:srcCompat="@drawable/basysSH" />
+        app:srcCompat="@drawable/basys_sh" />
 
     <TextView
         android:id="@+id/textView2"
