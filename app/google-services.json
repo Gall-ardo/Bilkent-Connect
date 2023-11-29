@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "892621778218",
+    "project_id": "bilkentconnect-344eb",
+    "storage_bucket": "bilkentconnect-344eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892621778218:android:360e8a08b6086dbeda4253",
+        "android_client_info": {
+          "package_name": "com.hao.bilkentconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuLbklAlXvzwHeC9_EHvWrV_axRyT-WKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
