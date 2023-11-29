@@ -7,6 +7,37 @@
     android:background="#EAFAFF"
     tools:context=".ProductDetailScreen">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:background="@drawable/linear_gradient_top"
+
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButtonImage"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="5dp"
+            app:srcCompat="@drawable/arrowVector"
+            />
+
+        <TextView
+            android:id="@+id/cleanUsedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Clean used basys 3"
+            android:textColor="@color/menuGray"
+            android:textSize="28sp"
+
+            />
+    </LinearLayout>
 
     <Button
         android:id="@+id/Button_makeContact"
@@ -16,6 +47,7 @@
 
         android:layout_marginEnd="44dp"
         android:backgroundTint="#7CB5C2"
+        android:fontFamily="@font/ubuntu_bold"
         android:text="Make Contact"
         android:textColor="#FFFFFF"
         android:textSize="11.5sp"
@@ -55,6 +87,7 @@
         android:layout_width="367dp"
         android:layout_height="298dp"
         android:background="#EAFAFF"
+        android:fontFamily="@font/ubuntu_regular"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum euismod lacus, non varius dui viverra in. Aliquam nec tincidunt nisi, quis placerat dui. Curabitur vitae malesuada ipsum, efficitur aliquet felis. Integer mattis volutpat aliquam. Aenean volutpat elementum viverra. Donec quis velit nec turpis varius lacinia. Etiam blandit varius ligula, ut lobortis ipsum malesuada id. Aenean faucibus lectus id leo tincidunt ultricies. Cras non sem a nulla tempor congue.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum euismod lacus, non varius dui viverra in. Aliquam nec tincidunt nisi, quis placerat dui. Curabitur vitae malesuada ipsum, efficitur aliquet felis. Integer mattis volutpat aliquam. Aenean volutpat elementum viverra. Donec quis velit nec turpis varius lacinia. Etiam blandit varius ligula, ut lobortis ipsum malesuada id. Aenean faucibus lectus id leo tincidunt ultricies. Cras non sem a nulla tempor congue."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,6 +102,7 @@
 
         android:background="@drawable/rounded_corner"
         android:backgroundTint="#7CB5C2"
+        android:fontFamily="@font/ubuntu_bold"
         android:text="2000tl"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
@@ -79,5 +113,35 @@
         app:layout_constraintStart_toStartOf="@+id/item_toSold"
         app:layout_constraintTop_toTopOf="@+id/item_toSold"
         app:layout_constraintVertical_bias="0.951" />
+
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:backgroundTint="#7CB5C2"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/item_toSold"
+        app:layout_constraintEnd_toStartOf="@+id/item_toSold"
+        app:layout_constraintHorizontal_bias="0.661"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_toSold"
+        app:layout_constraintVertical_bias="0.505"
+
+        />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:backgroundTint="#7CB5C2"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/item_toSold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.323"
+        app:layout_constraintStart_toEndOf="@+id/item_toSold"
+        app:layout_constraintTop_toTopOf="@+id/item_toSold"
+        app:layout_constraintVertical_bias="0.51" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

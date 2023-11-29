@@ -7,6 +7,16 @@
     android:background="#EAFAFF"
     tools:context=".ForgetPaswordPage">
 
+    <ImageView
+        android:id="@+id/backButtonImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrowLeft" />
+
     <TextView
         android:id="@+id/logoText"
         android:layout_width="203dp"
@@ -49,22 +59,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.526" />
 
-    <Button
+    <EditText
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:backgroundTint="@color/buttonGray"
         android:fontFamily="@font/ubuntu_bold"
-        android:text="Bilkent Mail or Username"
+        android:hint="Bilkent Mail or Username"
+        android:textColor="@color/white"
         android:textSize="24sp"
+        android:textColorHint="@color/white"
+        android:background="@drawable/rounded_text_plain"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/sendMailButton"
         app:layout_constraintTop_toBottomOf="@+id/infoText" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/sendMailButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="101dp"
