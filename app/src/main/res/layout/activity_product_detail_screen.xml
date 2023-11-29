@@ -16,6 +16,7 @@
 
         android:layout_marginEnd="44dp"
         android:backgroundTint="#7CB5C2"
+        android:fontFamily="@font/ubuntu_bold"
         android:text="Make Contact"
         android:textColor="#FFFFFF"
         android:textSize="11.5sp"
@@ -55,6 +56,7 @@
         android:layout_width="367dp"
         android:layout_height="298dp"
         android:background="#EAFAFF"
+        android:fontFamily="@font/ubuntu_regular"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum euismod lacus, non varius dui viverra in. Aliquam nec tincidunt nisi, quis placerat dui. Curabitur vitae malesuada ipsum, efficitur aliquet felis. Integer mattis volutpat aliquam. Aenean volutpat elementum viverra. Donec quis velit nec turpis varius lacinia. Etiam blandit varius ligula, ut lobortis ipsum malesuada id. Aenean faucibus lectus id leo tincidunt ultricies. Cras non sem a nulla tempor congue.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum euismod lacus, non varius dui viverra in. Aliquam nec tincidunt nisi, quis placerat dui. Curabitur vitae malesuada ipsum, efficitur aliquet felis. Integer mattis volutpat aliquam. Aenean volutpat elementum viverra. Donec quis velit nec turpis varius lacinia. Etiam blandit varius ligula, ut lobortis ipsum malesuada id. Aenean faucibus lectus id leo tincidunt ultricies. Cras non sem a nulla tempor congue."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,6 +71,7 @@
 
         android:background="@drawable/rounded_corner"
         android:backgroundTint="#7CB5C2"
+        android:fontFamily="@font/ubuntu_bold"
         android:text="2000tl"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
