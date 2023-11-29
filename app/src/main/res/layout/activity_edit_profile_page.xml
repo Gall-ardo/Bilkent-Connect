@@ -40,7 +40,9 @@
         app:layout_constraintBottom_toTopOf="@+id/editUsernameText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+
+        />
 
     <TextView
         android:id="@+id/editUsernameText"
@@ -132,3 +134,4 @@
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="0dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
