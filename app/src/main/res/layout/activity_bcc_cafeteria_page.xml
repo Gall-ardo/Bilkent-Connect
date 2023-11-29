@@ -4,6 +4,188 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundBlue"
     tools:context=".BccCafeteriaPage">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:background="@drawable/linear_gradient_bottom"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <ImageView
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginTop="5dp"
+            app:srcCompat="@drawable/chat_icon" />
+
+        <ImageView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/share_post_icon" />
+
+        <ImageView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/home_icon" />
+
+        <ImageView
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="7dp"
+            app:srcCompat="@drawable/profile_icon" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="386dp"
+        android:layout_height="91dp"
+        android:text="Sebze Çorba / Vegetable soup&#xA;Chickpeas with meat veya / or Vegan Nohut / Chickpeas(Vegan)&#xA;Bulgur Pilavı /
+ Pounded wheat&#xA;Yoğurt / Yoghurt"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="460dp" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Information about the meal"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="120dp"
+        tools:layout_editor_absoluteY="562dp" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Akşam Yemeği/Dinner"
+        android:textColor="#0D99FF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="412dp" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate: 4.7/5"
+        android:textColor="@color/design_default_color_secondary_variant"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="326dp"
+        tools:layout_editor_absoluteY="653dp" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="287dp"
+        android:layout_height="71dp"
+        android:text="Enerji (k.cal.) / Energy (Cal.): 1203&#xA;Karbonhidrat / Carbohydrate:  %55&#xA;Protein / Protein:  %16&#xA;Yağ / Fat: %29"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="601dp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="287dp"
+        android:layout_height="71dp"
+        android:text="Enerji (k.cal.) / Energy (Cal.): 1171&#xA;Karbonhidrat / Carbohydrate:  %57&#xA;Protein / Protein:  %14&#xA;Yağ / Fat: %29"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="270dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:background="@drawable/linear_gradient_top"
+
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButtonImage"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="12dp"
+            app:srcCompat="@drawable/arrow_vector" />
+
+        <TextView
+            android:id="@+id/editProfileText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="BCC Cafeteria"
+            android:textColor="@color/menuGray"
+            android:textSize="28sp"
+
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Öğle Yemeği/Lunch"
+        android:textColor="#FF5722"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="83dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate: 4.3/5"
+        android:textColor="@color/design_default_color_secondary_variant"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="326dp"
+        tools:layout_editor_absoluteY="322dp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="386dp"
+        android:layout_height="91dp"
+        android:text="Romen Çorba / Roman soup (ground beef and creamy sauce)&#xA;Mantarlı Et Sote / Beef sautéed with mushrooms veya / or Vegan Sebze Kavurma /Braised vegetables (Vegan)&#xA;Zeytinyağlı Brokoli / Broccoli cooked with olive oil&#xA;Sütlaç / Rice pudding"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="129dp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Information about the meal"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="120dp"
+        tools:layout_editor_absoluteY="231dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/comment_icon"
+        tools:layout_editor_absoluteX="342dp"
+        tools:layout_editor_absoluteY="270dp" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/comment_icon"
+        tools:layout_editor_absoluteX="342dp"
+        tools:layout_editor_absoluteY="601dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
