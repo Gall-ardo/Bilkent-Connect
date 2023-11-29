@@ -68,7 +68,9 @@
         android:id="@+id/signInButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="140dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="220dp"
         android:backgroundTint="#008952"
         android:fontFamily="@font/ubuntu_bold"
         android:text="Sign Up"
@@ -77,32 +79,28 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/enterMail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_marginTop="16dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/rounded_text_plain"
         android:ems="10"
         android:fontFamily="@font/ubuntu_bold"
         android:hint="Bilkent Mail"
+        android:inputType="text"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:background="@drawable/rounded_text_plain"
-        android:inputType="text"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/signInButton"
         app:layout_constraintTop_toBottomOf="@+id/bilkentConnectText"
-        app:layout_constraintVertical_bias="0.031"
-        tools:layout_editor_absoluteX="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        />
+        app:layout_constraintVertical_bias="0.165"
+        tools:layout_editor_absoluteX="5dp" />
 
     <EditText
         android:id="@+id/enterPassword"

@@ -71,22 +71,22 @@
     <EditText
         android:id="@+id/newUsernameText"
         android:layout_width="match_parent"
-        android:layout_height="40sp"
+        android:layout_height="60sp"
         android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/rounded_text_plain"
         android:ems="10"
         android:fontFamily="@font/ubuntu_light"
         android:hint="New Username"
         android:inputType="text"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
         android:textColor="#414141"
         android:textColorHint="#414141"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/editBioText"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintVertical_bias="0.908"
+        tools:layout_editor_absoluteX="20dp" />
 
     <TextView
         android:id="@+id/editBioText"
@@ -95,14 +95,12 @@
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/ubuntu_bold"
         android:text="Edit Biography"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
         android:textColor="@color/buttonGreen"
         android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/bioText"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.996"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintVertical_bias="0.932"
+        tools:layout_editor_absoluteX="27dp" />
 
     <EditText
         android:id="@+id/bioText"
@@ -134,12 +132,10 @@
         android:text="Confirm"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintVertical_bias="0.952"
+        tools:layout_editor_absoluteX="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
