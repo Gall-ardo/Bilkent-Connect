@@ -8,12 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hao.bilkentconnect.databinding.FragmentSavedPostsBinding;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SavedPostsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class SavedPostsFragment extends Fragment {
+    private FragmentSavedPostsBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +61,12 @@ public class SavedPostsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_saved_posts, container, false);
+        binding=FragmentSavedPostsBinding.inflate(inflater,container,false);
+        View viewRoot=binding.getRoot();
+        return viewRoot;
+    }
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
