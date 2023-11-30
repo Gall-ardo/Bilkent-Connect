@@ -29,8 +29,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.hao.bilkentconnect.ForgetPaswordPage;
 import com.hao.bilkentconnect.MainActivity;
 import com.hao.bilkentconnect.R;
+import com.hao.bilkentconnect.Register;
 import com.hao.bilkentconnect.ui.login.LoginViewModel;
 import com.hao.bilkentconnect.ui.login.LoginViewModelFactory;
 import com.hao.bilkentconnect.databinding.ActivityLoginBinding;
@@ -88,10 +90,14 @@ public class LoginActivity extends AppCompatActivity {
         // give error
     }
     public void goForgotPassword(View view) {
-
+        Intent intent = new Intent(LoginActivity.this, ForgetPaswordPage.class);
+        startActivity(intent);
+        finish();
     }
     public void goToRegisterPage(View view) {
-
+        Intent intent = new Intent(LoginActivity.this, Register.class);
+        startActivity(intent);
+        finish();
     }
 
     private void saveLoginState(boolean isRemembered){
