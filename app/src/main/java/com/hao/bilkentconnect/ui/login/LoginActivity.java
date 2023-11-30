@@ -1,6 +1,8 @@
 package  com.hao.bilkentconnect.ui.login;
 
 import android.app.Activity;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -22,6 +24,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.hao.bilkentconnect.MainActivity;
 import com.hao.bilkentconnect.R;
 import com.hao.bilkentconnect.ui.login.LoginViewModel;
@@ -31,6 +38,7 @@ import com.hao.bilkentconnect.databinding.ActivityLoginBinding;
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
     private CheckBox rememberMeCheckBox;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +50,10 @@ public class LoginActivity extends AppCompatActivity {
         rememberMeCheckBox = binding.rememberMeCheckBox;
 
         if (isRemembered()) {
-            // User has chosen to be remembered. Navigate to Main Activity or Dashboard
-            navigateToMainActivity();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if (currentUser != null) {
+                navigateToMainActivity();
+            }
         }
 
     }
@@ -55,6 +65,22 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
             return;
         }
+        mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(LoginActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         // if successful
         saveLoginState(rememberMeCheckBox.isChecked());
         navigateToMainActivity();
