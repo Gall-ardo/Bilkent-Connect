@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -20,15 +21,32 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.hao.bilkentconnect.databinding.ActivityMainBinding;
 import com.hao.bilkentconnect.databinding.ActivitySharePostsBinding;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class SharePostsActivity extends AppCompatActivity {
-    private ActivitySharePostsBinding binding;
 
+    FirebaseStorage firebaseStorage;
+    StorageReference storageReference;
+    FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
+
+    private ActivitySharePostsBinding binding;
     ActivityResultLauncher<Intent> activityResultLauncher;
     ActivityResultLauncher<String> permissionLauncher;
     Uri imageData;
@@ -42,38 +60,168 @@ public class SharePostsActivity extends AppCompatActivity {
         View viewRoot = binding.getRoot();
         setContentView(viewRoot);
         registerLauncher();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference(); // now in the root
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
 
     }
 
-    void uploadImage(View view) {
-        // check permission
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                Snackbar.make(view,"Permission needed for gallery", Snackbar.LENGTH_INDEFINITE).setAction("Give Permission", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                       // ask permission
-                        permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
-                    }
-                }).show();
-            }
-            else {
-                // ask permission
-                permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
-            }
+    public void sharePost(View view) {
+
+        // put image to firebase
+        if(imageData != null){
+
+            UUID uuid = UUID.randomUUID();
+            String imageName = "images/" + uuid + ".jpg";
+            // upload image to firebase
+            storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // downloand url
+                    StorageReference newReference = FirebaseStorage.getInstance().getReference(imageName);
+                    newReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+
+                                String downloadUrl = uri.toString();
+                                String comment = binding.commentText.getText().toString();
+                                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                                String userEmail = firebaseUser.getEmail();
+
+
+                        }
+                    });
+
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(SharePostsActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }else{
+            // upload without image
+            imageData = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.bilkent_connect_logo_bilkentsiz_renkli);
         }
-        else {
-            // permission already granted
-            Intent intentToGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            activityResultLauncher.launch(intentToGallery);
-        }
-    }
-    void sharePost(View view) {
-       // upload image to firebase
         // download url
+
+
         // save post to firebase
         // go to main activity
+
+    }
+
+    public void upload(View view) {
+        if (imageData != null) {
+
+            //universal unique id
+            UUID uuid = UUID.randomUUID();
+            final String imageName = "images/" + uuid + ".jpg";
+
+            storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    //Download URL
+
+                    StorageReference newReference = FirebaseStorage.getInstance().getReference(imageName);
+                    newReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+
+                            String downloadUrl = uri.toString();
+
+                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                            String userEmail = firebaseUser.getEmail();
+
+                            String comment = binding.commentText.getText().toString();
+
+                            HashMap<String, Object> postData = new HashMap<>();
+                            postData.put("useremail",userEmail);
+                            postData.put("downloadurl",downloadUrl);
+                            postData.put("comment",comment);
+                            postData.put("date", FieldValue.serverTimestamp());
+
+                            firebaseFirestore.collection("Posts").add(postData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+
+                                    Intent intent = new Intent(SharePostsActivity.this, MainActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(SharePostsActivity.this,e.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    });
+
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(SharePostsActivity.this,e.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }
+
+    }
+
+    // probably problematic
+    public void selectImage(View view) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED){
+                // ask permission
+                if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_MEDIA_IMAGES)){
+                    Snackbar.make(view,"You have to give permission if you want to share stuff",Snackbar.LENGTH_INDEFINITE).setAction("Give Permission.", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // ask permission
+                            permissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES);
+                        }
+                    }).show();
+                }else{
+                    // ask permission
+                    permissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES);
+                }
+
+            }else{
+                // already have permission
+                Intent intentToGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                activityResultLauncher.launch(intentToGallery);
+            }
+        }else{
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                // ask permission
+                if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)){
+                    Snackbar.make(view,"You have to give permission if you want to share stuff",Snackbar.LENGTH_INDEFINITE).setAction("Give Permission.", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // ask permission
+                            permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+                        }
+                    }).show();
+                }else{
+                    // ask permission
+                    permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+                }
+
+            }else{
+                // already have permission
+                Intent intentToGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                activityResultLauncher.launch(intentToGallery);
+            }
+        }
 
     }
 
@@ -89,8 +237,6 @@ public class SharePostsActivity extends AppCompatActivity {
                         binding.SelectImage.setImageURI(imageData);
 
 
-
-                        /*
                         try{
                             if (Build.VERSION.SDK_INT >= 28) {
                                 ImageDecoder.Source source = ImageDecoder.createSource(SharePostsActivity.this.getContentResolver(), imageData);
@@ -107,7 +253,7 @@ public class SharePostsActivity extends AppCompatActivity {
                         catch (IOException e) {
                             e.printStackTrace();
                         }
-                        */
+
 
                     }
                 }

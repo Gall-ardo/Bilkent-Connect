@@ -8,44 +8,47 @@
 
     <!-- arakadaslar bunlari suan icin ekledim, ic kisimda ekleme yapmak icin
      tasarimlari degisirebiliriz sadece id'leri ve onclick kalsa guzel olur-->
+
+
     <ImageView
         android:id="@+id/SelectImage"
-        android:layout_width="245dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="66dp"
-        android:layout_marginBottom="323dp"
-        android:onClick="uploadImage"
-        app:layout_constraintBottom_toTopOf="@+id/sharePostButton"
+        android:layout_width="328dp"
+        android:layout_height="231dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="116dp"
+        android:onClick="selectImage"
+        app:layout_constraintBottom_toTopOf="@+id/commentText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/bilkent_connect_logo" />
 
     <EditText
-        android:id="@+id/AddComment"
-        android:layout_width="253dp"
-        android:layout_height="78dp"
-        android:layout_marginBottom="334dp"
+        android:id="@+id/commentText"
+        android:layout_width="356dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="62dp"
         android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:hint="enter comment"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/sharePost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SelectImage" />
 
     <Button
-        android:id="@+id/sharePostButton"
+        android:id="@+id/sharePost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="62dp"
-        android:layout_marginBottom="181dp"
+        android:layout_marginBottom="230dp"
         android:onClick="sharePost"
-        android:text="Button"
+        android:text="Upload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.389"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SelectImage" />
+        app:layout_constraintTop_toBottomOf="@+id/commentText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
