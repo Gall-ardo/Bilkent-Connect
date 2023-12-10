@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.hao.bilkentconnect.databinding.ActivityMainBinding;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,8 +26,15 @@ public class MainActivity extends AppCompatActivity {
         View viewRoot = binding.getRoot();
         setContentView(viewRoot);
 
+        ArrayList<Post> posts = new ArrayList<>();
+        posts.add(new Post());
+        posts.add(new Post());
 
-        gotoMainFragment();
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        PostAdapter postAdapter = new PostAdapter(posts);
+        binding.recyclerView.setAdapter(postAdapter);
+
+        //gotoMainFragment();
     }
     // altttaki butonlara tiklayinca olusacaklar
     public void gotoChatPage() {
