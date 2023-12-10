@@ -25,6 +25,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -33,6 +36,8 @@ import com.hao.bilkentconnect.databinding.ActivityMainBinding;
 import com.hao.bilkentconnect.databinding.ActivitySharePostsBinding;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class SharePostsActivity extends AppCompatActivity {
 
@@ -63,13 +68,33 @@ public class SharePostsActivity extends AppCompatActivity {
 
     }
 
-    void sharePost(View view) {
+    public void sharePost(View view) {
+
+        // put image to firebase
         if(imageData != null){
+
+            UUID uuid = UUID.randomUUID();
+            String imageName = "images/" + uuid + ".jpg";
             // upload image to firebase
-            storageReference.child("images/image.jpg").putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     // downloand url
+                    StorageReference newReference = FirebaseStorage.getInstance().getReference(imageName);
+                    newReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+
+                                String downloadUrl = uri.toString();
+                                String comment = binding.commentText.getText().toString();
+                                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                                String userEmail = firebaseUser.getEmail();
+
+
+                        }
+                    });
+
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -79,31 +104,81 @@ public class SharePostsActivity extends AppCompatActivity {
             });
 
         }else{
-            // upload with bilkent logo
-            imageData = Uri.parse("android.resource://com.hao.bilkentconnect/drawable/bilkent_connect_logo.jpg");
-            storageReference.child("images/image.jpg").putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // downloand url
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(SharePostsActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
-                }
-            });
-
+            // upload without image
+            imageData = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.bilkent_connect_logo_bilkentsiz_renkli);
         }
-
         // download url
+
 
         // save post to firebase
         // go to main activity
 
     }
 
+    public void upload(View view) {
+        if (imageData != null) {
+
+            //universal unique id
+            UUID uuid = UUID.randomUUID();
+            final String imageName = "images/" + uuid + ".jpg";
+
+            storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    //Download URL
+
+                    StorageReference newReference = FirebaseStorage.getInstance().getReference(imageName);
+                    newReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+
+                            String downloadUrl = uri.toString();
+
+                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                            String userEmail = firebaseUser.getEmail();
+
+                            String comment = binding.commentText.getText().toString();
+
+                            HashMap<String, Object> postData = new HashMap<>();
+                            postData.put("useremail",userEmail);
+                            postData.put("downloadurl",downloadUrl);
+                            postData.put("comment",comment);
+                            postData.put("date", FieldValue.serverTimestamp());
+
+                            firebaseFirestore.collection("Posts").add(postData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+
+                                    Intent intent = new Intent(SharePostsActivity.this, MainActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(SharePostsActivity.this,e.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    });
+
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(SharePostsActivity.this,e.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }
+
+    }
+
     // probably problematic
-    void selectImage(View view) {
+    public void selectImage(View view) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED){
                 // ask permission

@@ -91,8 +91,8 @@ public class LoginActivity extends AppCompatActivity {
         // give error
     }
     public void goForgotPassword(View view) {
-        //Intent intent = new Intent(LoginActivity.this, SharePostsActivity.class);
-        Intent intent = new Intent(LoginActivity.this, ForgetPaswordPage.class);
+        Intent intent = new Intent(LoginActivity.this, SharePostsActivity.class);
+        //Intent intent = new Intent(LoginActivity.this, ForgetPaswordPage.class);
         startActivity(intent);
         finish();
     }
@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putBoolean("isRemembered", isRemembered);
         editor.apply();
     }
-    private void navigateToMainActivity(){
+    public void navigateToMainActivity(){
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
