@@ -33,6 +33,7 @@ import com.hao.bilkentconnect.ForgetPaswordPage;
 import com.hao.bilkentconnect.MainActivity;
 import com.hao.bilkentconnect.R;
 import com.hao.bilkentconnect.Register;
+import com.hao.bilkentconnect.SharePostsActivity;
 import com.hao.bilkentconnect.ui.login.LoginViewModel;
 import com.hao.bilkentconnect.ui.login.LoginViewModelFactory;
 import com.hao.bilkentconnect.databinding.ActivityLoginBinding;
@@ -90,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         // give error
     }
     public void goForgotPassword(View view) {
+        //Intent intent = new Intent(LoginActivity.this, SharePostsActivity.class);
         Intent intent = new Intent(LoginActivity.this, ForgetPaswordPage.class);
         startActivity(intent);
         finish();
