@@ -1,5 +1,6 @@
 package com.hao.bilkentconnect;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,12 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.hao.bilkentconnect.databinding.FragmentProfilePageBinding;
+import com.hao.bilkentconnect.ui.login.LoginActivity;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProfilePageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class ProfilePageFragment extends Fragment {
+    private FragmentProfilePageBinding binding;
+    private FirebaseAuth mAuth;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,12 +60,32 @@ public class ProfilePageFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_page, container, false);
+        binding = FragmentProfilePageBinding.inflate(inflater, container, false);
+        View viewRoot = binding.getRoot();
+
+
+        return viewRoot;
     }
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    // should assign this to the button
+    void signOut() {
+
+        mAuth.signOut();
+
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+        // fragment'lerin finishi varsa ekle
+    }
+
+
 }

@@ -8,12 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hao.bilkentconnect.databinding.FragmentOwnPostBinding;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link OwnPostFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class OwnPostFragment extends Fragment {
+
+    private FragmentOwnPostBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +63,15 @@ public class OwnPostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_own_post, container, false);
+        binding = FragmentOwnPostBinding.inflate(inflater, container, false);
+        View viewRoot = binding.getRoot();
+
+        return viewRoot;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
