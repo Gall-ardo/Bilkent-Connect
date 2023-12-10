@@ -1,10 +1,13 @@
 package com.hao.bilkentconnect;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.hao.bilkentconnect.databinding.ActivityMainBinding;
@@ -63,6 +66,33 @@ public class MainActivity extends AppCompatActivity {
         //fragmentTransaction.add(R.id.frame_layout, ownPostFragment).commit();
         fragmentTransaction.replace(R.id.frame_layout, ownPostFragment).commit();
 
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // burada menuyu baglama isini yapcaagiz
+        // ornek olarak:
+        //MenuInflater menuInflater = getMenuInflater();
+        //menuInflater.inflate(binding.options_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // opsiyonlardan biri sevilirse ne olacak
+
+        //if (item.getItemId() == binding.bccDaily){ //go to bcc daily
+        // Intent intent = new Intent(this, BccCafeteriaPage.class);
+        // startActivity(intent);
+        // }
+        //if (item.getItemId() == binding.second){ go to seoncd hand}
+        //
+
+
+
+
+        return super.onOptionsItemSelected(item);
     }
 }
