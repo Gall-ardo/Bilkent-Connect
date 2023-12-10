@@ -40,7 +40,7 @@
             android:exported="false" />
         <activity
             android:name=".SecondHandMainScreen"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ProductDetailScreen"
             android:exported="false" />
