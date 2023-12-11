@@ -16,6 +16,18 @@
         android:theme="@style/Theme.BilkentConnect"
         tools:targetApi="31">
         <activity
+            android:name=".SecurityPage"
+            android:exported="false" />
+        <activity
+            android:name=".OwnPostPage"
+            android:exported="false" />
+        <activity
+            android:name=".SavedPostPages"
+            android:exported="false" />
+        <activity
+            android:name=".SavedPostsPage"
+            android:exported="false" />
+        <activity
             android:name=".ProfilePage"
             android:exported="false" />
         <activity

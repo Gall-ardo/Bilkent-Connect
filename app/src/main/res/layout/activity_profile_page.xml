@@ -91,6 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="176dp"
+        android:onClick="goToEditProfilePage"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -123,7 +124,7 @@
             android:layout_marginLeft="123dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/right_vector"/>
+            app:srcCompat="@drawable/right_vector" />
 
 
     </LinearLayout>
@@ -133,6 +134,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
+        android:onClick="goToSavedPostsPage"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -173,6 +175,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="220dp"
+        android:onClick="goToLogOutPage"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -213,6 +216,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
+        android:onClick="goToYourPostsPage"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -254,6 +258,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="168dp"
+        android:onClick="goToSecurityPage"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -319,6 +324,7 @@
             android:layout_height="50sp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="10dp"
+            android:onClick="goToMainPage"
             app:srcCompat="@drawable/home_icon" />
 
         <ImageView

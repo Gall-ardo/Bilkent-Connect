@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -166,4 +167,24 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public void goToProfile_2(View view){
+
+        Intent intent = new Intent(this, ProfilePage.class);
+        startActivity(intent);
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
 }
