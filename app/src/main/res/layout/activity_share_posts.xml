@@ -4,51 +4,172 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundBlue"
     tools:context=".SharePostsActivity">
 
     <!-- arakadaslar bunlari suan icin ekledim, ic kisimda ekleme yapmak icin
      tasarimlari degisirebiliriz sadece id'leri ve onclick kalsa guzel olur-->
 
 
-    <ImageView
-        android:id="@+id/SelectImage"
-        android:layout_width="328dp"
-        android:layout_height="231dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="116dp"
-        android:onClick="selectImage"
-        app:layout_constraintBottom_toTopOf="@+id/commentText"
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="100sp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="200dp"
+        android:background="#CFD0D0"
+        android:orientation="vertical"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bilkent_connect_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        >
+
+        <ImageView
+            android:id="@+id/SelectImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40sp"
+            android:onClick="selectImage"
+            app:srcCompat="@drawable/image_image"
+            android:layout_gravity="center_horizontal"
+
+            />
+
+        <Button
+            android:id="@+id/selectButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="20sp"
+            android:layout_marginRight="70dp"
+            android:backgroundTint="#7CB5C2"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Select Image"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/commentShowText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:fontFamily="@font/ubuntu_regular"
+        app:layout_constraintTop_toBottomOf="@+id/yourCommentsText"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout7"
+        android:layout_marginTop="5dp"
+        android:text="Your comments"
+
+
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/yourCommentsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:fontFamily="@font/ubuntu_bold"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout7"
+
+
+        android:text="Your comments will be showed like: "
+
+
+        >
+    </TextView>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:background="@drawable/linear_gradient_top"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButtonImage"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="5dp"
+            app:srcCompat="@drawable/arrow_vector"
+            />
+
+        <TextView
+            android:id="@+id/sharingPostText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Sharing Posts"
+            android:textColor="@color/menuGray"
+            android:textSize="28sp"
+
+            />
+
+
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/sharePost"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:background="@drawable/circle"
+        android:onClick="sharePost"
+        android:src="@drawable/send_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.973"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+        app:layout_constraintVertical_bias="0.693" />
+
+    <ImageView
+        android:id="@+id/ghost"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:background="@drawable/circle"
+        android:onClick="sharePost"
+        android:src="@drawable/ghost_icon_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sharePost"
+        app:layout_constraintStart_toEndOf="@+id/commentText"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+        app:layout_constraintVertical_bias="0.693" />
 
     <EditText
         android:id="@+id/commentText"
-        android:layout_width="356dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="62dp"
+        android:layout_width="match_parent"
+        android:layout_height="40sp"
+        android:background="@drawable/rounded_comment_bar"
         android:ems="10"
         android:hint="enter comment"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/sharePost"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SelectImage" />
-
-    <Button
-        android:id="@+id/sharePost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="230dp"
-        android:onClick="sharePost"
-        android:text="Upload"
+        android:textSize="18sp"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commentText" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+        app:layout_constraintVertical_bias="0.708" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
