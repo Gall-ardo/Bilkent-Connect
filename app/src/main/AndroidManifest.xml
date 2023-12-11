@@ -16,6 +16,9 @@
         android:theme="@style/Theme.BilkentConnect"
         tools:targetApi="31">
         <activity
+            android:name=".ProfilePage"
+            android:exported="false" />
+        <activity
             android:name=".MainFlowPage"
             android:exported="false" />
         <activity
@@ -69,7 +72,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"
