@@ -52,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
 
         rememberMeCheckBox = binding.rememberMeCheckBox;
 
+        mAuth = FirebaseAuth.getInstance(); // Initialize FirebaseAuth
+
         if (isRemembered()) {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
@@ -68,7 +70,15 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
             return;
         }
-        mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnSuccessListener(authResult -> {
+                    saveLoginState(rememberMeCheckBox.isChecked(), email, password);
+                    navigateToMainActivity();
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(LoginActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
+
+        /*mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -81,18 +91,18 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(LoginActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
 
 
         // if successful
-        saveLoginState(rememberMeCheckBox.isChecked());
-        navigateToMainActivity();
+        //saveLoginState(rememberMeCheckBox.isChecked());
+        //navigateToMainActivity();
         // else
         // give error
     }
     public void goForgotPassword(View view) {
-        Intent intent = new Intent(LoginActivity.this, SharePostsActivity.class);
-        //Intent intent = new Intent(LoginActivity.this, ForgetPaswordPage.class);
+        //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, ForgetPaswordPage.class);
         startActivity(intent);
         finish();
     }
@@ -102,10 +112,17 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    private void saveLoginState(boolean isRemembered){
+    private void saveLoginState(boolean isRemembered, String email, String password) {
         SharedPreferences sharedPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("isRemembered", isRemembered);
+        editor.putBoolean("REMEMBER_ME", isRemembered);
+        if (isRemembered) {
+            editor.putString("Email", email);
+            editor.putString("Password", password);
+        } else {
+            editor.remove("Email");
+            editor.remove("Password");
+        }
         editor.apply();
     }
     public void navigateToMainActivity(){
@@ -114,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
     private boolean isRemembered() {
-        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         return sharedPreferences.getBoolean("REMEMBER_ME", false);
     }
 

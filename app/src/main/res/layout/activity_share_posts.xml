@@ -7,9 +7,6 @@
     android:background="@color/backgroundBlue"
     tools:context=".SharePostsActivity">
 
-    <!-- arakadaslar bunlari suan icin ekledim, ic kisimda ekleme yapmak icin
-     tasarimlari degisirebiliriz sadece id'leri ve onclick kalsa guzel olur-->
-
 
     <LinearLayout
         android:id="@+id/linearLayout7"
@@ -50,6 +47,7 @@
             android:backgroundTint="#7CB5C2"
             android:fontFamily="@font/ubuntu_bold"
             android:text="Select Image"
+            android:onClick="selectImage"
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
@@ -127,11 +125,11 @@
 
 
     <ImageView
-        android:id="@+id/sharePost"
+        android:id="@+id/shareRegularPost"
         android:layout_width="40sp"
         android:layout_height="40sp"
         android:background="@drawable/circle"
-        android:onClick="sharePost"
+        android:onClick="shareRegularPost"
         android:src="@drawable/send_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -145,10 +143,10 @@
         android:layout_width="40sp"
         android:layout_height="40sp"
         android:background="@drawable/circle"
-        android:onClick="sharePost"
+        android:onClick="shareAnonymousPost"
         android:src="@drawable/ghost_icon_white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/sharePost"
+        app:layout_constraintEnd_toStartOf="@+id/shareRegularPost"
         app:layout_constraintStart_toEndOf="@+id/commentText"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
         app:layout_constraintVertical_bias="0.693" />

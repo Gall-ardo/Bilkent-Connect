@@ -32,11 +32,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.hao.bilkentconnect.ModelClasses.Post;
 import com.hao.bilkentconnect.databinding.ActivityMainBinding;
 import com.hao.bilkentconnect.databinding.ActivitySharePostsBinding;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class SharePostsActivity extends AppCompatActivity {
@@ -65,57 +67,17 @@ public class SharePostsActivity extends AppCompatActivity {
         storageReference = firebaseStorage.getReference(); // now in the root
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-
     }
 
-    public void sharePost(View view) {
-
-        // put image to firebase
-        if(imageData != null){
-
-            UUID uuid = UUID.randomUUID();
-            String imageName = "images/" + uuid + ".jpg";
-            // upload image to firebase
-            storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // downloand url
-                    StorageReference newReference = FirebaseStorage.getInstance().getReference(imageName);
-                    newReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-
-                                String downloadUrl = uri.toString();
-                                String comment = binding.commentText.getText().toString();
-                                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                                String userEmail = firebaseUser.getEmail();
-
-
-                        }
-                    });
-
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(SharePostsActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
-                }
-            });
-
-        }else{
-            // upload without image
-            imageData = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.bilkent_connect_logo_bilkentsiz_renkli);
-        }
-        // download url
-
-
-        // save post to firebase
-        // go to main activity
-
+    public void shareAnonymousPost(View view) {
+        sharePost(view, true);
     }
 
-    public void upload(View view) {
+    public void shareRegularPost(View view) {
+        sharePost(view, false);
+    }
+
+    public void sharePost(View view, boolean isAnonymous) {
         if (imageData != null) {
 
             //universal unique id
@@ -134,19 +96,16 @@ public class SharePostsActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
 
                             String downloadUrl = uri.toString();
-
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                            String userEmail = firebaseUser.getEmail();
-
+                            String userId = firebaseUser.getUid(); // Get the user's ID
                             String comment = binding.commentText.getText().toString();
 
-                            HashMap<String, Object> postData = new HashMap<>();
-                            postData.put("useremail",userEmail);
-                            postData.put("downloadurl",downloadUrl);
-                            postData.put("comment",comment);
-                            postData.put("date", FieldValue.serverTimestamp());
+                            // Create a new Post object
+                            Post newPost = new Post(userId, downloadUrl, comment, isAnonymous);
+                            Map<String, Object> postValues = newPost.toMap();
 
-                            firebaseFirestore.collection("Posts").add(postData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            // Add post to Firebase
+                            firebaseFirestore.collection("Posts").add(postValues).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
 
@@ -176,7 +135,6 @@ public class SharePostsActivity extends AppCompatActivity {
         }
 
     }
-
     // probably problematic
     public void selectImage(View view) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
@@ -277,4 +235,63 @@ public class SharePostsActivity extends AppCompatActivity {
         });
 
     }
+     /*public void sharePost(View view) {
+        if (imageData != null) {
+
+            //universal unique id
+            UUID uuid = UUID.randomUUID();
+            final String imageName = "images/" + uuid + ".jpg";
+
+            storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    //Download URL
+
+                    StorageReference newReference = FirebaseStorage.getInstance().getReference(imageName);
+                    newReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+
+                            String downloadUrl = uri.toString();
+                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                            String userEmail = firebaseUser.getEmail();
+                            String comment = binding.commentText.getText().toString();
+
+                            HashMap<String, Object> postData = new HashMap<>();
+                            postData.put("useremail",userEmail);
+                            postData.put("downloadurl",downloadUrl);
+                            postData.put("comment",comment);
+                            postData.put("date", FieldValue.serverTimestamp());
+
+                            firebaseFirestore.collection("Posts").add(postData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+
+                                    Intent intent = new Intent(SharePostsActivity.this, MainActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(SharePostsActivity.this,e.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    });
+
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(SharePostsActivity.this,e.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }
+
+    }*/
 }

@@ -29,6 +29,7 @@
             android:layout_height="50sp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="10dp"
+            android:onClick="goToSharePostActivity"
             app:srcCompat="@drawable/share_post_icon" />
 
         <ImageView
@@ -43,7 +44,7 @@
             android:layout_height="60sp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="7dp"
-            android:onClick="goToProfile_2"
+            android:onClick="goToProfilePage"
             app:srcCompat="@drawable/profile_icon" />
 
     </LinearLayout>

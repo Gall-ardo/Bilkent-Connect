@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hao.bilkentconnect.ModelClasses.Post;
 import com.hao.bilkentconnect.databinding.RecyclerPostBinding;
 
 import java.util.ArrayList;
