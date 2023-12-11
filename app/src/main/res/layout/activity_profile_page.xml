@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/cropped_profile_photo"
         app:layout_constraintBottom_toTopOf="@+id/user_nametextView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,13 +59,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.364"></TextView>
+        app:layout_constraintVertical_bias="0.35"></TextView>
 
     <TextView
         android:id="@+id/user_mail_textView"
         android:layout_width="317dp"
         android:layout_height="29dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/ubuntu_regular"
         android:text="name.surname@ug.bilkent.edu.tr"
         android:textAlignment="center"
@@ -78,7 +78,7 @@
         android:id="@+id/user_info"
         android:layout_width="343dp"
         android:layout_height="81dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="48dp"
         android:fontFamily="@font/ubuntu_light"
         android:text="Hello Bilkenters!  Computer Science Department.  Math is my playground. Love music, love you."
         android:textSize="20sp"
@@ -90,9 +90,10 @@
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="212dp"
+        android:layout_marginTop="176dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/user_nametextView">
 
@@ -117,54 +118,12 @@
             android:textSize="30sp"></TextView>
 
         <ImageView
-            android:id="@+id/imageView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="123dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/right_vector" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout3"
-        tools:layout_editor_absoluteX="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            app:srcCompat="@drawable/file_vector"
-            tools:layout_editor_absoluteX="67dp"
-            tools:layout_editor_absoluteY="486dp"></ImageView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:fontFamily="@font/ubuntu_bold"
-            android:text="Your Posts"
-            android:textAlignment="center"
-            android:textColor="#008952"
-            android:textSize="30sp"></TextView>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="133dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/right_vector" />
+            app:srcCompat="@drawable/right_vector"/>
 
 
     </LinearLayout>
@@ -173,12 +132,12 @@
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="120dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout3"
-        tools:layout_editor_absoluteX="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_info">
 
 
         <ImageView
@@ -211,15 +170,95 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="220dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_info">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@drawable/power_vector"
+            tools:layout_editor_absoluteX="67dp"
+            tools:layout_editor_absoluteY="486dp"></ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Log Out"
+            android:textAlignment="center"
+            android:textColor="#EA0808"
+            android:textSize="30sp"></TextView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="171dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/arrow_right_red" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_info">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@drawable/file_vector"
+            tools:layout_editor_absoluteX="67dp"
+            tools:layout_editor_absoluteY="486dp"></ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Your Posts"
+            android:textAlignment="center"
+            android:textColor="#008952"
+            android:textSize="30sp"></TextView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="133dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/right_vector" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="168dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout3"
-        tools:layout_editor_absoluteX="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_info">
 
 
         <ImageView
@@ -252,43 +291,55 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayoutMenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="208dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout3"
-        tools:layout_editor_absoluteX="0dp"
+        android:layout_height="70sp"
+        android:background="@drawable/linear_gradient_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            app:srcCompat="@drawable/power_vector"
-            tools:layout_editor_absoluteX="67dp"
-            tools:layout_editor_absoluteY="486dp"></ImageView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:fontFamily="@font/ubuntu_bold"
-            android:text="Log Out"
-            android:textAlignment="center"
-            android:textColor="#EA0808"
-            android:textSize="30sp"></TextView>
 
         <ImageView
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginTop="5dp"
+            app:srcCompat="@drawable/chat_icon" />
+
+        <ImageView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/share_post_icon" />
+
+        <ImageView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/home_icon" />
+
+        <ImageView
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="7dp"
+            app:srcCompat="@drawable/profile_icon" />
+
+        <ImageView
+            android:id="@+id/imageView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="171dp"
+            android:layout_marginLeft="123dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/arrow_right_red" />
-
+            app:srcCompat="@drawable/right_vector" />
 
     </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

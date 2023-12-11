@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MainFlowFragment mainFlowFragment = new MainFlowFragment();
-        fragmentTransaction.replace(R.id.frame_layout, mainFlowFragment).commit();
+        //fragmentTransaction.replace(R.id.frame_layout, mainFlowFragment).commit();
 
     }
     //
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         ProfilePageFragment profilePageFragment = new ProfilePageFragment();
         //fragmentTransaction.add(R.id.frame_layout, profilePage).commit();
-        fragmentTransaction.replace(R.id.frame_layout, profilePageFragment).commit();
+        //fragmentTransaction.replace(R.id.frame_layout, profilePageFragment).commit();
 
 
     }
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         SavedPostsFragment savedPostsFragment = new SavedPostsFragment();
         //fragmentTransaction.add(R.id.frame_layout, savedPostsFragment).commit();
-        fragmentTransaction.replace(R.id.frame_layout, savedPostsFragment).commit();
+        //fragmentTransaction.replace(R.id.frame_layout, savedPostsFragment).commit();
 
 
     }
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         OwnPostFragment ownPostFragment = new OwnPostFragment();
         //fragmentTransaction.add(R.id.frame_layout, ownPostFragment).commit();
-        fragmentTransaction.replace(R.id.frame_layout, ownPostFragment).commit();
+        //fragmentTransaction.replace(R.id.frame_layout, ownPostFragment).commit();
 
     }
 

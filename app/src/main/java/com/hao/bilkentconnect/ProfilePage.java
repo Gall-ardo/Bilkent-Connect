@@ -10,7 +10,7 @@ public class ProfilePage extends AppCompatActivity {
 
 
 
-    ImageView user_photo;
+
     
 
 
@@ -20,6 +20,6 @@ public class ProfilePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
-        user_photo = findViewById(R.id.user_imageView);
+
     }
 }
