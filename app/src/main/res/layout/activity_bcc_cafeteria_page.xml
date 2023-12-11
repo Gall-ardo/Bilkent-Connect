@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundBlue"
+    android:id="@+id/bccLayout"
     tools:context=".BccCafeteriaPage">
 
     <LinearLayout
@@ -134,12 +135,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/backButtonImage"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="12dp"
-            app:srcCompat="@drawable/arrow_vector" />
+            android:id="@+id/menuIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:src="@drawable/side_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/cafeteriText"
@@ -153,6 +156,71 @@
             android:textSize="28sp"
 
             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sideMenu"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:background="#6295A2"
+        android:elevation="16dp"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/ubuntu"
+            android:onClick="onSideMenuItemClick"
+            android:padding="16dp"
+            android:text="Bilkent Social"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:translationY="40dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/ubuntu"
+            android:onClick="onSideMenuItemClick"
+            android:padding="16dp"
+            android:text="Second Hand Sale"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:translationY="40dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/ubuntu"
+            android:onClick="onSideMenuItemClick"
+            android:padding="16dp"
+            android:text="BCC Daily"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:translationY="40dp" />
+
+        <ImageView
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="16dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/bilkent_connect_logo_dik_renksiz" />
+
     </LinearLayout>
 
     <TextView

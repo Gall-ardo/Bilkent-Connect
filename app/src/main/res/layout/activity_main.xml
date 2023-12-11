@@ -114,7 +114,8 @@
             android:text="Bilkent Social"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:translationY="40dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -127,7 +128,8 @@
             android:text="Second Hand Sale"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:translationY="40dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -140,15 +142,16 @@
             android:text="BCC Daily"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:translationY="40dp"/>
 
         <ImageView
             android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:padding="16dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/bilkent_connect_logo_dik" />
+            android:scaleType="fitEnd"
+            android:src="@drawable/bilkent_connect_logo_dik_renksiz" />
 
     </LinearLayout>
 
