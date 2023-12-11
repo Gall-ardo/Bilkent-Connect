@@ -148,6 +148,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void gotoChatPage() {
+        Intent intent = new Intent(this, ChatActivity.class);
+        startActivity(intent);
 
     }
     public void goToSharePostActivity(View view){
