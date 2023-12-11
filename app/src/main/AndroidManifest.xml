@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -17,58 +16,60 @@
         android:theme="@style/Theme.BilkentConnect"
         tools:targetApi="31">
         <activity
-            android:name=".Register"
+            android:name=".MainFlowPage"
             android:exported="false" />
+        <activity
+            android:name=".Register"
+            android:exported="true" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".TextingScreen"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".SharePostsActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ShareAnnoucementScreen"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".SecondHandMainScreen"
             android:exported="true" />
         <activity
             android:name=".ProductDetailScreen"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".OwnHandScreen"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MealCommentActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ForgetPaswordPage"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".EditProfilePage"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ChangePasswordPage"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".BccCafeteriaPage"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ChatActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
