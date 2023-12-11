@@ -77,7 +77,7 @@
         android:layout_height="81dp"
         android:layout_marginTop="60dp"
         android:fontFamily="@font/ubuntu_light"
-        android:text="Hello Bilkenters!  Computer Science Department.  Math is my playground. Love music, love you <3."
+        android:text="Hello Bilkenters!  Computer Science Department.  Math is my playground. Love music, love you."
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,9 +138,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:src=""
+            android:src="@drawable/bilkent_connect_logo"
             tools:layout_editor_absoluteX="67dp"
-            tools:layout_editor_absoluteY="486dp"></ImageView>
+            tools:layout_editor_absoluteY="486dp"
+            ></ImageView>
 
         <TextView
             android:layout_width="wrap_content"
