@@ -22,10 +22,10 @@
             android:id="@+id/backButtonImage"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginTop="12dp"
             android:layout_marginLeft="5dp"
-            app:srcCompat="@drawable/arrow_vector"
-            />
+            android:layout_marginTop="12dp"
+            android:onClick="goBackToProfilePage_2"
+            app:srcCompat="@drawable/arrow_vector" />
 
         <TextView
             android:id="@+id/editProfileText"

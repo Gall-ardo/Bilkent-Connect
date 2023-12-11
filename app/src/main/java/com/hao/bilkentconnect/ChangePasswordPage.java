@@ -2,6 +2,7 @@ package com.hao.bilkentconnect;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -19,5 +20,11 @@ public class ChangePasswordPage extends AppCompatActivity {
         setContentView(viewRoot);
 
 
+    }
+
+
+    public void goBackToProfilePage_1(View view){
+        Intent intent = new Intent(this, ProfilePage.class);
+        startActivity(intent);
     }
 }
