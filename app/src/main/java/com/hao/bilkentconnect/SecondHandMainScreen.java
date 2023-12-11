@@ -53,7 +53,7 @@ public class SecondHandMainScreen extends AppCompatActivity {
         toggleSideMenu();
     }
 
-    private void toggleSideMenu() {
+    public void toggleSideMenu() {
         isSideMenuVisible = !isSideMenuVisible;
 
         float fromXDelta, toXDelta;

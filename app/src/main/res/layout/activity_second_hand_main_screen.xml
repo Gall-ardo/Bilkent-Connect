@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".SecondHandMainScreen">
 
-    <!-- Your side menu -->
     <LinearLayout
         android:id="@+id/sideMenu"
         android:layout_width="240dp"
@@ -68,8 +67,6 @@
             android:scaleType="fitXY"
             android:src="@drawable/bilkent_connect_logo_dik"
         />
-
-        <!-- Add more items as needed -->
 
     </LinearLayout>
 
