@@ -61,8 +61,7 @@ public class ChangePasswordPage extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(ChangePasswordPage.this, "Password updated successfully", Toast.LENGTH_SHORT).show();
-                            // Handle post password update actions
-
+                            finish();
                         }
                     }).addOnFailureListener(e -> Toast.makeText(ChangePasswordPage.this, "Failed to update password: " + e.getMessage(), Toast.LENGTH_LONG).show());
                 } else {
@@ -71,12 +70,5 @@ public class ChangePasswordPage extends AppCompatActivity {
             }
         }).addOnFailureListener(e -> Toast.makeText(ChangePasswordPage.this, "Re-authentication failed: " + e.getMessage(), Toast.LENGTH_LONG).show());
 
-
-        user.updatePassword(newPassword).addOnSuccessListener(aVoid -> {
-            Toast.makeText(ChangePasswordPage.this, "Password updated successfully", Toast.LENGTH_SHORT).show();
-            // Navigate back to profile page or other actions
-        }).addOnFailureListener(e -> {
-            Toast.makeText(ChangePasswordPage.this, "Password update failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        });
     }
 }

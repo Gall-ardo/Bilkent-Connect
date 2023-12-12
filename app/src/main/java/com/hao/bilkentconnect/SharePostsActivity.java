@@ -294,4 +294,9 @@ public class SharePostsActivity extends AppCompatActivity {
         }
 
     }*/
+    public void goToMainPage(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
