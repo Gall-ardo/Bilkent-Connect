@@ -12,32 +12,38 @@ public class Meal {
     private ArrayList<Comment> comments;
 
     // Constructor
-    public Meal() {
-        // Initialize the ArrayList
+    public Meal(String mealName, String mealDescription) {
+        this.mealName = mealName;
+        this.mealDescription = mealDescription;
+        numberOfUsersRated = 0;
+        usersRateTotal = 0;
+        rate = 10; // maks puan buraya gelecek
         comments = new ArrayList<>();
     }
 
     // Methods
     public void addRating(int rating) {
-        // TODO: Implement method logic
+        usersRateTotal += rating;
     }
 
-    public void calculateAverageRating() {
-        // TODO: Implement method logic
+    private double calculateAverageRating() {
+        return usersRateTotal/numberOfUsersRated;
     }
 
     public void rateMeal(int rating) {
-        // TODO: Implement method logic
+        addRating(rating);
+        numberOfUsersRated++;
     }
 
     public void updateAverageRating() {
-        // TODO: Implement method logic
+
+        rate = calculateAverageRating();
     }
 
     @Override
     public String toString() {
-        // TODO: Implement the toString method
-        return "";
+
+        return "Meal " + mealName + "desc " + mealDescription + "TotalRate " + usersRateTotal + "number of user " +numberOfUsersRated + "rate " + rate;
     }
 
     // Getters and Setters
@@ -87,5 +93,25 @@ public class Meal {
 
     public void setComments(ArrayList<Comment> comments) {
         this.comments = comments;
+    }
+
+    public void addComment (Comment meal_comment){
+        comments.add(meal_comment);
+    }
+
+
+
+    /*buraya aradığın comment Id'sini yaz en sonunda sana commentin kendini döndürecek
+    eğer aradığın comment yoksa null döndürür
+     */
+    public Comment getSpesificComment (int commentId){
+
+        for (int i = 0; i <= comments.size(); i++){
+            if (comments.get(i).getCommentId() == commentId){
+                return comments.get(i);
+            }
+        }
+
+        return null;
     }
 }

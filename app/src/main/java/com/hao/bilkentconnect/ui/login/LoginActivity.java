@@ -38,10 +38,12 @@ import com.hao.bilkentconnect.ui.login.LoginViewModel;
 import com.hao.bilkentconnect.ui.login.LoginViewModelFactory;
 import com.hao.bilkentconnect.databinding.ActivityLoginBinding;
 
+
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
     private CheckBox rememberMeCheckBox;
     private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

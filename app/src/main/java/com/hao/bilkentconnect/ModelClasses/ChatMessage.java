@@ -17,7 +17,11 @@ public class ChatMessage {
         this.time = time;
     }
 
+
+
     // Methods
+
+    //burda send ve delete methodları işlevi çok muhtemel olmayacak zaten send işlemini chat sekmesinde yapacaz
     public void send() {
         // TODO: Implement method logic for sending a message
     }

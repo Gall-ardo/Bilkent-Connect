@@ -18,13 +18,13 @@ public class Product {
     }
 
     // Methods
+
+    //Bence bu fonksiyon burda işlevsiz
     public void contactWithSeller() {
         // TODO: Implement method logic for contacting the seller
     }
 
-    public void removeProduct() {
-        // TODO: Implement method logic for removing the product
-    }
+    //remove product user class'ta mevcut bu yüzden bunu sildim
 
     @Override
     public String toString() {
