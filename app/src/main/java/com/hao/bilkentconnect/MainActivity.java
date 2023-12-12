@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void onSideMenuItemClick(View view) {
+        // close side bar falan yapalim
 
 
     }

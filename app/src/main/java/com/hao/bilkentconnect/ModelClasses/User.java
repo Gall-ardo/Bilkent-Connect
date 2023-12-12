@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 public class User {
     // Attributes
-    private int id;
+    private String userId;
     private String email;
     private String username;
-    private String password;
     private String profilePhoto;
     private ArrayList<Post> savedPosts;
     private ArrayList<Post> sharedPosts;
@@ -26,11 +25,23 @@ public class User {
         chats = new ArrayList<>();
         // TODO: Add any additional initialization here
     }
+    public User(String userId, String email, String username) {
+        this.userId = userId;
+        this.email = email;
+        this.username = username;
+        this.savedPosts = new ArrayList<>();
+        this.sharedPosts = new ArrayList<>();
+        this.friends = new ArrayList<>();
+        this.products = new ArrayList<>();
+        this.chats = new ArrayList<>();
+        this.profilePhoto = "";
+        this.biography = "";
+    }
 
     // Getters and Setters
-    public int getId() {
+    public String getId() {
         // TODO: Implement method logic
-        return id;
+        return userId;
     }
 
     public String getEmail() {
@@ -46,16 +57,6 @@ public class User {
     public void setUsername(String username) {
         // TODO: Implement method logic
         this.username = username;
-    }
-
-    public String getPassword() {
-        // TODO: Implement method logic
-        return password;
-    }
-
-    public void setPassword(String password) {
-        // TODO: Implement method logic
-        this.password = password;
     }
 
     public String getProfilePhoto() {
@@ -138,4 +139,5 @@ public class User {
         // TODO: Implement the toString method
         return "";
     }
+
 }

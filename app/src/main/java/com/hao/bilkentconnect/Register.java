@@ -12,6 +12,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.hao.bilkentconnect.ModelClasses.User;
 import com.hao.bilkentconnect.databinding.ActivityRegisterBinding;
 import com.hao.bilkentconnect.ui.login.LoginActivity;
 
@@ -33,18 +36,36 @@ public class Register extends AppCompatActivity {
         String email = binding.enterMail.getText().toString();
         String password = binding.enterPassword.getText().toString();
         String userName = binding.username.getText().toString();
-        if(email.isEmpty() || password.isEmpty() || userName.isEmpty()) {
+        String passwordAgain = binding.enterPasswordAgain.getText().toString();
+
+        if(!password.equals(passwordAgain)) {
+            Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if(email.isEmpty() || password.isEmpty() || userName.isEmpty() || passwordAgain.isEmpty()) {
             Toast.makeText(this, "Please enter email, password, and username!", Toast.LENGTH_LONG).show();
             return;
         }
-        mAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                Intent intent = new Intent(Register.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                // After successful registration, create user profile in Firestore
+                FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                User newUser = new User(firebaseUser.getUid(), email, userName);
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("Users").document(firebaseUser.getUid()).set(newUser)
+                        .addOnSuccessListener(aVoid -> {
+                            // Navigate to MainActivity
+                            Intent intent = new Intent(Register.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        })
+                        .addOnFailureListener(e ->
+                                Toast.makeText(Register.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
             }
-    }).addOnFailureListener(new OnFailureListener() {
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(Register.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();

@@ -23,8 +23,14 @@ public class ChangePasswordPage extends AppCompatActivity {
     }
 
 
-    public void goBackToProfilePage_1(View view){
+    public void goBackToProfilePage(View view){
         Intent intent = new Intent(this, ProfilePage.class);
         startActivity(intent);
+    }
+    public void changePassword(View view){
+        String currentPassword = binding.currentPasswordText.getText().toString();
+        String newPassword = binding.newPasswordText.getText().toString();
+        String newPasswordConfirm = binding.newPasswordConfirmText.getText().toString();
+        //
     }
 }

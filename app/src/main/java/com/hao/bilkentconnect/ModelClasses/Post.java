@@ -8,7 +8,7 @@ import java.util.Map;
 public class Post {
 
     public String postId;
-    public String sharerId; // Using a user ID instead of an email
+    public String sharerId;
     public int likeCount;
     public boolean isAnonymous;
     public String photoUrl;
