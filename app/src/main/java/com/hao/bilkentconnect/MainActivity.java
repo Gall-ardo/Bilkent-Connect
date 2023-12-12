@@ -142,19 +142,6 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Checkpoint2");
 
                 if (queryDocumentSnapshots != null) {
-                    /*Map<String,Object> data = snapshot.getData();
-
-                    String postId = (String) data.get("postId");
-                    String sharerId = (String) data.get("sharerId");
-                    int likeCount = (int) data.get("likeCount");
-                    boolean isAnonymous = (boolean) data.get("isAnonymous");
-                    String photoUrl = (String) data.get("photoUrl");
-                    String postDescription = (String) data.get("postDescription");
-                    ArrayList<Comment> comments = (ArrayList<Comment>) data.get("comments");
-                    Date timestamp = (Date) data.get("timestamp");
-                    Post post = new Post(postId, sharerId, likeCount, isAnonymous, photoUrl, postDescription, comments, timestamp);*/
-
-
                     postArrayList.clear(); // Clear existing data
                     for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
                         System.out.println("Inside for loop");
