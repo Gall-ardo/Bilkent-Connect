@@ -125,6 +125,9 @@ public class EditProfilePage extends AppCompatActivity {
         String userId = firebaseUser.getUid(); // Get the user's ID
         firebaseFirestore.collection("Users").document(userId).update(updates);
 
+        Intent intent = new Intent(this, ProfilePage.class);
+        startActivity(intent);
+        finish();
     }
 
 
