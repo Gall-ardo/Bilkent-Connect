@@ -55,22 +55,35 @@ public class Post {
     }
 
     // Methods
+
+    /*
+    burda mevcut postun like sayısını direkt bir artıyoz
+     */
     public void likePost() {
-        // TODO: Implement method logic
+        increaseLikeCount();
     }
 
     public void unlikePost() {
-        // TODO: Implement method logic
+        decreaseLikeCount();
     }
     public Date getTimestamp() { return timestamp; }
     public void setTimestamp(Date timestamp) { this.timestamp = timestamp; }
 
+    //comments listesinin sonuna direkt parametredeki commenti ekliyoz ekliyoruz
     public void commentOnPost(Comment comment) {
-        // TODO: Implement method logic
+        comments.add(comment);
     }
 
+    /*
+    burda comment listesi içinde ilerliyoz, eğer ararığımızkiyle ID'ler eşitse direkt o indexi siliyoz
+     */
     public void deleteComment(Comment comment) {
-        // TODO: Implement method logic
+
+        for (int i = 0; i <= comments.size(); i++){
+            if (comments.get(i).getCommentId() == comment.getCommentId()){
+                comments.remove(i);
+            }
+        }
     }
 
     public void sharePost() {
@@ -97,9 +110,9 @@ public class Post {
     }
 
     public void decreaseLikeCount() {
-        if (likeCount > 0) {
-            likeCount--;
-            // TODO: Additional implementation if needed
+        likeCount--;
+        if (likeCount < 0){
+            likeCount = 0;
         }
     }
 

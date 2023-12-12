@@ -7,6 +7,8 @@ public class User {
     private String userId;
     private String email;
     private String username;
+
+
     private String profilePhoto;
     private ArrayList<Post> savedPosts;
     private ArrayList<Post> sharedPosts;
@@ -44,6 +46,8 @@ public class User {
         return userId;
     }
 
+
+
     public String getEmail() {
         // TODO: Implement method logic
         return email;
@@ -58,6 +62,8 @@ public class User {
         // TODO: Implement method logic
         this.username = username;
     }
+
+
 
     public String getProfilePhoto() {
         // TODO: Implement method logic
@@ -74,15 +80,25 @@ public class User {
         return savedPosts;
     }
 
+
+    /*
+    * return an saved post for special indexes, write baginning and ending index these indexes including
+    */
+    public ArrayList<Post> getSavedPost(int from, int to){
+        ArrayList<Post> savedPosts_spesific = new ArrayList<>();
+        for (int i = from; i <= to; i++ ){
+
+            savedPosts_spesific.add(savedPosts.get(i));
+        }
+        return savedPosts_spesific;
+    }
+
     public void addSavedPost(Post post) {
         // TODO: Implement method logic
         savedPosts.add(post);
     }
 
-    public void removeSavedPost(Post post) {
-        // TODO: Implement method logic
-        savedPosts.remove(post);
-    }
+
 
     public String getBio() {
         // TODO: Implement method logic
@@ -97,6 +113,19 @@ public class User {
     public ArrayList<Post> getSharedPosts() {
         // TODO: Implement method logic
         return sharedPosts;
+    }
+
+    public void removeSavedPost(Post post){
+        savedPosts.remove(post);
+    }
+
+    public ArrayList<Post> getSharedPost(int from, int to){
+        ArrayList<Post> sharedPosts_spesific = new ArrayList<>();
+        for (int i = from; i <= to; i++ ){
+
+            sharedPosts_spesific.add(savedPosts.get(i));
+        }
+        return sharedPosts_spesific;
     }
 
     public void sharePost(Post post) {

@@ -48,5 +48,10 @@ public class Comment {
         this.isAnonymous = isAnonymous;
     }
 
+    @Override
+    public String toString(){
+        return "CommentId"+ getCommentId() +"SenderUser" + getCommentSender() + "CommentText" + getCommentText() + "isAnonymous" + isAnonymous();
+    }
+
     // TODO: Add any additional methods
 }

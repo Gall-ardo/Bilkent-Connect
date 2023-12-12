@@ -38,6 +38,7 @@
             app:srcCompat="@drawable/home_icon" />
 
         <ImageView
+            android:id="@+id/goToProfilePAge"
             android:layout_width="60sp"
             android:layout_height="60sp"
             android:layout_marginLeft="40dp"
