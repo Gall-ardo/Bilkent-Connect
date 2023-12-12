@@ -21,6 +21,7 @@ public class Chat {
         chatMessages.add(message);
     }
 
+    // sanırım bu methodu pek kullanmayacağız mesajları silmeyeceğimiz için
     public void removeMessage(ChatMessage message) {
         // TODO: Implement method logic for removing a message from the chat
         chatMessages.remove(message);
@@ -56,4 +57,7 @@ public class Chat {
     public void setChatMessages(ArrayList<ChatMessage> chatMessages) {
         this.chatMessages = chatMessages;
     }
+
+
+
 }
