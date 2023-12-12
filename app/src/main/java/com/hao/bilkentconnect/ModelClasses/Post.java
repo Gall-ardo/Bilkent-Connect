@@ -56,9 +56,8 @@ public class Post {
 
     // Methods
 
-    /*
-    burda mevcut postun like sayısını direkt bir artıyoz
-     */
+
+    //burda mevcut postun like sayısını direkt bir artıyoz
     public void likePost() {
         increaseLikeCount();
     }
@@ -69,15 +68,17 @@ public class Post {
     public Date getTimestamp() { return timestamp; }
     public void setTimestamp(Date timestamp) { this.timestamp = timestamp; }
 
+
     //comments listesinin sonuna direkt parametredeki commenti ekliyoz ekliyoruz
-    public void commentOnPost(Comment comment) {
+    public void addComment(Comment comment) {
         comments.add(comment);
+        // TODO: Additional implementation if needed
     }
 
-    /*
-    burda comment listesi içinde ilerliyoz, eğer ararığımızkiyle ID'ler eşitse direkt o indexi siliyoz
-     */
-    public void deleteComment(Comment comment) {
+
+
+    //burda comment listesi içinde ilerliyoz, eğer ararığımızkiyle ID'ler eşitse direkt o indexi siliyoz
+    public void removeComment(Comment comment) {
 
         for (int i = 0; i <= comments.size(); i++){
             if (comments.get(i).getCommentId() == comment.getCommentId()){
@@ -86,23 +87,20 @@ public class Post {
         }
     }
 
-    public void sharePost() {
-        // TODO: Implement method logic
+    public void sharePost(String sharerId, String photoUrl, String postDescription, boolean isAnonymous) {
+        Post to_share = new Post( sharerId, photoUrl, postDescription, isAnonymous);
+        //ToDo burda oluşturulan yeni post database'eklenecek
+
+
     }
 
     public void savePost() {
         // TODO: Implement method logic
     }
 
-    public void addComment(Comment comment) {
-        comments.add(comment);
-        // TODO: Additional implementation if needed
-    }
 
-    public void removeComment(Comment comment) {
-        comments.remove(comment);
-        // TODO: Additional implementation if needed
-    }
+
+
 
     public void increaseLikeCount() {
         likeCount++;
@@ -133,4 +131,9 @@ public class Post {
 
     // Getters and Setters
     // TODO: Add getters and setters for all attributes
+
+
+    public ArrayList<Comment> getComments(){
+        return comments;
+    }
 }
