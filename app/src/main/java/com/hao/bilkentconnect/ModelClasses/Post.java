@@ -30,6 +30,31 @@ public class Post {
         comments = new ArrayList<>();
     }
 
+    public Post(String postId, String sharerId, String postDescription) {
+        this.postId = postId;
+        this.sharerId = sharerId;
+        this.postDescription = postDescription;
+        this.likeCount = 0;
+        this.isAnonymous = false;
+        this.comments = new ArrayList<>();
+    }
+
+    public Post(String sharerId, String postDescription) {
+    }
+
+    public Post(String sharerId, int likeCount, String postDescription) {
+        this.postId = null;
+        this.sharerId = sharerId;
+        this.likeCount = likeCount;
+        this.isAnonymous = false;
+        this.photoUrl = null;
+        this.postDescription = postDescription;
+        this.comments = new ArrayList<>();
+        this.timestamp = null;
+
+    }
+
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("postId", postId);

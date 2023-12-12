@@ -30,9 +30,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         holder.binding.descriptionText.setText(posts.get(position).postDescription);
         holder.binding.topUsernameText.setText(posts.get(position).sharerId);
-        //holder.binding.profilePicture.;
+        //holder.binding.profilePicture.setImageURI();
+        //        Picasso.get().load(postArrayList.get(position).downloadUrl).into(holder.recyclerRowBinding.recyclerviewRowImageview);
         //holder.binding.postImage.;
-
 
     }
 
@@ -41,8 +41,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         return posts.size();
     }
 
-    public static class PostViewHolder extends RecyclerView.ViewHolder {
-        private RecyclerPostBinding binding;
+    public class PostViewHolder extends RecyclerView.ViewHolder {
+        public RecyclerPostBinding binding;
         public PostViewHolder(RecyclerPostBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

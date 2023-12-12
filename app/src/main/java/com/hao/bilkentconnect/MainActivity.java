@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -30,6 +31,7 @@ import com.hao.bilkentconnect.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isSideMenuVisible = false;
     private LinearLayout sideMenu;
     public FirebaseFirestore db;
+    public FirebaseAuth firebaseAuth;
     ArrayList<Post> postArrayList;
     PostAdapter postAdapter;
 
@@ -50,12 +53,11 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View viewRoot = binding.getRoot();
         setContentView(viewRoot);
+        postArrayList = new ArrayList<>();
 
+        firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         loadPostsFromFirebase();
-
-
-        postArrayList = new ArrayList<>();
 
         mainLayout = binding.mainLayout;
         sideMenu = binding.sideMenu;
@@ -80,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    private void loadPostsFromFirebase() {
-
+    /*private void loadPostsFromFirebase() {
+        System.out.println("Checckpoint1");
         CollectionReference collectionReference = db.collection("Posts");
 
         collectionReference.orderBy("date", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -91,23 +93,77 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("Firestore Error", error.getMessage());
                     Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                 }
+                System.out.println("Checckpoint2");
+
 
                 if (queryDocumentSnapshots != null) {
                     for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                        HashMap<String, Object> data = (HashMap<String, Object>) snapshot.getData();
-                        String postId = (String) data.get("postId");
+                        System.out.println("forun icine girmis mi");
+                        Map<String,Object> data = snapshot.getData();
+
+                        //String postId = (String) data.get("postId");
                         String sharerId = (String) data.get("sharerId");
                         int likeCount = (int) data.get("likeCount");
-                        boolean isAnonymous = (boolean) data.get("isAnonymous");
-                        String photoUrl = (String) data.get("photoUrl");
+                        //boolean isAnonymous = (boolean) data.get("isAnonymous");
+                        //String photoUrl = (String) data.get("photoUrl");
                         String postDescription = (String) data.get("postDescription");
-                        ArrayList<Comment> comments = (ArrayList<Comment>) data.get("comments");
-                        Date timestamp = (Date) data.get("timestamp");
-                        Post post = new Post(postId, sharerId, likeCount, isAnonymous, photoUrl, postDescription, comments, timestamp);
+                        //ArrayList<Comment> comments = (ArrayList<Comment>) data.get("comments");
+                        //Date timestamp = (Date) data.get("timestamp");
+                        //Post post = new Post(postId, sharerId, likeCount, isAnonymous, photoUrl, postDescription, comments, timestamp);
+                        //Post post = new Post(sharerId,likeCount,postDescription);
+
+                        Post post = new Post();
+
+
 
                         postArrayList.add(post);
                     }
+                    System.out.println("Checckpoint3");
+                    System.out.println(postArrayList);
+
                     postAdapter.notifyDataSetChanged();
+                    System.out.println("Checckpoint4");
+
+                }
+            }
+        });
+    }*/
+    private void loadPostsFromFirebase() {
+        System.out.println("Checkpoint1");
+        CollectionReference collectionReference = db.collection("Posts");
+
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                if(error != null) {
+                    Log.e("Firestore Error", error.getMessage());
+                    Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+                System.out.println("Checkpoint2");
+
+                if (queryDocumentSnapshots != null) {
+                    /*Map<String,Object> data = snapshot.getData();
+
+                    String postId = (String) data.get("postId");
+                    String sharerId = (String) data.get("sharerId");
+                    int likeCount = (int) data.get("likeCount");
+                    boolean isAnonymous = (boolean) data.get("isAnonymous");
+                    String photoUrl = (String) data.get("photoUrl");
+                    String postDescription = (String) data.get("postDescription");
+                    ArrayList<Comment> comments = (ArrayList<Comment>) data.get("comments");
+                    Date timestamp = (Date) data.get("timestamp");
+                    Post post = new Post(postId, sharerId, likeCount, isAnonymous, photoUrl, postDescription, comments, timestamp);*/
+
+
+                    postArrayList.clear(); // Clear existing data
+                    for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                        System.out.println("Inside for loop");
+                        Post post = snapshot.toObject(Post.class);
+                        postArrayList.add(post);
+                    }
+                    System.out.println("Checkpoint3");
+                    postAdapter.notifyDataSetChanged();
+                    System.out.println("Checkpoint4");
                 }
             }
         });
