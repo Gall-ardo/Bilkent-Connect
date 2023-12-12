@@ -24,7 +24,7 @@
             android:layout_height="35dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="12dp"
-            android:onClick="goBackToProfilePage_2"
+            android:onClick="goToProfilePage"
             app:srcCompat="@drawable/arrow_vector" />
 
         <TextView
@@ -45,6 +45,7 @@
         android:id="@+id/profilePicture"
         android:layout_width="129dp"
         android:layout_height="129dp"
+        android:onClick="selectPP"
         app:layout_constraintBottom_toTopOf="@+id/editUsernameText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -132,6 +133,7 @@
         android:backgroundTint="#008952"
         android:fontFamily="@font/ubuntu_bold"
         android:text="Confirm"
+        android:onClick="saveChanges"
         android:textColor="@color/white"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
