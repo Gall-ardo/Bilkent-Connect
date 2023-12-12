@@ -22,6 +22,7 @@
             android:layout_height="60sp"
             android:layout_marginLeft="37dp"
             android:layout_marginTop="5dp"
+            android:onClick="gotoChatPage"
             app:srcCompat="@drawable/chat_icon" />
 
         <ImageView
@@ -37,6 +38,7 @@
             android:layout_height="50sp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="10dp"
+            android:onClick="resetMainPage"
             app:srcCompat="@drawable/home_icon" />
 
         <ImageView
@@ -124,7 +126,7 @@
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/ubuntu"
-            android:onClick="onSideMenuItemClick"
+            android:onClick="goToSecondHandSalePage"
             android:padding="16dp"
             android:text="Second Hand Sale"
             android:textColor="#FFFFFF"
@@ -138,7 +140,7 @@
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/ubuntu"
-            android:onClick="onSideMenuItemClick"
+            android:onClick="goToBCCDailyPage"
             android:padding="16dp"
             android:text="BCC Daily"
             android:textColor="#FFFFFF"

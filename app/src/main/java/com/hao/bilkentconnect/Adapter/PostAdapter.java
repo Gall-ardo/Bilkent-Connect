@@ -1,7 +1,6 @@
-package com.hao.bilkentconnect;
+package com.hao.bilkentconnect.Adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -29,7 +28,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
-        
+        holder.binding.descriptionText.setText(posts.get(position).postDescription);
+        holder.binding.topUsernameText.setText(posts.get(position).sharerId);
+        //holder.binding.profilePicture.;
+        //holder.binding.postImage.;
+
+
     }
 
     @Override

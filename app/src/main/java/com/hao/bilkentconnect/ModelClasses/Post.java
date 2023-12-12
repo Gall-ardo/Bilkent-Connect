@@ -7,14 +7,14 @@ import java.util.Map;
 
 public class Post {
 
-    private String postId;
-    private String sharerId; // Using a user ID instead of an email
-    private int likeCount;
-    private boolean isAnonymous;
-    private String photoUrl;
-    private String postDescription;
-    private ArrayList<Comment> comments;
-    private Date timestamp;
+    public String postId;
+    public String sharerId; // Using a user ID instead of an email
+    public int likeCount;
+    public boolean isAnonymous;
+    public String photoUrl;
+    public String postDescription;
+    public ArrayList<Comment> comments;
+    public Date timestamp;
 
 
     public Post(String sharerId, String photoUrl, String postDescription, boolean isAnonymous) {

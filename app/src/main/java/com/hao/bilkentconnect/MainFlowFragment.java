@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hao.bilkentconnect.Adapter.PostAdapter;
 import com.hao.bilkentconnect.databinding.FragmentMainFlowBinding;
 
 /**

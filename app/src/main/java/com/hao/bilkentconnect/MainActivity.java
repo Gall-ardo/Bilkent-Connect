@@ -1,18 +1,13 @@
 package com.hao.bilkentconnect;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -20,16 +15,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.hao.bilkentconnect.Adapter.PostAdapter;
 import com.hao.bilkentconnect.ModelClasses.Comment;
 import com.hao.bilkentconnect.ModelClasses.Post;
 import com.hao.bilkentconnect.databinding.ActivityMainBinding;
-import com.hao.bilkentconnect.databinding.ActivitySecondHandMainScreenBinding;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private boolean isSideMenuVisible = false;
     private LinearLayout sideMenu;
     public FirebaseFirestore db;
+    ArrayList<Post> postArrayList;
+    PostAdapter postAdapter;
+
 
 
 
@@ -51,19 +50,12 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View viewRoot = binding.getRoot();
         setContentView(viewRoot);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         db = FirebaseFirestore.getInstance();
         loadPostsFromFirebase();
 
 
-        ArrayList<Post> posts = new ArrayList<>();
-        posts.add(new Post());
-        posts.add(new Post());
-
-
-        PostAdapter postAdapter = new PostAdapter(posts);
-        binding.recyclerView.setAdapter(postAdapter);
+        postArrayList = new ArrayList<>();
 
         mainLayout = binding.mainLayout;
         sideMenu = binding.sideMenu;
@@ -80,17 +72,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        postAdapter = new PostAdapter(postArrayList);
+        binding.recyclerView.setAdapter(postAdapter);
+
+
+
     }
     private void loadPostsFromFirebase() {
-        /*db.collection("Posts").addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+        CollectionReference collectionReference = db.collection("Posts");
+
+        collectionReference.orderBy("date", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 if(error!=null) {
                     Log.e("Firestore Error", error.getMessage());
                     Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                 }
-                if(value != null) {
-                    for(DocumentSnapshot snapshot : value.getDocuments()) {
+
+                if (queryDocumentSnapshots != null) {
+                    for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
                         HashMap<String, Object> data = (HashMap<String, Object>) snapshot.getData();
                         String postId = (String) data.get("postId");
                         String sharerId = (String) data.get("sharerId");
@@ -100,15 +103,16 @@ public class MainActivity extends AppCompatActivity {
                         String postDescription = (String) data.get("postDescription");
                         ArrayList<Comment> comments = (ArrayList<Comment>) data.get("comments");
                         Date timestamp = (Date) data.get("timestamp");
-
                         Post post = new Post(postId, sharerId, likeCount, isAnonymous, photoUrl, postDescription, comments, timestamp);
-                        System.out.println(post.toString());
-                    }
-                }
 
+                        postArrayList.add(post);
+                    }
+                    postAdapter.notifyDataSetChanged();
+                }
             }
-        });*/
+        });
     }
+
 
 
 
@@ -161,5 +165,23 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ProfilePage.class);
         startActivity(intent);
     }
+
+    public void resetMainPage(View view){
+
+    }
+    public void onSideMenuItemClick(View view) {
+
+
+    }
+    public void goToSecondHandSalePage(View view){
+        Intent intent = new Intent(this, SecondHandMainScreen.class);
+        startActivity(intent);
+    }
+
+    public void goToBCCDailyPage(View view){
+        Intent intent = new Intent(this, BccCafeteriaPage.class);
+        startActivity(intent);
+    }
+
 
 }
