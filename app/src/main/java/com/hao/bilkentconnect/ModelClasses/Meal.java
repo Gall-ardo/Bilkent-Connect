@@ -106,11 +106,12 @@ public class Meal {
      */
     public Comment getSpesificComment (int commentId){
 
-        for (int i = 0; i <= comments.size(); i++){
+
+        /*for (int i = 0; i <= comments.size(); i++){
             if (comments.get(i).getCommentId() == commentId){
                 return comments.get(i);
             }
-        }
+        }*/
 
         return null;
     }

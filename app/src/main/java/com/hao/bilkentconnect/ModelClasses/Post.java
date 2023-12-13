@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Post {
-
     public String postId;
     public String sharerId;
     public int likeCount;
@@ -16,6 +15,9 @@ public class Post {
     public ArrayList<Comment> comments;
     public Date timestamp;
 
+    public String getPostId() {
+        return postId;
+    }
 
     public Post(String sharerId, String photoUrl, String postDescription, boolean isAnonymous) {
         this.sharerId = sharerId;
@@ -80,6 +82,11 @@ public class Post {
     }
 
     // Methods
+    public void addComment(Comment comment) {
+        if (comments != null) {
+            comments.add(comment);
+        }
+    }
 
 
     //burda mevcut postun like sayısını direkt bir artıyoz
@@ -93,24 +100,6 @@ public class Post {
     public Date getTimestamp() { return timestamp; }
     public void setTimestamp(Date timestamp) { this.timestamp = timestamp; }
 
-
-    //comments listesinin sonuna direkt parametredeki commenti ekliyoz ekliyoruz
-    public void addComment(Comment comment) {
-        comments.add(comment);
-        // TODO: Additional implementation if needed
-    }
-
-
-
-    //burda comment listesi içinde ilerliyoz, eğer ararığımızkiyle ID'ler eşitse direkt o indexi siliyoz
-    public void removeComment(Comment comment) {
-
-        for (int i = 0; i <= comments.size(); i++){
-            if (comments.get(i).getCommentId() == comment.getCommentId()){
-                comments.remove(i);
-            }
-        }
-    }
 
     public void sharePost(String sharerId, String photoUrl, String postDescription, boolean isAnonymous) {
         Post to_share = new Post( sharerId, photoUrl, postDescription, isAnonymous);

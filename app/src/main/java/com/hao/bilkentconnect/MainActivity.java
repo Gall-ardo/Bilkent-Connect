@@ -230,8 +230,9 @@ public class MainActivity extends AppCompatActivity implements OnPostClickListen
     @Override
     public void onPostClick(Post post) {
         Intent intent = new Intent(this, PostView.class);
-        //intent.putExtra("post_data", post); // Assuming Post class implements Serializable or Parcelable
+        intent.putExtra("post_id", post.getPostId()); // Pass the post ID
         startActivity(intent);
     }
+
 
 }

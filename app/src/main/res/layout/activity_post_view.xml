@@ -84,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="Connect"
+                android:onClick="SendConnectionRequest"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="140dp"
                 android:textColor="@color/black"
@@ -173,7 +174,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/circle"
-            android:onClick="shareAnonymousPost"
+            android:onClick="shareAnonymousComment"
             android:src="@drawable/ghost_icon_white" />
 
         <ImageView
@@ -183,7 +184,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/circle"
-            android:onClick="shareRegularPost"
+            android:onClick="shareRegularComment"
             android:src="@drawable/send_button" />
 
 

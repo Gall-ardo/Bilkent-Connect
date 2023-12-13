@@ -1,34 +1,54 @@
 package com.hao.bilkentconnect.ModelClasses;
 
+import org.checkerframework.checker.units.qual.C;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Comment {
     // Attributes
-    private User commentSender;
-    private int commentId;
+    private String commentSenderId;
+    private String commentId;
     private String commentText;
     private boolean isAnonymous;
 
+    private String postId;
     // Constructor
-    public Comment(User commentSender, int commentId, String commentText, boolean isAnonymous) {
-        this.commentSender = commentSender;
+    public Comment(String commentSender, String commentId, String commentText, boolean isAnonymous, String postId) {
+        this.commentSenderId = commentSender;
         this.commentId = commentId;
         this.commentText = commentText;
         this.isAnonymous = isAnonymous;
+        this.postId = postId; // Set the post ID
+
+    }
+    public Comment(String userID, String commentText, boolean isAnonymous, String postId) {
+        this.commentSenderId = userID;
+        this.commentText = commentText;
+        this.isAnonymous = isAnonymous;
+        this.postId = postId;
+    }
+    public Comment(){
+        this.commentSenderId = null;
+        this.commentText = null;
+        this.isAnonymous = true;
+        this.postId = null;
     }
 
     // Getters and Setters
-    public User getCommentSender() {
-        return commentSender;
+    public String getCommentSender() {
+        return commentSenderId;
     }
 
-    public void setCommentSender(User commentSender) {
-        this.commentSender = commentSender;
+    public void setCommentSender(String commentSender) {
+        this.commentSenderId = commentSender;
     }
 
-    public int getCommentId() {
+    public String getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(int commentId) {
+    public void setCommentId(String commentId) {
         this.commentId = commentId;
     }
 
@@ -51,6 +71,19 @@ public class Comment {
     @Override
     public String toString(){
         return "CommentId"+ getCommentId() +"SenderUser" + getCommentSender() + "CommentText" + getCommentText() + "isAnonymous" + isAnonymous();
+    }
+    public String getPostId() {
+        return postId;
+    }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> commentMap = new HashMap<>();
+        commentMap.put("userId", commentSenderId);
+        commentMap.put("commentText", commentText);
+        commentMap.put("isAnonymous", isAnonymous);
+        commentMap.put("commentId", commentId);
+        commentMap.put("postId", postId);
+        return commentMap;
     }
 
     // TODO: Add any additional methods
