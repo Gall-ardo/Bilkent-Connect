@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.hao.bilkentconnect.Adapter.CommentAdapter;
 import com.hao.bilkentconnect.Adapter.PostAdapter;
@@ -23,6 +24,8 @@ public class PostView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityPostViewBinding.inflate(getLayoutInflater());
+        View viewRoot = binding.getRoot();
+        setContentView(viewRoot);
 
         commentArrayList = new ArrayList<>();
         commentArrayList.add(new Comment(new User(), 22203359, "Hello World", false));
