@@ -32,25 +32,20 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         Comment comment = comments.get(position);
-        holder.commentsBinding.commentText.setText("fdalkbjfbdalkj");
+        /*holder.commentsBinding.commentText.setText("fdalkbjfbdalkj");
         holder.commentsBinding.usernameText.setText("anan");
-        holder.commentsBinding.profilePicture.setImageResource(R.drawable.cropped_profile_photo);
+        holder.commentsBinding.profilePicture.setImageResource(R.drawable.cropped_profile_photo);*/
 
-        /*holder.commentsBinding.commentText.setText(comment.getCommentText());
+        holder.commentsBinding.commentText.setText(comment.getCommentText());
 
         if (comment.isAnonymous()) {
-            holder.commentsBinding.profilePicture.setImageResource(R.drawable.cropped_profile_photo);
-            //holder.commentsBinding.profilePicture.setVisibility(View.GONE); // Hide profile picture for anonymous comments
+            holder.commentsBinding.profilePicture.setVisibility(View.GONE); // Hide profile picture for anonymous comments
         } else {
             holder.commentsBinding.profilePicture.setVisibility(View.VISIBLE);
             holder.commentsBinding.profilePicture.setImageResource(R.drawable.cropped_profile_photo);
 
-            // Load actual user profile picture here
         }
-        holder.commentsBinding.usernameText.setText("anan");
 
-
-        // Additional bindings for other comment attributes, if necessary*/
     }
 
 

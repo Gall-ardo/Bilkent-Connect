@@ -34,7 +34,10 @@ import com.hao.bilkentconnect.ModelClasses.User;
 import com.hao.bilkentconnect.databinding.ActivityMainBinding;
 import com.hao.bilkentconnect.databinding.ActivityPostViewBinding;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -185,9 +188,13 @@ public class PostView extends AppCompatActivity {
                             commentArrayList.clear(); // Clear existing comments
 
                             for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                                //Comment comment = snapshot.toObject(Comment.class);
+                                HashMap<String, Object> data = (HashMap<String, Object>) snapshot.getData();
+                                String commentSenderId = (String) data.get("userId");
+                                String commentId = (String) data.get("commentId");
+                                String commentText = (String) data.get("commentText");
+                                boolean isAnonymous = (boolean) data.get("isAnonymous");
 
-                                //commentArrayList.add(comment);
+                                commentArrayList.add(new Comment(commentSenderId, commentText, isAnonymous, postId));
                             }
                             commentAdapter.notifyDataSetChanged();
                         }
