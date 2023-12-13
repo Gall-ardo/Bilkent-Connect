@@ -10,11 +10,10 @@ public class ChatMessage {
     private Timestamp time; // Using Timestamp for the timeStap
 
     // Constructor
-    public ChatMessage(int sender, int receiver, String text, Timestamp time) {
+    public ChatMessage(int sender, int receiver, String text) {
         this.sender = sender;
         this.receiver = receiver;
         this.text = text;
-        this.time = time;
     }
 
 
