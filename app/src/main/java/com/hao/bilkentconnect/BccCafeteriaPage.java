@@ -36,7 +36,8 @@ public class BccCafeteriaPage extends AppCompatActivity {
     private ConstraintLayout bccLayout;
     private boolean isSideMenuVisible = false;
     private LinearLayout sideMenu;
-    private TextView resultTextView;
+    private TextView lunchTextView;
+    private TextView dinnerTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +63,49 @@ public class BccCafeteriaPage extends AppCompatActivity {
 
         //gotoMainFragment();
 
-        resultTextView = findViewById(R.id.lunchText);
+        lunchTextView = findViewById(R.id.lunchText);
 
         // Replace this URL with the URL of the HTML page you want to parse
         String url = "http://kafemud.bilkent.edu.tr/monu_eng.html";
 
         // Execute the AsyncTask to perform HTML parsing in the background
-        parseHtmlInBackground(url);
+        parseHtmlInBackground(url, lunchTextView, "td.style18");
+        //parseHtmlInBackground(url, dinnerTextView);
+    }
+
+
+    private void parseHtmlInBackground(String url, TextView resultText, String targetElement) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        Future<String> futureResult = executor.submit(() -> {
+            try {
+                // Fetch the HTML content from the URL
+                Document document = Jsoup.connect(url).get();
+
+                // Extract information from the HTML
+                Elements headlines = document.select(targetElement);
+
+                // Build a string with the extracted information
+                StringBuilder result = new StringBuilder();
+                for (Element headline : headlines) {
+                    result.append("Headline: ").append(headline.text()).append("\n");
+                }
+
+                return result.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Error occurred during HTML parsing";
+            }
+        });
+
+        executor.shutdown();
+
+        try {
+            // Update the UI with the parsed HTML information
+            resultText.setText(futureResult.get());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void onSideMenuItemClick() {
@@ -104,72 +141,5 @@ public class BccCafeteriaPage extends AppCompatActivity {
 
         int visibility = isSideMenuVisible ? View.VISIBLE : View.INVISIBLE;
         sideMenu.setVisibility(visibility);
-    }
-
-    private static class HttpRequestTask extends AsyncTask<Void, Void, String> {
-        @Override
-        protected String doInBackground(Void... voids) {
-            OkHttpClient client = new OkHttpClient();
-            String url = "http://kafemud.bilkent.edu.tr/monu_eng.html";
-
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-
-            try {
-                Response response = client.newCall(request).execute();
-                if (response.isSuccessful()) {
-                    // Successful HTTP request
-                    return response.body().string();
-                } else {
-                    // Handle unsuccessful response
-                    return "Error: " + response.code();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "Error: " + e.getMessage();
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            // Process the result on the UI thread
-            // For example, log it or display it in a TextView
-            System.out.println(result);
-        }
-    }
-
-    private void parseHtmlInBackground(String url) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-
-        Future<String> futureResult = executor.submit(() -> {
-            try {
-                // Fetch the HTML content from the URL
-                Document document = Jsoup.connect(url).get();
-
-                // Extract information from the HTML
-                Elements headlines = document.select("td.style18");
-
-                // Build a string with the extracted information
-                StringBuilder result = new StringBuilder();
-                for (Element headline : headlines) {
-                    result.append("Headline: ").append(headline.text()).append("\n");
-                }
-
-                return result.toString();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "Error occurred during HTML parsing";
-            }
-        });
-
-        executor.shutdown();
-
-        try {
-            // Update the UI with the parsed HTML information
-            resultTextView.setText(futureResult.get());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
