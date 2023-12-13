@@ -49,12 +49,50 @@
             />
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/commentText"
+            android:layout_width="0dp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_comment_bar"
+            android:ems="10"
+            android:hint="enter comment"
+            android:inputType="textPersonName"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/shareCommentButton"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/circle"
+            android:onClick="shareRegularPost"
+            android:src="@drawable/send_button" />
+
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/recyclerChatMessageView"
-        android:layout_marginTop="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:layout_editor_absoluteX="1dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
