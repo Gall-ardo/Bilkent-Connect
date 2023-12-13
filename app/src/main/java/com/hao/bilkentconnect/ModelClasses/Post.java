@@ -29,6 +29,12 @@ public class Post {
     }
 
     public Post() {
+        this.postId = null;
+        this.sharerId = null;
+        this.likeCount = 0;
+        this.isAnonymous = false;
+        this.photoUrl = null;
+        this.postDescription = null;
         comments = new ArrayList<>();
     }
 

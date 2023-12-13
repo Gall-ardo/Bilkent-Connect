@@ -6,8 +6,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.hao.bilkentconnect.ModelClasses.Post;
+import com.hao.bilkentconnect.ModelClasses.User;
 import com.hao.bilkentconnect.OnPostClickListener;
+import com.hao.bilkentconnect.R;
 import com.hao.bilkentconnect.databinding.RecyclerPostBinding;
 import com.squareup.picasso.Picasso;
 
@@ -33,13 +36,38 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
-        holder.binding.descriptionText.setText(posts.get(position).postDescription);
-        holder.binding.topUsernameText.setText(posts.get(position).sharerId);
-        Picasso.get().load(posts.get(position).photoUrl).into(holder.binding.postImage);
+        Post currentPost = posts.get(position);
 
-        holder.binding.commentButton.setOnClickListener(v -> listener.onPostClick(posts.get(position)));
+        if (currentPost.isAnonymous) {
+            holder.binding.topUsernameText.setText("Ghost");
+            holder.binding.profilePicture.setImageResource(R.drawable.ghost_icon); // Replace with your ghost drawable resource
 
+        } else {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            String userId = currentPost.sharerId;
+
+            // Fetch user by ID to get the username
+            db.collection("Users").document(userId).get().addOnSuccessListener(documentSnapshot -> {
+                if (documentSnapshot.exists()) {
+                    User user = documentSnapshot.toObject(User.class);
+                    if (user != null) {
+                        // Set the username
+                        holder.binding.topUsernameText.setText(user.getUsername());
+                        if (user.getProfilePhoto() != null) {
+                            Picasso.get().load(user.getProfilePhoto()).into(holder.binding.profilePicture);
+                        }else{
+                            holder.binding.profilePicture.setImageResource(R.drawable.circle);
+                        }
+                    }
+                }
+            });
+        }
+
+        holder.binding.descriptionText.setText(currentPost.postDescription);
+        Picasso.get().load(currentPost.photoUrl).into(holder.binding.postImage);
+        holder.binding.commentButton.setOnClickListener(v -> listener.onPostClick(currentPost));
     }
+
 
     @Override
     public int getItemCount() {

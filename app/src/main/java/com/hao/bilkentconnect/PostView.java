@@ -113,39 +113,7 @@ public class PostView extends AppCompatActivity {
 
     }
 
-    /*public void shareRegularComment(View view) {
-        String commentText = binding.commentText.getText().toString();
 
-        if(commentText.isEmpty()) {
-            Toast.makeText(this, "Empty Comment cannot be share", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        String userId = firebaseUser.getUid();
-
-
-        Comment newComment = new Comment(userId, commentText, false);
-
-        // Convert Comment object to Map if needed, or directly save the Comment object
-        Map<String, Object> commentValues = newComment.toMap();
-
-        // Add comment to Firebase
-        firebaseFirestore.collection("Comments").add(commentValues).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(PostView.this, "Comment shared successfully", Toast.LENGTH_LONG).show();
-                // Reset the comment input field
-                binding.commentText.setText("");
-                // You might want to refresh comments or perform other actions
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(PostView.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }*/
     public void shareRegularComment(View view) {
         String commentText = binding.commentText.getText().toString();
         if (commentText.isEmpty()) {
@@ -201,6 +169,7 @@ public class PostView extends AppCompatActivity {
                     }
                 });
     }
+
 
 
 
