@@ -3,6 +3,7 @@ package com.hao.bilkentconnect;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,9 +24,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -38,6 +43,8 @@ public class BccCafeteriaPage extends AppCompatActivity {
     private LinearLayout sideMenu;
     private TextView lunchTextView;
     private TextView dinnerTextView;
+    private String[] lunchMeals = new String[7];
+    private String[] dinnerMeals = new String[7];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,18 +70,19 @@ public class BccCafeteriaPage extends AppCompatActivity {
 
         //gotoMainFragment();
 
-        lunchTextView = findViewById(R.id.lunchText);
-
         // Replace this URL with the URL of the HTML page you want to parse
         String url = "http://kafemud.bilkent.edu.tr/monu_eng.html";
 
         // Execute the AsyncTask to perform HTML parsing in the background
-        parseHtmlInBackground(url, lunchTextView, "td.style18");
+        parseHtmlInBackground(url,"td.style18", findViewById(R.id.lunchText), 0, 0);
+        parseHtmlInBackground(url,"td.style18", findViewById(R.id.dinnerText), 1, 0);
+        parseHtmlInBackground(url,"td", findViewById(R.id.lunchInfoText), 0, 1);
+        parseHtmlInBackground(url,"td", findViewById(R.id.dinnerInfoText), 1, 1);
         //parseHtmlInBackground(url, dinnerTextView);
     }
 
 
-    private void parseHtmlInBackground(String url, TextView resultText, String targetElement) {
+    private void parseHtmlInBackground(String url, String targetElement, TextView targetLocation, int mealType, int info) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
         Future<String> futureResult = executor.submit(() -> {
@@ -85,12 +93,33 @@ public class BccCafeteriaPage extends AppCompatActivity {
                 // Extract information from the HTML
                 Elements headlines = document.select(targetElement);
 
+                LocalDate currentDate = LocalDate.now();
+                DayOfWeek dayOfWeek = currentDate.getDayOfWeek();
+
                 // Build a string with the extracted information
                 StringBuilder result = new StringBuilder();
-                for (Element headline : headlines) {
-                    result.append("Headline: ").append(headline.text()).append("\n");
-                }
 
+                if ( dayOfWeek.toString().equals("MONDAY") ){
+                    result.append(headlines.get(info*(8 + mealType) + mealType));
+                }
+                else if ( dayOfWeek.toString().equals("TUESDAY") ){
+                    result.append(headlines.get(info*(13 + mealType) + mealType + 2).text());
+                }
+                else if ( dayOfWeek.toString().equals("WEDNESDAY") ){
+                    result.append(headlines.get(info*(18 + mealType) + mealType + 4).text());
+                }
+                else if ( dayOfWeek.toString().equals("THURSDAY") ){
+                    result.append(headlines.get(info*(23 + mealType) + mealType + 6).text());
+                }
+                else if ( dayOfWeek.toString().equals("FRIDAY") ){
+                    result.append(headlines.get(info*(28 + mealType) + mealType + 8).text());
+                }
+                else if ( dayOfWeek.toString().equals("SATURDAY") ){
+                    result.append(headlines.get(info*(33 + mealType) + mealType + 10).text());
+                }
+                else if ( dayOfWeek.toString().equals("SUNDAY") ){
+                    result.append(headlines.get(info*(38 + mealType) + mealType + 12).text());
+                }
                 return result.toString();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -101,8 +130,10 @@ public class BccCafeteriaPage extends AppCompatActivity {
         executor.shutdown();
 
         try {
+
             // Update the UI with the parsed HTML information
-            resultText.setText(futureResult.get());
+            targetLocation.setText(futureResult.get());
+            Log.d("", futureResult.get());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -141,5 +172,10 @@ public class BccCafeteriaPage extends AppCompatActivity {
 
         int visibility = isSideMenuVisible ? View.VISIBLE : View.INVISIBLE;
         sideMenu.setVisibility(visibility);
+    }
+
+    public void goToMainActivity(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

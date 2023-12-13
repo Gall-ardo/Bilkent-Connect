@@ -178,13 +178,13 @@
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/ubuntu"
-            android:onClick="onSideMenuItemClick"
+            android:onClick="goToMainActivity"
             android:padding="16dp"
             android:text="Bilkent Social"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:translationY="40dp"/>
+            android:translationY="40dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -192,7 +192,7 @@
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/ubuntu"
-            android:onClick="onSideMenuItemClick"
+            android:onClick="goToSecondHandSalePage"
             android:padding="16dp"
             android:text="Second Hand Sale"
             android:textColor="#FFFFFF"
