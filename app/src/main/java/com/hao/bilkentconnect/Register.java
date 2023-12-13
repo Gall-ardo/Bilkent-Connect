@@ -32,7 +32,7 @@ public class Register extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
     // creating user with email and password however user id does not adding??
-    public void signUpClicked(View view) {
+    /*public void signUpClicked(View view) {
         String email = binding.enterMail.getText().toString();
         String password = binding.enterPassword.getText().toString();
         String userName = binding.username.getText().toString();
@@ -79,6 +79,43 @@ public class Register extends AppCompatActivity {
         finish();
 
 
+    }*/
+    public void signUpClicked(View view) {
+        String email = binding.enterMail.getText().toString();
+        String password = binding.enterPassword.getText().toString();
+        String userName = binding.username.getText().toString();
+        String passwordAgain = binding.enterPasswordAgain.getText().toString();
+
+        if(!password.equals(passwordAgain)) {
+            Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if(email.isEmpty() || password.isEmpty() || userName.isEmpty() || passwordAgain.isEmpty()) {
+            Toast.makeText(this, "Please enter email, password, and username!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
+            FirebaseUser firebaseUser = mAuth.getCurrentUser();
+            if (firebaseUser != null) {
+                User newUser = new User(firebaseUser.getUid(), email, userName);
+                newUser.setBio("You can add Bio!"); // Default bio
+                newUser.setProfilePhoto("default_profile_photo_url");
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("Users").document(firebaseUser.getUid()).set(newUser)
+                        .addOnSuccessListener(aVoid -> {
+                            Intent intent = new Intent(Register.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        })
+                        .addOnFailureListener(e ->
+                                Toast.makeText(Register.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
+            }
+        }).addOnFailureListener(e ->
+                Toast.makeText(Register.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
     }
+
 
 }

@@ -118,7 +118,7 @@ public class EditProfilePage extends AppCompatActivity {
                 updates.put("username", newUserName);
             }
             if (!newDescription.isEmpty()) {
-                updates.put("biography", newDescription);
+                updates.put("bio", newDescription);
             }
         }
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();

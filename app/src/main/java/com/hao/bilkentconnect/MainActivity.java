@@ -82,52 +82,6 @@ public class MainActivity extends AppCompatActivity implements OnPostClickListen
 
 
     }
-    /*private void loadPostsFromFirebase() {
-        System.out.println("Checckpoint1");
-        CollectionReference collectionReference = db.collection("Posts");
-
-        collectionReference.orderBy("date", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
-                if(error!=null) {
-                    Log.e("Firestore Error", error.getMessage());
-                    Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-                System.out.println("Checckpoint2");
-
-
-                if (queryDocumentSnapshots != null) {
-                    for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                        System.out.println("forun icine girmis mi");
-                        Map<String,Object> data = snapshot.getData();
-
-                        //String postId = (String) data.get("postId");
-                        String sharerId = (String) data.get("sharerId");
-                        int likeCount = (int) data.get("likeCount");
-                        //boolean isAnonymous = (boolean) data.get("isAnonymous");
-                        //String photoUrl = (String) data.get("photoUrl");
-                        String postDescription = (String) data.get("postDescription");
-                        //ArrayList<Comment> comments = (ArrayList<Comment>) data.get("comments");
-                        //Date timestamp = (Date) data.get("timestamp");
-                        //Post post = new Post(postId, sharerId, likeCount, isAnonymous, photoUrl, postDescription, comments, timestamp);
-                        //Post post = new Post(sharerId,likeCount,postDescription);
-
-                        Post post = new Post();
-
-
-
-                        postArrayList.add(post);
-                    }
-                    System.out.println("Checckpoint3");
-                    System.out.println(postArrayList);
-
-                    postAdapter.notifyDataSetChanged();
-                    System.out.println("Checckpoint4");
-
-                }
-            }
-        });
-    }*/
     private void loadPostsFromFirebase() {
         System.out.println("Checkpoint1");
         CollectionReference collectionReference = db.collection("Posts");
@@ -155,9 +109,6 @@ public class MainActivity extends AppCompatActivity implements OnPostClickListen
             }
         });
     }
-
-
-
 
     private void onSideMenuItemClick() {
         // Handle the click event for side menu items

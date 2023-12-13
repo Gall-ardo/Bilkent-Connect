@@ -1,49 +1,106 @@
 package com.hao.bilkentconnect;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.hao.bilkentconnect.ModelClasses.Comment;
+import com.hao.bilkentconnect.ModelClasses.User;
+import com.hao.bilkentconnect.databinding.ActivityProfilePageBinding;
 import com.hao.bilkentconnect.ui.login.LoginActivity;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ProfilePage extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
+    ActivityProfilePageBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_page);
+        binding = ActivityProfilePageBinding.inflate(getLayoutInflater());
+        View viewRoot = binding.getRoot();
+        setContentView(viewRoot);
+
+
         firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+
+            db.collection("Users").document(userId).get().addOnSuccessListener(documentSnapshot -> {
+                if (documentSnapshot.exists()) {
+                    User user = documentSnapshot.toObject(User.class);
+
+                    if (user != null) {
+                        binding.userMailText.setText(user.getEmail());
+                        binding.userNameText.setText(user.getUsername());
+                        binding.userInfo.setText(user.getBio());
+
+                        if (user.getProfilePhoto() != null) {
+                            Picasso.get().load(user.getProfilePhoto()).into(binding.UserImage);
+                        }
+                    }
+                }
+            }).addOnFailureListener(e -> {
+                Toast.makeText(ProfilePage.this, "Error loading user info", Toast.LENGTH_SHORT).show();
+            });
+        }
     }
+
 
     public void goToMainPage(View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void goToEditProfilePage(View view){
         Intent intent = new Intent(this, EditProfilePage.class);
         startActivity(intent);
+        finish();
     }
 
     public void goToYourPostsPage(View view){
         Intent intent = new Intent(this, OwnPostPage.class);
         startActivity(intent);
+        finish();
+
     }
 
     public void goToSavedPostsPage(View view){
         Intent intent = new Intent(this, SavedPostPages.class);
         startActivity(intent);
+        finish();
+
     }
 
     public void goToSecurityPage(View view){
         Intent intent = new Intent(this, ChangePasswordPage.class);
         startActivity(intent);
+        finish();
+
     }
 
     public void goToLogOutPage(View view){

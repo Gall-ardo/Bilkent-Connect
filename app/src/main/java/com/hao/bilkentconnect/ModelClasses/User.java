@@ -7,18 +7,20 @@ public class User {
     private String userId;
     private String email;
     private String username;
-
-
     private String profilePhoto;
     private ArrayList<Post> savedPosts;
     private ArrayList<Post> sharedPosts;
     private ArrayList<User> friends;
     private ArrayList<Product> products;
     private ArrayList<Chat> chats;
-    private String biography;
+    private String bio;
 
     // Constructor
     public User() {
+        userId = "id dedigin";
+        email = "email dedigin";
+        username = "username dedigin";
+        bio = "biography dedigin";
         // Initialize the ArrayLists
         savedPosts = new ArrayList<>();
         sharedPosts = new ArrayList<>();
@@ -37,7 +39,7 @@ public class User {
         this.products = new ArrayList<>();
         this.chats = new ArrayList<>();
         this.profilePhoto = "";
-        this.biography = "";
+        this.bio = "";
     }
 
     // Getters and Setters
@@ -71,8 +73,12 @@ public class User {
     }
 
     public void setProfilePhoto(String profilePhoto) {
+        if(profilePhoto == "default_profile_photo_url"){
+            profilePhoto = null;
+        }
         // TODO: Implement method logic
         this.profilePhoto = profilePhoto;
+
     }
 
     public ArrayList<Post> getSavedPosts() {
@@ -102,12 +108,12 @@ public class User {
 
     public String getBio() {
         // TODO: Implement method logic
-        return biography;
+        return bio;
     }
 
     public void setBio(String biography) {
         // TODO: Implement method logic
-        this.biography = biography;
+        this.bio = biography;
     }
 
     public ArrayList<Post> getSharedPosts() {

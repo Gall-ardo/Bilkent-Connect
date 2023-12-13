@@ -35,19 +35,19 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/user_imageView"
+        android:id="@+id/UserImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="8dp"
         android:src="@drawable/cropped_profile_photo"
-        app:layout_constraintBottom_toTopOf="@+id/user_nametextView"
+        app:layout_constraintBottom_toTopOf="@+id/userNameText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/user_nametextView"
+        android:id="@+id/userNameText"
         android:layout_width="235dp"
         android:layout_height="37dp"
         android:fontFamily="@font/ubuntu_bold"
@@ -62,7 +62,7 @@
         app:layout_constraintVertical_bias="0.35"></TextView>
 
     <TextView
-        android:id="@+id/user_mail_textView"
+        android:id="@+id/userMailText"
         android:layout_width="317dp"
         android:layout_height="29dp"
         android:layout_marginTop="12dp"
@@ -72,10 +72,10 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_nametextView" />
+        app:layout_constraintTop_toBottomOf="@+id/userNameText" />
 
     <TextView
-        android:id="@+id/user_info"
+        android:id="@+id/userInfo"
         android:layout_width="343dp"
         android:layout_height="81dp"
         android:layout_marginTop="48dp"
@@ -84,7 +84,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_nametextView" />
+        app:layout_constraintTop_toBottomOf="@+id/userNameText" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -96,7 +96,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/user_nametextView">
+        app:layout_constraintTop_toTopOf="@+id/userNameText">
 
 
         <ImageView
@@ -139,7 +139,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_info">
+        app:layout_constraintTop_toBottomOf="@+id/userInfo">
 
 
         <ImageView
@@ -180,7 +180,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_info">
+        app:layout_constraintTop_toBottomOf="@+id/userInfo">
 
         <ImageView
             android:layout_width="40dp"
@@ -221,7 +221,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_info">
+        app:layout_constraintTop_toBottomOf="@+id/userInfo">
 
 
         <ImageView
@@ -263,7 +263,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_info">
+        app:layout_constraintTop_toBottomOf="@+id/userInfo">
 
 
         <ImageView
