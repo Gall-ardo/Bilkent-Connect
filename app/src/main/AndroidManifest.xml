@@ -18,6 +18,15 @@
         android:theme="@style/Theme.BilkentConnect"
         tools:targetApi="31">
         <activity
+            android:name=".ProfilePageForOthers"
+            android:exported="false" />
+        <activity
+            android:name=".SecondHandMain"
+            android:exported="true" />
+        <activity
+            android:name=".InnerChat"
+            android:exported="true" />
+        <activity
             android:name=".PostView"
             android:exported="true" />
         <activity
