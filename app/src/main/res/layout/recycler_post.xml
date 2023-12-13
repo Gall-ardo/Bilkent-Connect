@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/cropped_profile_photo" />
+        app:srcCompat="@drawable/profile_icon" />
 
     <TextView
         android:id="@+id/topUsernameText"
@@ -60,11 +60,11 @@
 
     <ImageView
         android:id="@+id/postImage"
-        android:layout_width="363dp"
+        android:layout_width="match_parent"
         android:layout_height="221dp"
         android:layout_marginTop="70dp"
         android:layout_marginBottom="150dp"
-        android:background="@drawable/basys_sh"
+        android:background="@color/backgroundBlue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

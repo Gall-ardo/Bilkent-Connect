@@ -19,25 +19,25 @@
         tools:targetApi="31">
         <activity
             android:name=".PostView"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".SecurityPage"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".OwnPostPage"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".SavedPostPages"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".SavedPostsPage"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ProfilePage"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MainFlowPage"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Register"
             android:exported="true" />
