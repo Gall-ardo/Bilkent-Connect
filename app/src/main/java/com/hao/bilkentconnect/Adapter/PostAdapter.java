@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hao.bilkentconnect.ModelClasses.Post;
+import com.hao.bilkentconnect.OnPostClickListener;
 import com.hao.bilkentconnect.databinding.RecyclerPostBinding;
 import com.squareup.picasso.Picasso;
 
@@ -16,8 +17,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     private ArrayList<Post> posts;
 
-    public PostAdapter(ArrayList<Post> posts) {
+    private OnPostClickListener listener;
+
+    public PostAdapter(ArrayList<Post> posts, OnPostClickListener listener) {
         this.posts = posts;
+        this.listener = listener;
     }
 
     @NonNull
@@ -31,11 +35,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         holder.binding.descriptionText.setText(posts.get(position).postDescription);
         holder.binding.topUsernameText.setText(posts.get(position).sharerId);
-        //holder.binding.profilePicture.setImageURI();
-        //Picasso.get().load(postArrayList.get(position).downloadUrl).into(holder.recyclerRowBinding.recyclerviewRowImageview);
         Picasso.get().load(posts.get(position).photoUrl).into(holder.binding.postImage);
 
-        //holder.binding.postImage.;
+        holder.binding.commentButton.setOnClickListener(v -> listener.onPostClick(posts.get(position)));
 
     }
 

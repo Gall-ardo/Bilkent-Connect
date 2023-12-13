@@ -33,7 +33,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnPostClickListener {
 
     private ActivityMainBinding binding;
     private ConstraintLayout mainLayout;
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        postAdapter = new PostAdapter(postArrayList);
+        postAdapter = new PostAdapter(postArrayList, this);
         binding.recyclerView.setAdapter(postAdapter);
 
 
@@ -227,5 +227,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onPostClick(Post post) {
+        Intent intent = new Intent(this, PostView.class);
+        //intent.putExtra("post_data", post); // Assuming Post class implements Serializable or Parcelable
+        startActivity(intent);
+    }
 
 }
