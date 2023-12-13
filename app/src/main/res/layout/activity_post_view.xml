@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PostView"
+    android:background="@color/backgroundBlue"
+    >
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:background="@drawable/linear_gradient_top"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButtonImage"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="12dp"
+            android:onClick="goToMainPage"
+            android:layout_marginLeft="5dp"
+            app:srcCompat="@drawable/arrow_vector"
+            />
+
+        <TextView
+            android:id="@+id/postViewText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Sharing Posts"
+            android:textColor="@color/menuGray"
+            android:textSize="28sp"
+            />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <LinearLayout
+        android:id="@+id/profileLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        >
+            <ImageView
+                android:id="@+id/profilePicture"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/cropped_profile_photo"
+                tools:layout_editor_absoluteX="49dp"
+                tools:layout_editor_absoluteY="176dp" />
+
+            <TextView
+                android:id="@+id/topUsernameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ubuntu_bold"
+                android:text="Username"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/profilePicture"
+                tools:layout_editor_absoluteY="188dp" />
+
+            <TextView
+                android:id="@+id/connectText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ubuntu_bold"
+                android:text="Connect"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="140dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/topUsernameText"
+                tools:layout_editor_absoluteY="188dp" />
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/profileLayout" />
+
+
+    <ImageView
+        android:id="@+id/postImage"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/basys_sh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2"></ImageView>
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/postImage" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
+
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="Username free basys! Just kidding"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        tools:layout_editor_absoluteX="67dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/commentText"
+            android:layout_width="0dp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_comment_bar"
+            android:ems="10"
+            android:hint="enter comment"
+            android:inputType="textPersonName"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/ghost"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/circle"
+            android:onClick="shareAnonymousPost"
+            android:src="@drawable/ghost_icon_white" />
+
+        <ImageView
+            android:id="@+id/shareCommentButton"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/circle"
+            android:onClick="shareRegularPost"
+            android:src="@drawable/send_button" />
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCommentView"
+        android:layout_width="match_parent"
+        android:layout_height="317dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
+        app:layout_constraintTop_toBottomOf="@+id/view3"
+        tools:layout_editor_absoluteX="1dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
