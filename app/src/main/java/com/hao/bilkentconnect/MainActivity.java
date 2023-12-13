@@ -139,18 +139,14 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("Firestore Error", error.getMessage());
                     Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                 }
-                System.out.println("Checkpoint2");
 
                 if (queryDocumentSnapshots != null) {
                     postArrayList.clear(); // Clear existing data
                     for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                        System.out.println("Inside for loop");
                         Post post = snapshot.toObject(Post.class);
                         postArrayList.add(post);
                     }
-                    System.out.println("Checkpoint3");
                     postAdapter.notifyDataSetChanged();
-                    System.out.println("Checkpoint4");
                 }
             }
         });

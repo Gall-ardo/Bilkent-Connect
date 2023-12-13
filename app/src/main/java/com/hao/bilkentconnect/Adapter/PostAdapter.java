@@ -31,11 +31,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         holder.binding.descriptionText.setText(posts.get(position).postDescription);
         holder.binding.topUsernameText.setText(posts.get(position).sharerId);
-        //holder.binding.profilePicture.setImageURI();
-        //Picasso.get().load(postArrayList.get(position).downloadUrl).into(holder.recyclerRowBinding.recyclerviewRowImageview);
         Picasso.get().load(posts.get(position).photoUrl).into(holder.binding.postImage);
-
-        //holder.binding.postImage.;
 
     }
 
