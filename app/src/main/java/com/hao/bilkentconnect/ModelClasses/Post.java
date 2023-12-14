@@ -15,6 +15,13 @@ public class Post {
     public ArrayList<Comment> comments;
     public Date timestamp;
 
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public String getSharerId() {
+        return sharerId;
+    }
 
     public Post(String postId, String sharerId, String photoUrl, String postDescription, boolean isAnonymous) {
         this.postId = postId;
@@ -28,9 +35,10 @@ public class Post {
     public Post(String sharerId, String photoUrl, String postDescription, boolean isAnonymous) {
         this.sharerId = sharerId;
         this.photoUrl = photoUrl;
+        this.postId = null;
         this.postDescription = postDescription;
         this.likeCount = 0;
-        this.isAnonymous = false;
+        this.isAnonymous = isAnonymous;
         this.comments = new ArrayList<>();
     }
 

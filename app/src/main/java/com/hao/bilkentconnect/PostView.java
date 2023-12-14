@@ -33,6 +33,7 @@ import com.hao.bilkentconnect.ModelClasses.Post;
 import com.hao.bilkentconnect.ModelClasses.User;
 import com.hao.bilkentconnect.databinding.ActivityMainBinding;
 import com.hao.bilkentconnect.databinding.ActivityPostViewBinding;
+import com.squareup.picasso.Picasso;
 
 import org.checkerframework.checker.units.qual.C;
 
@@ -66,6 +67,8 @@ public class PostView extends AppCompatActivity {
 
         postId = getIntent().getStringExtra("post_id"); // Retrieve post ID
 
+        loadPostDetails(postId); // New method to load post details
+
 
         commentArrayList = new ArrayList<>();
         loadCommentsFromFirebase();
@@ -74,6 +77,28 @@ public class PostView extends AppCompatActivity {
         binding.recyclerCommentView.setLayoutManager(new LinearLayoutManager(this));
         commentAdapter = new CommentAdapter(commentArrayList);
         binding.recyclerCommentView.setAdapter(commentAdapter);
+    }
+    private void loadPostDetails(String postId) {
+        firebaseFirestore.collection("Posts").document(postId).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                Post post = documentSnapshot.toObject(Post.class);
+                if (post != null) {
+                    binding.descriptionText.setText(post.getPostDescription());
+                    Picasso.get().load(post.getPhotoUrl()).into(binding.postImage);
+
+                    // Fetch the username using the sharerId
+                    firebaseFirestore.collection("Users").document(post.getSharerId())
+                            .get().addOnSuccessListener(userSnapshot -> {
+                                if (userSnapshot.exists()) {
+                                    User user = userSnapshot.toObject(User.class);
+                                    if (user != null) {
+                                        binding.topUsernameText.setText(user.getUsername());
+                                    }
+                                }
+                            });
+                }
+            }
+        }).addOnFailureListener(e -> Toast.makeText(this, "Error loading post", Toast.LENGTH_SHORT).show());
     }
 
     public void goToMainPage(View view) {
