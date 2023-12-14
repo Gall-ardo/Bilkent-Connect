@@ -4,4 +4,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MealCommentActivity"/>
+    android:background="@color/backgroundBlue"
+    tools:context=".MealCommentActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:background="@drawable/linear_gradient_top"
+
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButtonImage"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="12dp"
+            android:onClick="goBackToBccPage"
+            app:srcCompat="@drawable/arrow_vector" />
+
+        <TextView
+            android:id="@+id/mealCommentsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Meal Comments"
+            android:textColor="@color/menuGray"
+            android:textSize="28sp"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        >
+
+        <TextView
+            android:id="@+id/mealTimeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Öğlen Yemeği/Lunch"
+            android:textColor="#EF9934"
+            android:textSize="15dp"
+
+
+            />
+
+        <TextView
+            android:id="@+id/rateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Rate: 4.3/5"
+            android:textColor="#20A090"
+            android:textSize="15dp"
+
+
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/commentText"
+            android:layout_width="0dp"
+            android:layout_height="40sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_comment_bar"
+            android:ems="10"
+            android:hint="enter comment"
+            android:inputType="textPersonName"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/shareCommentButton"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/circle"
+            android:onClick="shareRegularPost"
+            android:src="@drawable/send_button" />
+
+
+    </LinearLayout>
+
+    <RatingBar
+        android:id="@+id/mealRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mealCommentRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/mealRatingBar"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout9"
+        tools:layout_editor_absoluteX="1dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
