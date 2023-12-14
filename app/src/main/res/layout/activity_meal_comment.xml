@@ -122,8 +122,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mealCommentRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:layout_marginBottom="1dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/mealRatingBar"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout9"
         tools:layout_editor_absoluteX="1dp" />
