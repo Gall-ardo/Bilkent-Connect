@@ -32,6 +32,8 @@ import java.util.ArrayList;
 
 public class SecondHandMain extends AppCompatActivity implements OnProductClickListener{
 
+    // gercek olan
+
     private ArrayList<Product> productArrayList;
     private ProductAdapter productAdapter;
     private ActivitySecondHandMainBinding binding;
@@ -140,7 +142,12 @@ public class SecondHandMain extends AppCompatActivity implements OnProductClickL
     @Override
     public void onProductClick(Product product) {
         Intent intent = new Intent(this, PostView.class);
-        intent.putExtra("product_id", product.getProductId()); // Pass the product ID
+        intent.putExtra("productId", product.getProductId()); // Pass the product ID
+        startActivity(intent);
+    }
+
+    public void goToAdvertisementPage(View view){
+        Intent intent = new Intent(this, ShareAnnoucementScreen.class);
         startActivity(intent);
     }
 }

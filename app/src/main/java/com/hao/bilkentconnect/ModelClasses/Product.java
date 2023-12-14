@@ -1,6 +1,9 @@
 package com.hao.bilkentconnect.ModelClasses;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Product implements Serializable {
     // Attributes
@@ -8,27 +11,37 @@ public class Product implements Serializable {
     private String productName;
     private String image;
     private String description;
-    private int seller; // Assuming 'seller' is represented by an integer ID
+    private String seller; // Assuming 'seller' is represented by an integer ID
     private int price;
+    public Date timestamp;
+
 
     // Constructor
-    public Product(String productName, String image, String description, int seller, int price) {
+    public Product(String productName, String image, String description, String seller, int price) {
         this.productName = productName;
         this.image = image;
         this.description = description;
         this.seller = seller;
         this.price = price;
+        this.productId = null;
+
+    }
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("productId", productId);
+        result.put("productName", productName);
+        result.put("image", image);
+        result.put("description", description);
+        result.put("seller", seller);
+        result.put("price", price);
+        result.put("timestamp", timestamp);
+        return result;
     }
 
     public String getProductId() {
         return productId;
     }
 // Methods
-
-    //Bence bu fonksiyon burda işlevsiz
-    public void contactWithSeller() {
-        // TODO: Implement method logic for contacting the seller
-    }
 
     //remove product user class'ta mevcut bu yüzden bunu sildim
 
@@ -63,11 +76,11 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public int getSeller() {
+    public String getSeller() {
         return seller;
     }
 
-    public void setSeller(int seller) {
+    public void setSeller(String seller) {
         this.seller = seller;
     }
 
@@ -77,5 +90,17 @@ public class Product implements Serializable {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 }

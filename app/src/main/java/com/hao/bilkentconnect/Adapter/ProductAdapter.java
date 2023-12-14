@@ -5,7 +5,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.hao.bilkentconnect.ModelClasses.Product;
 import com.hao.bilkentconnect.OnProductClickListener;
+import com.hao.bilkentconnect.R;
 import com.hao.bilkentconnect.databinding.RecyclerProductsBinding;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
@@ -28,10 +31,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product currentProduct = products.get(position);
-        /*holder.productsBinding.productImage.setImageURI();
-        holder.productsBinding.productTitle.setText();
-        holder.productsBinding.productPrice.setText();*/
 
+        holder.productsBinding.productTitle.setText(currentProduct.getProductName());
+        holder.productsBinding.productPrice.setText(String.valueOf(currentProduct.getPrice()));
+
+        // Load product image using Picasso
+        if (currentProduct.getImage() != null && !currentProduct.getImage().isEmpty()) {
+            Picasso.get().load(currentProduct.getImage()).into(holder.productsBinding.productImage);
+        } else {
+            // Set a default image if no image URL is available
+        }
 
 
         holder.productsBinding.productImage.setOnClickListener(v -> listener.onProductClick(currentProduct));
@@ -52,4 +61,5 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             this.productsBinding = productsBinding;
         }
     }
+
 }

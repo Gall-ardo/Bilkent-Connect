@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#B2B9BB"
+        android:onClick="selectImageAdvertisement"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp"></LinearLayout>
 
@@ -30,6 +31,7 @@
             android:layout_height="35dp"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="5dp"
+            android:onClick="goToSecondHandMain"
             app:srcCompat="@drawable/arrow_vector"
             />
 
@@ -70,6 +72,7 @@
         android:backgroundTint="#7CB5C2"
         android:fontFamily="@font/ubuntu_bold"
         android:text="Select Image"
+        android:onClick="selectImageAdvertisement"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
@@ -133,6 +136,7 @@
         android:backgroundTint="#008952"
         android:fontFamily="@font/ubuntu_bold"
         android:text="Advertise"
+        android:onClick="shareAnnouncement"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -147,6 +151,7 @@
         android:id="@+id/imageImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="selectImageAdvertisement"
         app:layout_constraintBottom_toTopOf="@+id/selectButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
