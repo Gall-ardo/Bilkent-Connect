@@ -159,6 +159,18 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout10"
         tools:layout_editor_absoluteX="1dp" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="50sp"
+        android:backgroundTint="#CB8AE3AA"
+        android:clickable="true"
+        android:onClick="goToShareAnnouncementPage"
+        android:src="@drawable/plus_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
