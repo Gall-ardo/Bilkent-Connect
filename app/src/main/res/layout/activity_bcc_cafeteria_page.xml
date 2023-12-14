@@ -20,6 +20,7 @@
             android:layout_width="60sp"
             android:layout_height="60sp"
             android:layout_marginLeft="37dp"
+            android:onClick="goToChatPage"
             android:layout_marginTop="5dp"
             app:srcCompat="@drawable/chat_icon" />
 
@@ -27,6 +28,7 @@
             android:layout_width="50sp"
             android:layout_height="50sp"
             android:layout_marginLeft="40dp"
+            android:onClick="goToSharePostActivity"
             android:layout_marginTop="10dp"
             app:srcCompat="@drawable/share_post_icon" />
 
@@ -34,6 +36,7 @@
             android:layout_width="50sp"
             android:layout_height="50sp"
             android:layout_marginLeft="40dp"
+            android:onClick="goToMainActivity"
             android:layout_marginTop="10dp"
             app:srcCompat="@drawable/home_icon" />
 
@@ -42,6 +45,7 @@
             android:layout_width="60sp"
             android:layout_height="60sp"
             android:layout_marginLeft="40dp"
+            android:onClick="goToProfilePage"
             android:layout_marginTop="7dp"
             app:srcCompat="@drawable/profile_icon" />
 
