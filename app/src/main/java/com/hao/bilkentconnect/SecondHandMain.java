@@ -1,9 +1,11 @@
 package com.hao.bilkentconnect;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +13,16 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.hao.bilkentconnect.Adapter.PostAdapter;
 import com.hao.bilkentconnect.Adapter.ProductAdapter;
 import com.hao.bilkentconnect.ModelClasses.Product;
 import com.hao.bilkentconnect.databinding.ActivityOwnHandScreenBinding;
@@ -19,14 +30,18 @@ import com.hao.bilkentconnect.databinding.ActivitySecondHandMainBinding;
 
 import java.util.ArrayList;
 
-public class SecondHandMain extends AppCompatActivity {
+public class SecondHandMain extends AppCompatActivity implements OnProductClickListener{
 
-    private ArrayList<Product> productsArrayList;
+    private ArrayList<Product> productArrayList;
     private ProductAdapter productAdapter;
     private ActivitySecondHandMainBinding binding;
     private ConstraintLayout secondHandLayout;
     private boolean isSideMenuVisible = false;
     private LinearLayout sideMenu;
+    public FirebaseFirestore db;
+    public FirebaseAuth firebaseAuth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +50,16 @@ public class SecondHandMain extends AppCompatActivity {
         setContentView(viewRoot);
 
 
-        secondHandLayout = findViewById(R.id.secondHandLayout);
-        sideMenu = findViewById(R.id.sideMenu);
+        secondHandLayout = binding.secondHandLayout;
+        sideMenu = binding.sideMenu;
+        ImageView menuIcon = binding.menuIcon;
 
-        ImageView menuIcon = findViewById(R.id.menuIcon);
+        productArrayList = new ArrayList<>();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        loadProductsFromFirebase();
+
         menuIcon.setOnClickListener(v -> toggleSideMenu());
         sideMenu.setOnClickListener(v -> onSideMenuItemClick());
         secondHandLayout.setOnClickListener(new View.OnClickListener() {
@@ -50,12 +71,34 @@ public class SecondHandMain extends AppCompatActivity {
             }
         });
 
-        productsArrayList = new ArrayList<>();
-        productsArrayList.add(new Product("basys","url","hello",2000,2000));
+        binding.recyclerViewSecondHand.setLayoutManager(new LinearLayoutManager(this));
+        productAdapter = new ProductAdapter(productArrayList, this);
+        binding.recyclerViewSecondHand.setAdapter(productAdapter);
 
-        binding.secondHandMainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        productAdapter = new ProductAdapter(productsArrayList);
-        binding.secondHandMainRecyclerView.setAdapter(productAdapter);
+    }
+
+    private void loadProductsFromFirebase() {
+        CollectionReference collectionReference = db.collection("Products");
+
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                if(error != null) {
+                    Log.e("Firestore Error", error.getMessage());
+                    Toast.makeText(SecondHandMain.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+                if (queryDocumentSnapshots != null) {
+                    productArrayList.clear(); // Clear existing data
+                    for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                        Product product = snapshot.toObject(Product.class);
+                        productArrayList.add(product);
+                    }
+                    productAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
 
     }
 
@@ -92,5 +135,12 @@ public class SecondHandMain extends AppCompatActivity {
 
         int visibility = isSideMenuVisible ? View.VISIBLE : View.INVISIBLE;
         sideMenu.setVisibility(visibility);
+    }
+
+    @Override
+    public void onProductClick(Product product) {
+        Intent intent = new Intent(this, PostView.class);
+        intent.putExtra("product_id", product.getProductId()); // Pass the product ID
+        startActivity(intent);
     }
 }

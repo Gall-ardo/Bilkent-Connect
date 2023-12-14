@@ -1,7 +1,10 @@
 package com.hao.bilkentconnect.ModelClasses;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     // Attributes
+    private String productId;
     private String productName;
     private String image;
     private String description;
@@ -17,7 +20,10 @@ public class Product {
         this.price = price;
     }
 
-    // Methods
+    public String getProductId() {
+        return productId;
+    }
+// Methods
 
     //Bence bu fonksiyon burda işlevsiz
     public void contactWithSeller() {

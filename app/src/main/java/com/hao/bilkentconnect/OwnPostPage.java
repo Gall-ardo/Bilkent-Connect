@@ -38,4 +38,11 @@ public class OwnPostPage extends AppCompatActivity implements OnPostClickListene
         intent.putExtra("post_id", post.getPostId()); // Pass the post ID
         startActivity(intent);
     }
+
+    public void goToProfilePage(View view){
+        Intent intent = new Intent(this, ProfilePage.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

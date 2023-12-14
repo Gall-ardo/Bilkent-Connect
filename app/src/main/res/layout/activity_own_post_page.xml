@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="60sp"
         android:background="@drawable/linear_gradient_top"
-
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 

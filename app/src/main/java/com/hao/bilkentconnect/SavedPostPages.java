@@ -40,4 +40,11 @@ public class SavedPostPages extends AppCompatActivity implements OnPostClickList
         intent.putExtra("post_id", post.getPostId()); // Pass the post ID
         startActivity(intent);
     }
+
+    public void goToProfilePage(View view){
+        Intent intent = new Intent(this, ProfilePage.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

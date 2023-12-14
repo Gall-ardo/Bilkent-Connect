@@ -29,8 +29,8 @@ public class OwnHandScreen extends AppCompatActivity {
 
         productsArrayList = new ArrayList<>();
 
-        binding.ownHandRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        /*binding.ownHandRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         productAdapter = new ProductAdapter(productsArrayList);
-        binding.ownHandRecyclerView.setAdapter(productAdapter);
+        binding.ownHandRecyclerView.setAdapter(productAdapter);*/
     }
 }
