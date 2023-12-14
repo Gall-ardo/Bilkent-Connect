@@ -61,7 +61,6 @@ public class ProductDetailScreen extends AppCompatActivity {
             }
         }).addOnFailureListener(e -> Toast.makeText(this, "Error loading post", Toast.LENGTH_SHORT).show());
     }
-
     public void goToSecondHandMain(View view) {
         Intent intent = new Intent(this, SecondHandMain.class);
         startActivity(intent);

@@ -141,8 +141,9 @@ public class MainActivity extends AppCompatActivity implements OnPostClickListen
     }
 
     public void gotoChatPage() {
-        Intent intent = new Intent(this, ChatActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, ChatActivity.class);
+        //startActivity(intent);
+        Toast.makeText(this, "Will be implmeented ssoonnn", Toast.LENGTH_SHORT).show();
     }
     public void goToSharePostActivity(View view){
         Intent intent = new Intent(this, SharePostsActivity.class);
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements OnPostClickListen
 
     }
     public void goToSecondHandSalePage(View view){
-        Intent intent = new Intent(this, SecondHandMainScreen.class);
+        Intent intent = new Intent(this, SecondHandMain.class);
         startActivity(intent);
     }
 

@@ -95,6 +95,7 @@ public class SecondHandMain extends AppCompatActivity implements OnProductClickL
                     for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
                         Product product = snapshot.toObject(Product.class);
                         productArrayList.add(product);
+                        //System.out.println("snapshot: " + snapshot.getData());
                     }
                     productAdapter.notifyDataSetChanged();
                 }

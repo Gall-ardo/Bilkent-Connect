@@ -71,8 +71,12 @@ public class ShareAnnoucementScreen extends AppCompatActivity {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(!price.matches("[0-9]+")){ // so cool -Arda
+            Toast.makeText(this, "Please enter a valid price", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        if (imageData != null) {
+        /*if (imageData != null) {
             UUID uuid = UUID.randomUUID();
             final String imageName = "images/" + uuid + ".jpg";
 
@@ -84,9 +88,7 @@ public class ShareAnnoucementScreen extends AppCompatActivity {
                     String userId = firebaseUser.getUid();
 
                     // Create a new Product object
-                    //Product newProduct = new Product(userId, downloadUrl, description);
-                    Product newProduct = new Product(title, downloadUrl, description, userId, Integer.parseInt(userId));
-
+                    Product newProduct = new Product(title, downloadUrl, description, userId, Integer.parseInt(price));
                     // Add product to Firebase
                     firebaseFirestore.collection("Products").add(newProduct.toMap()).addOnSuccessListener(documentReference -> {
                         String generatedProductId = documentReference.getId(); // Get the generated product ID
@@ -105,6 +107,37 @@ public class ShareAnnoucementScreen extends AppCompatActivity {
 
             }).addOnFailureListener(e ->
                     Toast.makeText(ShareAnnoucementScreen.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
+        } else {
+            Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show();
+        }*/
+        if (imageData != null) {
+            UUID uuid = UUID.randomUUID();
+            final String imageName = "images/" + uuid + ".jpg";
+
+            storageReference.child(imageName).putFile(imageData).addOnSuccessListener(taskSnapshot -> {
+                StorageReference newReference = FirebaseStorage.getInstance().getReference(imageName);
+                newReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String downloadUrl = uri.toString();
+                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                    String userId = firebaseUser.getUid();
+
+                    Product newProduct = new Product(title, downloadUrl, description, userId, Integer.parseInt(price));
+
+                    firebaseFirestore.collection("Products").add(newProduct.toMap()).addOnSuccessListener(documentReference -> {
+                        String generatedProductId = documentReference.getId();
+                        newProduct.setProductId(generatedProductId);
+
+                        // Update the product document with the generated ID
+                        firebaseFirestore.collection("Products").document(generatedProductId)
+                                .update("productId", generatedProductId);
+
+                    }).addOnFailureListener(e -> {
+                        Toast.makeText(ShareAnnoucementScreen.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    });
+                });
+            }).addOnFailureListener(e -> {
+                Toast.makeText(ShareAnnoucementScreen.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            });
         } else {
             Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show();
         }
