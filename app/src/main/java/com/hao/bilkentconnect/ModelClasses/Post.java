@@ -154,4 +154,8 @@ public class Post {
     public String getPostDescription() {
         return postDescription;
     }
+
+    public void setPostId(String generatedPostId) {
+        this.postId = generatedPostId;
+    }
 }

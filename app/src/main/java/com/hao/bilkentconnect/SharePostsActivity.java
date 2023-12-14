@@ -74,7 +74,7 @@ public class SharePostsActivity extends AppCompatActivity {
         sharePost(view, false);
     }
 
-    public void sharePost(View view, boolean isAnonymous) {
+    /*public void sharePost(View view, boolean isAnonymous) {
         if (imageData != null) {
 
             //universal unique id
@@ -92,10 +92,12 @@ public class SharePostsActivity extends AppCompatActivity {
 
                             String downloadUrl = uri.toString();
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                            String userId = firebaseUser.getUid(); // Get the user's ID
+                            String userId = firebaseUser.getUid();
                             String comment = binding.commentText.getText().toString();
 
+                            //Post newPost = new Post(postId,userId, downloadUrl, comment, isAnonymous);
                             Post newPost = new Post(userId, downloadUrl, comment, isAnonymous);
+
                             Map<String, Object> postValues = newPost.toMap();
 
                             // Add post to Firebase
@@ -128,6 +130,46 @@ public class SharePostsActivity extends AppCompatActivity {
 
         }
 
+    }*/
+    public void sharePost(View view, boolean isAnonymous) {
+        if (imageData != null) {
+
+            UUID uuid = UUID.randomUUID();
+            final String imageName = "images/" + uuid + ".jpg";
+
+            storageReference.child(imageName).putFile(imageData).addOnSuccessListener(taskSnapshot -> {
+
+                StorageReference newReference = FirebaseStorage.getInstance().getReference(imageName);
+                newReference.getDownloadUrl().addOnSuccessListener(uri -> {
+
+                    String downloadUrl = uri.toString();
+                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                    String userId = firebaseUser.getUid();
+                    String comment = binding.commentText.getText().toString();
+
+                    // Create a new Post object without specifying the ID
+                    Post newPost = new Post(userId, downloadUrl, comment, isAnonymous);
+
+                    // Add post to Firebase and get the generated document ID
+                    firebaseFirestore.collection("Posts").add(newPost.toMap()).addOnSuccessListener(documentReference -> {
+                        String generatedPostId = documentReference.getId(); // Get the generated post ID
+                        newPost.setPostId(generatedPostId); // Set the post ID in the Post object
+
+                        // Optionally, update the post document with the generated ID
+                        firebaseFirestore.collection("Posts").document(generatedPostId).update("postId", generatedPostId);
+
+                        Intent intent = new Intent(SharePostsActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+
+                    }).addOnFailureListener(e ->
+                            Toast.makeText(SharePostsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
+                });
+
+            }).addOnFailureListener(e ->
+                    Toast.makeText(SharePostsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
+
+        }
     }
     // probably problematic
     public void selectImage(View view) {
