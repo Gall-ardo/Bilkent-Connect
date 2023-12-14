@@ -184,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements OnPostClickListen
         intent.putExtra("post_id", post.getPostId()); // Pass the post ID
         startActivity(intent);
     }
+    
 
 
 }

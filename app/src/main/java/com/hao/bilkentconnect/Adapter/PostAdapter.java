@@ -2,10 +2,14 @@ package com.hao.bilkentconnect.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.hao.bilkentconnect.ModelClasses.Post;
 import com.hao.bilkentconnect.ModelClasses.User;
@@ -62,6 +66,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 }
             });
         }
+
+        holder.binding.saveButton.setOnClickListener(v -> {
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentUser != null) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                String userId = currentUser.getUid();
+                // Add this post to the user's saved posts
+                db.collection("Users").document(userId)
+                        .update("savedPosts", FieldValue.arrayUnion(currentPost.getPostDescription())) // Assuming post ID is available
+                        .addOnSuccessListener(aVoid ->
+                                Toast.makeText(holder.itemView.getContext(), "Post saved!", Toast.LENGTH_SHORT).show())
+                        .addOnFailureListener(e ->
+                                Toast.makeText(holder.itemView.getContext(), "Failed to save post: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            }
+        });
 
         holder.binding.descriptionText.setText(currentPost.postDescription);
         Picasso.get().load(currentPost.photoUrl).into(holder.binding.postImage);

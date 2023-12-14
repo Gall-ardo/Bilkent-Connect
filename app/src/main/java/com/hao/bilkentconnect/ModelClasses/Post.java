@@ -13,6 +13,11 @@ public class Post {
     public String photoUrl;
     public String postDescription;
     public ArrayList<Comment> comments;
+
+    public String getPostDescription() {
+        return postDescription;
+    }
+
     public Date timestamp;
 
     public String getPostId() {
