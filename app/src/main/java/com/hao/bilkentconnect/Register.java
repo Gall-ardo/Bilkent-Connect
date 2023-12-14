@@ -100,8 +100,7 @@ public class Register extends AppCompatActivity {
             FirebaseUser firebaseUser = mAuth.getCurrentUser();
             if (firebaseUser != null) {
                 User newUser = new User(firebaseUser.getUid(), email, userName);
-                newUser.setBio("You can add Bio!"); // Default bio
-                newUser.setProfilePhoto("default_profile_photo_url");
+                //newUser.setProfilePhoto("https://firebasestorage.googleapis.com/v0/b/bilkentconnect-344eb.appspot.com/o/default%20pp.png?alt=media&token=c8bba3a4-34aa-4122-b909-cffc7026128a");
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 db.collection("Users").document(firebaseUser.getUid()).set(newUser)

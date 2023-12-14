@@ -4,31 +4,32 @@ import java.util.ArrayList;
 
 public class User {
     // Attributes
-    private String userId;
+    private String userId; // to reach unique user in database
     private String email;
     private String username;
+    private String bio;
     private String profilePhoto;
     private ArrayList<Post> savedPosts;
     private ArrayList<Post> sharedPosts;
     private ArrayList<User> friends;
     private ArrayList<Product> products;
     private ArrayList<Chat> chats;
-    private String bio;
 
     // Constructor
     public User() {
-        userId = "id dedigin";
-        email = "email dedigin";
-        username = "username dedigin";
-        bio = "biography dedigin";
+        userId = "sample user id";
+        email = "sample email";
+        username = "sample username";
+        bio = "sample bio";
+        //profilePhoto = "sample profile photo url ";
         // Initialize the ArrayLists
         savedPosts = new ArrayList<>();
         sharedPosts = new ArrayList<>();
         friends = new ArrayList<>();
         products = new ArrayList<>();
         chats = new ArrayList<>();
-        // TODO: Add any additional initialization here
     }
+
     public User(String userId, String email, String username) {
         this.userId = userId;
         this.email = email;
@@ -38,8 +39,8 @@ public class User {
         this.friends = new ArrayList<>();
         this.products = new ArrayList<>();
         this.chats = new ArrayList<>();
-        this.profilePhoto = "";
-        this.bio = "";
+        this.profilePhoto = "https://firebasestorage.googleapis.com/v0/b/bilkentconnect-344eb.appspot.com/o/default%20pp.png?alt=media&token=c8bba3a4-34aa-4122-b909-cffc7026128a";
+        this.bio = "You can add bio in edit profile page!";
     }
 
     // Getters and Setters
@@ -47,9 +48,6 @@ public class User {
         // TODO: Implement method logic
         return userId;
     }
-
-
-
     public String getEmail() {
         // TODO: Implement method logic
         return email;
@@ -64,9 +62,6 @@ public class User {
         // TODO: Implement method logic
         this.username = username;
     }
-
-
-
     public String getProfilePhoto() {
         // TODO: Implement method logic
         return profilePhoto;

@@ -14,15 +14,8 @@ public class Post {
     public String postDescription;
     public ArrayList<Comment> comments;
 
-    public String getPostDescription() {
-        return postDescription;
-    }
-
     public Date timestamp;
 
-    public String getPostId() {
-        return postId;
-    }
 
     public Post(String sharerId, String photoUrl, String postDescription, boolean isAnonymous) {
         this.sharerId = sharerId;
@@ -119,17 +112,11 @@ public class Post {
 
     }
 
-    public void savePost() {
-        // TODO: Implement method logic
-    }
-
-
-
-
 
     public void increaseLikeCount() {
         likeCount++;
-        // TODO: Additional implementation if needed
+        // butonu devre disi birak
+
     }
 
     public void decreaseLikeCount() {
@@ -141,7 +128,6 @@ public class Post {
 
     @Override
     public String toString() {
-        // TODO: Implement the toString method
         return "Post{" +
                 "postId='" + postId + '\'' +
                 ", sharerId='" + sharerId + '\'' +
@@ -154,11 +140,13 @@ public class Post {
                 '}';
     }
 
-    // Getters and Setters
-    // TODO: Add getters and setters for all attributes
-
-
     public ArrayList<Comment> getComments(){
         return comments;
+    }
+    public String getPostId() {
+        return postId;
+    }
+    public String getPostDescription() {
+        return postDescription;
     }
 }
