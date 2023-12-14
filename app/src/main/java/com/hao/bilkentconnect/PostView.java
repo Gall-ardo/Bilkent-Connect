@@ -92,7 +92,13 @@ public class PostView extends AppCompatActivity {
                                 if (userSnapshot.exists()) {
                                     User user = userSnapshot.toObject(User.class);
                                     if (user != null) {
-                                        binding.topUsernameText.setText(user.getUsername());
+                                        if (post.isAnonymous) {
+                                            binding.topUsernameText.setText("Ghost");
+                                            Picasso.get().load(R.drawable.ghost_icon).into(binding.profilePicture);
+                                        }
+                                        else {
+                                            binding.topUsernameText.setText(user.getUsername());
+                                        }
                                     }
                                 }
                             });
