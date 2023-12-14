@@ -39,11 +39,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         holder.commentsBinding.commentText.setText(comment.getCommentText());
 
         if (comment.isAnonymous()) {
-            holder.commentsBinding.profilePicture.setVisibility(View.GONE); // Hide profile picture for anonymous comments
+            holder.commentsBinding.profilePicture.setVisibility(View.VISIBLE); // Hide profile picture for anonymous comments
+            holder.commentsBinding.profilePicture.setImageResource(R.drawable.ghost_icon);
+            holder.commentsBinding.usernameText.setText("Ghost");
         } else {
             holder.commentsBinding.profilePicture.setVisibility(View.VISIBLE);
             holder.commentsBinding.profilePicture.setImageResource(R.drawable.cropped_profile_photo);
-
         }
 
     }
