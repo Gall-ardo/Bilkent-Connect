@@ -178,4 +178,18 @@ public class BccCafeteriaPage extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void gotoChatPage() {
+        Intent intent = new Intent(this, ChatActivity.class);
+        startActivity(intent);
+    }
+    public void goToSharePostActivity(View view){
+        Intent intent = new Intent(this, SharePostsActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToProfilePage(View view){
+        Intent intent = new Intent(this, ProfilePage.class);
+        startActivity(intent);
+    }
 }
