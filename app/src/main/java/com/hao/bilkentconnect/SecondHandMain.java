@@ -146,7 +146,7 @@ public class SecondHandMain extends AppCompatActivity implements OnProductClickL
         startActivity(intent);
     }
 
-    public void goToAdvertisementPage(View view){
+    public void goToShareAnnouncementPage(View view){
         Intent intent = new Intent(this, ShareAnnoucementScreen.class);
         startActivity(intent);
     }
