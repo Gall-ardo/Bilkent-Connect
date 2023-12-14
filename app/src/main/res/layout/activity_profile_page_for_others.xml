@@ -4,6 +4,170 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundBlue"
     tools:context=".ProfilePageForOthers">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:background="@drawable/linear_gradient_top"
+
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButtonImage"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="12dp"
+            android:onClick="goBackToMainPage"
+            app:srcCompat="@drawable/arrow_vector" />
+
+        <TextView
+            android:id="@+id/bilkentConnectText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Bilkent Connect"
+            android:textColor="@color/menuGray"
+            android:textSize="28sp"
+
+            />
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="right"
+        android:layout_marginTop="20dp"
+        android:onClick="goToProfilePage"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/cropped_profile_photo"
+         />
+
+    <TextView
+        android:id="@+id/usernameText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="Username"
+        android:textAlignment="center"
+        android:textColor="#008952"
+
+        android:textSize="28sp"
+        app:layout_constraintTop_toBottomOf="@+id/profileImage"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="Biography part"
+        android:textAlignment="center"
+        android:textColor="#414141"
+        android:id="@+id/biographyText"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/usernameText"
+        />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/biographyText"
+        android:background="#000000"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:onClick="goToEditProfilePage"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        >
+
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@drawable/connect_button_image"
+            tools:layout_editor_absoluteX="67dp"
+            tools:layout_editor_absoluteY="486dp"></ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="Connect"
+            android:textAlignment="center"
+            android:textColor="#008952"
+            android:textSize="30sp"></TextView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="123dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/right_vector" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:onClick="goToChatPage"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        >
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@drawable/go_chat_button_in_profile"
+            tools:layout_editor_absoluteX="67dp"
+            tools:layout_editor_absoluteY="486dp"></ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="Message"
+            android:textAlignment="center"
+            android:textColor="#008952"
+            android:textSize="30sp"></TextView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="123dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/right_vector" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
