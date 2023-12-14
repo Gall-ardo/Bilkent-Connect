@@ -191,7 +191,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCommentView"
         android:layout_width="match_parent"
-        android:layout_height="317dp"
+        android:layout_height="0dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
