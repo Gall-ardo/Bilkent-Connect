@@ -13,16 +13,24 @@ public class Post {
     public String photoUrl;
     public String postDescription;
     public ArrayList<Comment> comments;
-
     public Date timestamp;
 
 
-    public Post(String sharerId, String photoUrl, String postDescription, boolean isAnonymous) {
+    public Post(String postId, String sharerId, String photoUrl, String postDescription, boolean isAnonymous) {
+        this.postId = postId;
         this.sharerId = sharerId;
         this.photoUrl = photoUrl;
         this.postDescription = postDescription;
         this.likeCount = 0;
         this.isAnonymous = isAnonymous;
+        this.comments = new ArrayList<>();
+    }
+    public Post(String sharerId, String photoUrl, String postDescription, boolean isAnonymous) {
+        this.sharerId = sharerId;
+        this.photoUrl = photoUrl;
+        this.postDescription = postDescription;
+        this.likeCount = 0;
+        this.isAnonymous = false;
         this.comments = new ArrayList<>();
     }
 
@@ -45,9 +53,6 @@ public class Post {
         this.comments = new ArrayList<>();
     }
 
-    public Post(String sharerId, String postDescription) {
-    }
-
     public Post(String sharerId, int likeCount, String postDescription) {
         this.postId = null;
         this.sharerId = sharerId;
@@ -59,21 +64,6 @@ public class Post {
         this.timestamp = null;
 
     }
-
-
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("postId", postId);
-        result.put("sharerId", sharerId); // Store the user ID
-        result.put("likeCount", likeCount);
-        result.put("isAnonymous", isAnonymous);
-        result.put("photoUrl", photoUrl);
-        result.put("postDescription", postDescription);
-        result.put("comments", comments);
-        result.put("timestamp", timestamp);
-        return result;
-    }
-
     public Post(String postId, String sharerId, int likeCount, boolean isAnonymous, String photoUrl, String postDescription, ArrayList<Comment> comments, Date timestamp) {
         this.postId = postId;
         this.sharerId = sharerId;
@@ -85,15 +75,26 @@ public class Post {
         this.timestamp = timestamp;
     }
 
-    // Methods
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("postId", postId);
+        result.put("sharerId", sharerId);
+        result.put("likeCount", likeCount);
+        result.put("isAnonymous", isAnonymous);
+        result.put("photoUrl", photoUrl);
+        result.put("postDescription", postDescription);
+        result.put("comments", comments);
+        result.put("timestamp", timestamp);
+        return result;
+    }
+
     public void addComment(Comment comment) {
         if (comments != null) {
             comments.add(comment);
         }
     }
 
-
-    //burda mevcut postun like sayısını direkt bir artıyoz
     public void likePost() {
         increaseLikeCount();
     }
@@ -101,14 +102,18 @@ public class Post {
     public void unlikePost() {
         decreaseLikeCount();
     }
-    public Date getTimestamp() { return timestamp; }
-    public void setTimestamp(Date timestamp) { this.timestamp = timestamp; }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
 
 
     public void sharePost(String sharerId, String photoUrl, String postDescription, boolean isAnonymous) {
         Post to_share = new Post( sharerId, photoUrl, postDescription, isAnonymous);
         //ToDo burda oluşturulan yeni post database'eklenecek
-
 
     }
 
@@ -131,7 +136,7 @@ public class Post {
         return "Post{" +
                 "postId='" + postId + '\'' +
                 ", sharerId='" + sharerId + '\'' +
-                ", likeCount=" + likeCount +
+                ", likeCount=" + likeCount + '\'' +
                 ", isAnonymous=" + isAnonymous +
                 ", photoUrl='" + photoUrl + '\'' +
                 ", postDescription='" + postDescription + '\'' +

@@ -42,13 +42,11 @@ import java.util.Map;
 import java.util.UUID;
 
 public class SharePostsActivity extends AppCompatActivity {
-
+    private ActivitySharePostsBinding binding;
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
-
-    private ActivitySharePostsBinding binding;
     ActivityResultLauncher<Intent> activityResultLauncher;
     ActivityResultLauncher<String> permissionLauncher;
     Uri imageData;
@@ -64,9 +62,8 @@ public class SharePostsActivity extends AppCompatActivity {
         registerLauncher();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
-        storageReference = firebaseStorage.getReference(); // now in the root
+        storageReference = firebaseStorage.getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
-
     }
 
     public void shareAnonymousPost(View view) {
@@ -88,8 +85,6 @@ public class SharePostsActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                    //Download URL
-
                     StorageReference newReference = FirebaseStorage.getInstance().getReference(imageName);
                     newReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
@@ -100,7 +95,6 @@ public class SharePostsActivity extends AppCompatActivity {
                             String userId = firebaseUser.getUid(); // Get the user's ID
                             String comment = binding.commentText.getText().toString();
 
-                            // Create a new Post object
                             Post newPost = new Post(userId, downloadUrl, comment, isAnonymous);
                             Map<String, Object> postValues = newPost.toMap();
 
@@ -235,6 +229,13 @@ public class SharePostsActivity extends AppCompatActivity {
         });
 
     }
+
+    public void goToMainPage(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
      /*public void sharePost(View view) {
         if (imageData != null) {
 
@@ -294,9 +295,4 @@ public class SharePostsActivity extends AppCompatActivity {
         }
 
     }*/
-    public void goToMainPage(View view){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
 }
