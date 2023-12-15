@@ -49,8 +49,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productsBinding.productPrice.setOnClickListener(v -> listener.onProductClick(currentProduct));
         holder.productsBinding.productImage.setOnClickListener(v -> listener.onProductClick(currentProduct));
         holder.productsBinding.productTitle.setOnClickListener(v -> listener.onProductClick(currentProduct));
-        //holder.productsBinding.productInfoTable.setOnClickListener(v -> listener.onProductClick(currentProduct));
-        //        holder.binding.commentButton.setOnClickListener(v -> listener.onPostClick(currentPost));
+        holder.productsBinding.productInfoTable.setOnClickListener(v -> listener.onProductClick(currentProduct));
     }
 
     @Override

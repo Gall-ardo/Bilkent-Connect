@@ -95,9 +95,6 @@ public class SecondHandMain extends AppCompatActivity implements OnProductClickL
                     productArrayList.clear(); // Clear existing data
                     for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
                         Map<String, Object> data = snapshot.getData();
-                        /*System.out.println("snapshot: " + snapshot.getData());
-                        Product product = snapshot.toObject(Product.class);
-                        productArrayList.add(product);*/
                         String productId = snapshot.getId();
                         String productName = (String) data.get("productName");
                         String image = (String) data.get("image");

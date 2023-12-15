@@ -39,6 +39,9 @@ public class ProductDetailScreen extends AppCompatActivity {
 
 
     }
+    private void loadProductDetails(String productId) {
+
+    }
     /*private void loadProductDetails(String productId) {
         firebaseFirestore.collection("Products").document(productId).get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
@@ -63,25 +66,30 @@ public class ProductDetailScreen extends AppCompatActivity {
             }
         }).addOnFailureListener(e -> Toast.makeText(this, "Error loading post", Toast.LENGTH_SHORT).show());
     }*/
-    private void loadProductDetails(String productId) {
+
+    /*private void loadProductDetails(String productId) {
         firebaseFirestore.collection("Products").document(productId).get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
+                        System.out.println("Checkpoint 1");
                         Map<String, Object> data = documentSnapshot.getData();
+                        System.out.println("Checkpoint 2");
                         if (data != null) {
-                            String productName = (String) data.get("productName");
+                            System.out.println("Checkpoint 3");
+
+
+                             String productName = (String) data.get("productName");
                             String image = (String) data.get("image");
                             String description = (String) data.get("description");
-                            String sellerId = (String) data.get("seller");
-                            String price = (String) data.get("price");
+                            String seller = (String) data.get("seller");
+                            String price = ((String) data.get("price"));
 
                             binding.descriptionText.setText(description);
                             binding.productPrice.setText(price);
                             binding.productTitle.setText(productName);
                             Picasso.get().load(image).into(binding.productImage);
 
-                            /*// Fetch the seller's details
-                            firebaseFirestore.collection("Users").document(sellerId)
+                            firebaseFirestore.collection("Users").document(seller)
                                     .get().addOnSuccessListener(sellerSnapshot -> {
                                         if (sellerSnapshot.exists()) {
                                             User sellerUser = sellerSnapshot.toObject(User.class);
@@ -93,12 +101,14 @@ public class ProductDetailScreen extends AppCompatActivity {
                                         }
                                     }).addOnFailureListener(e -> {
                                         Toast.makeText(this, "Error loading seller details", Toast.LENGTH_SHORT).show();
-                                    });*/
+                                    });
                         }
                     }
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Error loading product details", Toast.LENGTH_SHORT).show());
-    }
+    }*/
+
+
     public void goToSecondHandMain(View view) {
         Intent intent = new Intent(this, SecondHandMain.class);
         startActivity(intent);
