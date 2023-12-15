@@ -95,6 +95,8 @@ public class ShareAnnoucementScreen extends AppCompatActivity {
                         // Update the product document with the generated ID
                         firebaseFirestore.collection("Products").document(generatedProductId).update("productId", generatedProductId);
 
+                        Intent intent = new Intent(ShareAnnoucementScreen.this, SecondHandMain.class);
+                        startActivity(intent);
                     }).addOnFailureListener(e -> {
                         Toast.makeText(ShareAnnoucementScreen.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     });
