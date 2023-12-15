@@ -61,6 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="10dp"
+        android:onClick="deleteProduct"
         android:layout_marginRight="10dp"
         android:src="@drawable/erase_product_button"
         ></ImageView>

@@ -6,6 +6,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.hao.bilkentconnect.ModelClasses.Product;
 import com.hao.bilkentconnect.OnProductClickListener;
 import com.hao.bilkentconnect.R;
@@ -59,6 +61,23 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productsBinding.productImage.setOnClickListener(v -> listener.onProductClick(currentProduct));
         holder.productsBinding.productTitle.setOnClickListener(v -> listener.onProductClick(currentProduct));
         holder.productsBinding.productInfoTable.setOnClickListener(v -> listener.onProductClick(currentProduct));
+
+        holder.productsBinding.eraseProductCross.setOnClickListener(v -> {
+            String productId = currentProduct.getProductId();
+            deleteProduct(holder, productId, position);
+        });
+    }
+
+    private void deleteProduct(ProductViewHolder holder, String productId, int position) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Products").document(productId)
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    products.remove(position);
+                    notifyItemRemoved(position);
+                    Toast.makeText(holder.productsBinding.getRoot().getContext(), "Product deleted successfully", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> Toast.makeText(holder.productsBinding.getRoot().getContext(), "Error deleting product: " + e.getMessage(), Toast.LENGTH_LONG).show());
     }
 
     @Override
