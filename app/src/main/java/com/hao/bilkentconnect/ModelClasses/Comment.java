@@ -19,7 +19,7 @@ public class Comment {
         this.commentId = commentId;
         this.commentText = commentText;
         this.isAnonymous = isAnonymous;
-        this.postId = postId; // Set the post ID
+        this.postId = postId;
     }
 
     public Comment(String userID, String commentText, boolean isAnonymous, String postId) {
@@ -86,6 +86,4 @@ public class Comment {
         commentMap.put("postId", postId);
         return commentMap;
     }
-
-    // TODO: Add any additional methods
 }

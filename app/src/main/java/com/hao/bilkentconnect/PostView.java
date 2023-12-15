@@ -69,10 +69,8 @@ public class PostView extends AppCompatActivity {
 
         loadPostDetails(postId); // New method to load post details
 
-
         commentArrayList = new ArrayList<>();
         loadCommentsFromFirebase();
-
 
         binding.recyclerCommentView.setLayoutManager(new LinearLayoutManager(this));
         commentAdapter = new CommentAdapter(commentArrayList);
@@ -113,12 +111,6 @@ public class PostView extends AppCompatActivity {
         finish();
     }
 
-    public void SendConnectionRequest(View view) {
-        /*Intent intent = new Intent(this, Profile.class);
-        startActivity(intent);
-        finish();*/
-    }
-
     public void shareAnonymousComment(View view) {
         String commentText = binding.commentText.getText().toString();
         if (commentText.isEmpty()) {
@@ -128,57 +120,27 @@ public class PostView extends AppCompatActivity {
 
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         String userId = firebaseUser.getUid();
-
-        // Include postId in the comment
         Comment newComment = new Comment(userId, commentText, true, postId);
+        firebaseFirestore.collection("Comments").add(newComment.toMap()).addOnSuccessListener(documentReference -> {
+            String generatedCommentId = documentReference.getId();
+            newComment.setCommentId(generatedCommentId);
+            firebaseFirestore.collection("Comments").document(generatedCommentId).update("commentId", generatedCommentId);
 
-        Map<String, Object> commentValues = newComment.toMap();
-
-        firebaseFirestore.collection("Comments").add(commentValues)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(PostView.this, "Comment shared successfully", Toast.LENGTH_LONG).show();
-                    binding.commentText.setText("");
-                })
-                .addOnFailureListener(e -> Toast.makeText(PostView.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
-
+            Toast.makeText(PostView.this, "Comment shared successfully", Toast.LENGTH_LONG).show();
+            binding.commentText.setText("");
+        }).addOnFailureListener(e -> Toast.makeText(PostView.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
     }
 
-    /*public void shareRegularComment(View view) {
-        String commentText = binding.commentText.getText().toString();
-        if (commentText.isEmpty()) {
-            Toast.makeText(this, "Empty Comment cannot be shared", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        String userId = firebaseUser.getUid();
-
-        // Include postId in the comment
-        Comment newComment = new Comment(userId, commentText, false, postId);
-
-        Map<String, Object> commentValues = newComment.toMap();
-
-        firebaseFirestore.collection("Comments").add(commentValues)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(PostView.this, "Comment shared successfully", Toast.LENGTH_LONG).show();
-                    binding.commentText.setText("");
-                })
-                .addOnFailureListener(e -> Toast.makeText(PostView.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
-    }*/
     public void shareRegularComment(View view) {
         String commentText = binding.commentText.getText().toString();
         if (commentText.isEmpty()) {
             Toast.makeText(this, "Empty Comment cannot be shared", Toast.LENGTH_LONG).show();
             return;
         }
-
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         String userId = firebaseUser.getUid();
-
         Comment newComment = new Comment(userId, commentText, false, postId);
-
-        firebaseFirestore.collection("Comments").add(newComment.toMap())
-                .addOnSuccessListener(documentReference -> {
+        firebaseFirestore.collection("Comments").add(newComment.toMap()).addOnSuccessListener(documentReference -> {
                     String generatedCommentId = documentReference.getId();
                     newComment.setCommentId(generatedCommentId);
                     firebaseFirestore.collection("Comments").document(generatedCommentId).update("commentId", generatedCommentId);
@@ -188,11 +150,8 @@ public class PostView extends AppCompatActivity {
                 .addOnFailureListener(e -> Toast.makeText(PostView.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
     }
 
-
     public void loadCommentsFromFirebase() {
         CollectionReference commentsCollection = firebaseFirestore.collection("Comments");
-
-        // Filter comments by the post ID
         commentsCollection.whereEqualTo("postId", postId)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -204,9 +163,7 @@ public class PostView extends AppCompatActivity {
                         }
 
                         if (queryDocumentSnapshots != null) {
-
-                            commentArrayList.clear(); // Clear existing comments
-
+                            commentArrayList.clear();
                             for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
                                 HashMap<String, Object> data = (HashMap<String, Object>) snapshot.getData();
                                 String commentSenderId = (String) data.get("userId");
@@ -214,12 +171,18 @@ public class PostView extends AppCompatActivity {
                                 String commentText = (String) data.get("commentText");
                                 boolean isAnonymous = (boolean) data.get("isAnonymous");
 
-                                commentArrayList.add(new Comment(commentSenderId, commentText, isAnonymous, postId));
+                                commentArrayList.add(new Comment(commentSenderId,commentId, commentText, isAnonymous, postId));
                             }
                             commentAdapter.notifyDataSetChanged();
                         }
                     }
                 });
+    }
+
+    public void SendConnectionRequest(View view) {
+        /*Intent intent = new Intent(this, Profile.class);
+        startActivity(intent);
+        finish();*/
     }
 
 
