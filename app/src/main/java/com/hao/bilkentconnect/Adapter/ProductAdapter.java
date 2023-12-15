@@ -1,5 +1,6 @@
 package com.hao.bilkentconnect.Adapter;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -17,10 +18,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     private ArrayList<Product> products;
     public OnProductClickListener listener;
+    private boolean isButtonVisible;
 
-    public ProductAdapter(ArrayList<Product> products, OnProductClickListener listener) {
+
+    public ProductAdapter(ArrayList<Product> products, OnProductClickListener listener, boolean isButtonVisible) {
         this.products = products;
         this.listener = listener;
+        this.isButtonVisible = isButtonVisible;
     }
 
     @NonNull
@@ -32,6 +36,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+        if (isButtonVisible) {
+            holder.productsBinding.eraseProductCross.setVisibility(View.VISIBLE);
+        } else {
+            holder.productsBinding.eraseProductCross.setVisibility(View.GONE);
+        }
         Product currentProduct = products.get(position);
 
         holder.productsBinding.productTitle.setText(currentProduct.getProductName());

@@ -75,7 +75,7 @@ public class SecondHandMain extends AppCompatActivity implements OnProductClickL
         });
 
         binding.recyclerViewSecondHand.setLayoutManager(new LinearLayoutManager(this));
-        productAdapter = new ProductAdapter(productArrayList, this);
+        productAdapter = new ProductAdapter(productArrayList, this, false);
         binding.recyclerViewSecondHand.setAdapter(productAdapter);
 
     }
