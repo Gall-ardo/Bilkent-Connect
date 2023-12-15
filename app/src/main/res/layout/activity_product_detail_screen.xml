@@ -47,34 +47,34 @@
         android:layout_marginEnd="44dp"
         android:backgroundTint="#7CB5C2"
         android:fontFamily="@font/ubuntu_bold"
+        android:onClick="MakeContactMethod"
         android:text="Make Contact"
         android:textColor="#FFFFFF"
         android:textSize="11.5sp"
-        android:onClick="MakeContactMethod"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView_Description"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.485" />
+        app:layout_constraintVertical_bias="0.599" />
 
     <TextView
         android:id="@+id/textView_Description"
         android:layout_width="83dp"
         android:layout_height="25dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="48dp"
         android:fontFamily="@font/ubuntu_bold"
         android:text="Description"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.488" />
+        app:layout_constraintVertical_bias="0.603" />
 
     <ImageView
         android:id="@+id/productImage"
-        android:layout_width="283dp"
-        android:layout_height="274dp"
+        android:layout_width="407dp"
+        android:layout_height="305dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,27 +91,29 @@
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum euismod lacus, non varius dui viverra in. Aliquam nec tincidunt nisi, quis placerat dui. Curabitur vitae malesuada ipsum, efficitur aliquet felis. Integer mattis volutpat aliquam. Aenean volutpat elementum viverra. Donec quis velit nec turpis varius lacinia. Etiam blandit varius ligula, ut lobortis ipsum malesuada id. Aenean faucibus lectus id leo tincidunt ultricies. Cras non sem a nulla tempor congue.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum euismod lacus, non varius dui viverra in. Aliquam nec tincidunt nisi, quis placerat dui. Curabitur vitae malesuada ipsum, efficitur aliquet felis. Integer mattis volutpat aliquam. Aenean volutpat elementum viverra. Donec quis velit nec turpis varius lacinia. Etiam blandit varius ligula, ut lobortis ipsum malesuada id. Aenean faucibus lectus id leo tincidunt ultricies. Cras non sem a nulla tempor congue."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.955" />
+        app:layout_constraintVertical_bias="0.995" />
 
     <TextView
         android:id="@+id/productPrice"
-        android:layout_width="68dp"
-        android:layout_height="21dp"
+        android:layout_width="107dp"
+        android:layout_height="31dp"
         android:background="@drawable/rounded_corner"
         android:backgroundTint="#7CB5C2"
         android:fontFamily="@font/ubuntu_bold"
+        android:gravity="center"
         android:text="2000tl"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="9sp"
-        app:layout_constraintBottom_toBottomOf="@+id/productImage"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionText"
         app:layout_constraintEnd_toEndOf="@+id/productImage"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="@+id/productImage"
         app:layout_constraintTop_toTopOf="@+id/productImage"
-        app:layout_constraintVertical_bias="0.951" />
+        app:layout_constraintVertical_bias="0.869" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
