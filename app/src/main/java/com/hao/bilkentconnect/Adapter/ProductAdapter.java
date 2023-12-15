@@ -46,6 +46,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             Toast.makeText(holder.productsBinding.getRoot().getContext(), "No image URL available", Toast.LENGTH_SHORT).show();
         }
 
+        holder.productsBinding.productPrice.setOnClickListener(v -> listener.onProductClick(currentProduct));
+        holder.productsBinding.productImage.setOnClickListener(v -> listener.onProductClick(currentProduct));
+        holder.productsBinding.productTitle.setOnClickListener(v -> listener.onProductClick(currentProduct));
+        //holder.productsBinding.productInfoTable.setOnClickListener(v -> listener.onProductClick(currentProduct));
+        //        holder.binding.commentButton.setOnClickListener(v -> listener.onPostClick(currentPost));
     }
 
     @Override

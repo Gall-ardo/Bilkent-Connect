@@ -152,7 +152,7 @@ public class SecondHandMain extends AppCompatActivity implements OnProductClickL
 
     @Override
     public void onProductClick(Product product) {
-        Intent intent = new Intent(this, PostView.class);
+        Intent intent = new Intent(this, ProductDetailScreen.class);
         intent.putExtra("productId", product.getProductId()); // Pass the product ID
         startActivity(intent);
     }
