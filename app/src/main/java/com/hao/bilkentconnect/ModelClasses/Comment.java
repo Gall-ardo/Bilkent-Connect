@@ -2,6 +2,7 @@ package com.hao.bilkentconnect.ModelClasses;
 
 import org.checkerframework.checker.units.qual.C;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,8 @@ public class Comment {
     private boolean isAnonymous;
     private String postId;
 
+    private Date timestamp;
+
     // Constructor
     public Comment(String commentSender, String commentId, String commentText, boolean isAnonymous, String postId) {
         this.commentSenderId = commentSender;
@@ -20,6 +23,7 @@ public class Comment {
         this.commentText = commentText;
         this.isAnonymous = isAnonymous;
         this.postId = postId;
+        this.timestamp = new Date();
     }
 
     public Comment(String userID, String commentText, boolean isAnonymous, String postId) {
@@ -27,6 +31,16 @@ public class Comment {
         this.commentText = commentText;
         this.isAnonymous = isAnonymous;
         this.postId = postId;
+        this.timestamp = new Date();
+
+    }
+
+    public String getCommentSenderId() {
+        return commentSenderId;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
     }
 
     public Comment(){

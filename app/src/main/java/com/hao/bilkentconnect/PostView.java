@@ -22,6 +22,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -150,7 +151,7 @@ public class PostView extends AppCompatActivity {
                 .addOnFailureListener(e -> Toast.makeText(PostView.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
     }
 
-    public void loadCommentsFromFirebase() {
+    /*public void loadCommentsFromFirebase() {
         CollectionReference commentsCollection = firebaseFirestore.collection("Comments");
         commentsCollection.whereEqualTo("postId", postId)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -177,7 +178,34 @@ public class PostView extends AppCompatActivity {
                         }
                     }
                 });
+    }*/
+    public void loadCommentsFromFirebase() {
+        CollectionReference commentsCollection = firebaseFirestore.collection("Comments");
+        commentsCollection.whereEqualTo("postId", postId)
+                .orderBy("timestamp", Query.Direction.DESCENDING) // Sort by timestamp in descending order
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Log.e("Firestore Error", error.getMessage());
+                            Toast.makeText(PostView.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if (queryDocumentSnapshots != null) {
+                            commentArrayList.clear();
+                            for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                                Comment comment = snapshot.toObject(Comment.class);
+                                if (comment != null) {
+                                    commentArrayList.add(comment);
+                                }
+                            }
+                            commentAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
     }
+
 
     public void SendConnectionRequest(View view) {
         /*Intent intent = new Intent(this, Profile.class);

@@ -74,12 +74,9 @@ public class MainActivity extends AppCompatActivity implements OnPostClickListen
             }
         });
 
-
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         postAdapter = new PostAdapter(postArrayList, this);
         binding.recyclerView.setAdapter(postAdapter);
-
-
 
     }
     /*private void loadPostsFromFirebase() {
@@ -134,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements OnPostClickListen
     private void onSideMenuItemClick() {
         // Handle the click event for side menu items
         Log.d("ClickEvent", "Clicked on: ");
-
         // Close the side menu after handling the click
         toggleSideMenu();
     }

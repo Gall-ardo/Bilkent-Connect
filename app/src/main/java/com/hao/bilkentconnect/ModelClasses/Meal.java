@@ -17,7 +17,7 @@ public class Meal {
         this.mealDescription = mealDescription;
         numberOfUsersRated = 0;
         usersRateTotal = 0;
-        rate = 10; // maks puan buraya gelecek
+        rate = 0;
         comments = new ArrayList<>();
     }
 
