@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundBlue"
-    android:onClick="goToProfile"
     tools:context=".MainFlowPage">
 
     <LinearLayout
@@ -18,11 +17,12 @@
 
 
         <ImageView
+            android:id="@+id/chatIcon"
             android:layout_width="60sp"
             android:layout_height="60sp"
             android:layout_marginLeft="37dp"
             android:layout_marginTop="5dp"
-            android:onClick="gotoChatPage"
+            android:onClick="gotoChatPageMain"
             app:srcCompat="@drawable/chat_icon" />
 
         <ImageView
@@ -56,7 +56,6 @@
         android:layout_width="match_parent"
         android:layout_height="60sp"
         android:background="@drawable/linear_gradient_top"
-
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 

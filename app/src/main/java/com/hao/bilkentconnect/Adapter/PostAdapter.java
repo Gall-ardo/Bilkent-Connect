@@ -68,7 +68,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         }
 
         holder.binding.saveButton.setOnClickListener(v -> {
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            /*FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
             if (currentUser != null) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 String userId = currentUser.getUid();
@@ -79,7 +79,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                                 Toast.makeText(holder.itemView.getContext(), "Post saved!", Toast.LENGTH_SHORT).show())
                         .addOnFailureListener(e ->
                                 Toast.makeText(holder.itemView.getContext(), "Failed to save post: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-            }
+            }*/
         });
 
         holder.binding.descriptionText.setText(currentPost.postDescription);

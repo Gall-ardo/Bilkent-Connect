@@ -75,41 +75,6 @@ public class ShareAnnoucementScreen extends AppCompatActivity {
             Toast.makeText(this, "Please enter a valid price", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        /*if (imageData != null) {
-            UUID uuid = UUID.randomUUID();
-            final String imageName = "images/" + uuid + ".jpg";
-
-            storageReference.child(imageName).putFile(imageData).addOnSuccessListener(taskSnapshot -> {
-                StorageReference newReference = FirebaseStorage.getInstance().getReference(imageName);
-                newReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                    String downloadUrl = uri.toString();
-                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                    String userId = firebaseUser.getUid();
-
-                    // Create a new Product object
-                    Product newProduct = new Product(title, downloadUrl, description, userId, Integer.parseInt(price));
-                    // Add product to Firebase
-                    firebaseFirestore.collection("Products").add(newProduct.toMap()).addOnSuccessListener(documentReference -> {
-                        String generatedProductId = documentReference.getId(); // Get the generated product ID
-                        newProduct.setProductId(generatedProductId); // Set the product ID in the Product object
-
-                        // Optionally, update the product document with the generated ID
-                        firebaseFirestore.collection("Products").document(generatedProductId).update("productId", generatedProductId);
-
-                        Intent intent = new Intent(ShareAnnoucementScreen.this, SecondHandMain.class);
-                        startActivity(intent);
-                        finish();
-
-                    }).addOnFailureListener(e ->
-                            Toast.makeText(ShareAnnoucementScreen.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
-                });
-
-            }).addOnFailureListener(e ->
-                    Toast.makeText(ShareAnnoucementScreen.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
-        } else {
-            Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show();
-        }*/
         if (imageData != null) {
             UUID uuid = UUID.randomUUID();
             final String imageName = "images/" + uuid + ".jpg";
@@ -128,8 +93,7 @@ public class ShareAnnoucementScreen extends AppCompatActivity {
                         newProduct.setProductId(generatedProductId);
 
                         // Update the product document with the generated ID
-                        firebaseFirestore.collection("Products").document(generatedProductId)
-                                .update("productId", generatedProductId);
+                        firebaseFirestore.collection("Products").document(generatedProductId).update("productId", generatedProductId);
 
                     }).addOnFailureListener(e -> {
                         Toast.makeText(ShareAnnoucementScreen.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();

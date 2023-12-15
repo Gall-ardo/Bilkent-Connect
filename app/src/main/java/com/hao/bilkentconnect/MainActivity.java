@@ -140,10 +140,9 @@ public class MainActivity extends AppCompatActivity implements OnPostClickListen
         sideMenu.setVisibility(visibility);
     }
 
-    public void gotoChatPage() {
-        //Intent intent = new Intent(this, ChatActivity.class);
-        //startActivity(intent);
-        Toast.makeText(this, "Will be implmeented ssoonnn", Toast.LENGTH_SHORT).show();
+    public void gotoChatPageMain(View view) {
+        Intent intent = new Intent(this, ChatActivity.class);
+        startActivity(intent);
     }
     public void goToSharePostActivity(View view){
         Intent intent = new Intent(this, SharePostsActivity.class);

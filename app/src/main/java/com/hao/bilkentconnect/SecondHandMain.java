@@ -102,7 +102,6 @@ public class SecondHandMain extends AppCompatActivity implements OnProductClickL
             }
         });
 
-
     }
 
     private void onSideMenuItemClick() {
