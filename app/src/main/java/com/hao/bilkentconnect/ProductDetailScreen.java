@@ -4,22 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.hao.bilkentconnect.ModelClasses.Post;
+import com.hao.bilkentconnect.ModelClasses.Chat;
 import com.hao.bilkentconnect.ModelClasses.Product;
 import com.hao.bilkentconnect.ModelClasses.User;
 import com.hao.bilkentconnect.databinding.ActivityProductDetailScreenBinding;
 import com.squareup.picasso.Picasso;
 
-import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ProductDetailScreen extends AppCompatActivity {
 
@@ -93,6 +91,38 @@ public class ProductDetailScreen extends AppCompatActivity {
         finish();
     }
     public void MakeContactMethod(View view) {
+
+
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        String curr_ıd = firebaseAuth.getCurrentUser().getUid();
+
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
+        firebaseFirestore.collection("Users").get().addOnSuccessListener(queryDocumentSnapshots -> {
+           for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()){
+               User user = snapshot.toObject(User.class);
+               if (user.getId().equals(curr_ıd)){
+                   User user_2 = new User();
+                   Chat chat = new Chat(user.getId(), user_2.getId());
+                   user.addChat(chat);
+               }
+           }
+        });
+
+
+        Intent intent = new Intent(ProductDetailScreen.this, ChatActivity.class);
+        startActivity(intent);
+        finish();
+
+        
+
+
+
+
+
         // to do
     }
 }
