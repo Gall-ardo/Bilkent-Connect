@@ -81,7 +81,7 @@ public class ProfilePage extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    public void gotoChatPage() {
+    public void goToChatPage(View view) {
         Intent intent = new Intent(this, ChatActivity.class);
         startActivity(intent);
     }

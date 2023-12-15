@@ -40,6 +40,8 @@
             android:textColor="@color/menuGray"
             android:textSize="28sp" />
         <ImageView
+            android:id="@+id/boxIcon"
+            android:onClick="goToOwnHandPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/box_icon"
@@ -69,7 +71,7 @@
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/ubuntu"
-            android:onClick="onSideMenuItemClick"
+            android:onClick="goToMainActivity"
             android:padding="16dp"
             android:text="Bilkent Social"
             android:textColor="#FFFFFF"
@@ -83,7 +85,6 @@
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/ubuntu"
-            android:onClick="goToSecondHandSalePage"
             android:padding="16dp"
             android:text="Second Hand Sale"
             android:textColor="#FFFFFF"

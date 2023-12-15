@@ -196,7 +196,7 @@
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/ubuntu"
-            android:onClick="goToSecondHandSalePage"
+            android:onClick="goToSecondHandSalePageFromBcc"
             android:padding="16dp"
             android:text="Second Hand Sale"
             android:textColor="#FFFFFF"

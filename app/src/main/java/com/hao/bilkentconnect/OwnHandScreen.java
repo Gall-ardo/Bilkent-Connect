@@ -3,6 +3,7 @@ package com.hao.bilkentconnect;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -32,5 +33,10 @@ public class OwnHandScreen extends AppCompatActivity {
         /*binding.ownHandRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         productAdapter = new ProductAdapter(productsArrayList);
         binding.ownHandRecyclerView.setAdapter(productAdapter);*/
+    }
+
+    public void goToSecondHandSalePage(View view){
+        Intent intent = new Intent(this, SecondHandMain.class);
+        startActivity(intent);
     }
 }
