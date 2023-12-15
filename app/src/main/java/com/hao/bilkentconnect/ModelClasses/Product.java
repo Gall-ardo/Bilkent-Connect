@@ -11,7 +11,7 @@ public class Product implements Serializable {
     private String productName;
     private String image;
     private String description;
-    private String seller; // Assuming 'seller' is represented by an integer ID
+    private String seller; // Assuming 'seller' is represented by an String ID
     private String price;
     public Date timestamp;
 
@@ -68,6 +68,9 @@ public class Product implements Serializable {
         this.productName = productName;
     }
 
+
+    public String getProductID(){ return productId;}
+
     public String getImage() {
         return image;
     }
@@ -111,4 +114,13 @@ public class Product implements Serializable {
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
+
+
+
+
+    public boolean equals_product(Product p){
+        return getProductID().equals(p.getProductID());
+    }
+
+
 }

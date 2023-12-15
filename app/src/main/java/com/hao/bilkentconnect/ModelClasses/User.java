@@ -100,6 +100,10 @@ public class User {
     }
 
 
+    public ArrayList<Chat> getChats(){
+        return chats;
+    }
+
 
     public String getBio() {
         // TODO: Implement method logic
@@ -133,6 +137,12 @@ public class User {
         // TODO: Implement method logic
         sharedPosts.add(post);
     }
+
+
+    public void addChat(Chat c){
+        chats.add(c);
+    }
+
 
     public ArrayList<User> getFriends() {
         // TODO: Implement method logic

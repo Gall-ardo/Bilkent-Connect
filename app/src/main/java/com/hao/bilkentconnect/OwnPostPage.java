@@ -23,26 +23,27 @@ public class OwnPostPage extends AppCompatActivity implements OnPostClickListene
     private PostAdapter postAdapter;
     private ArrayList<Post> postArrayList;
     private ActivityOwnPostPageBinding binding;
+
     public FirebaseFirestore db;
     public FirebaseAuth firebaseAuth;
     private String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityOwnPostPageBinding.inflate(getLayoutInflater());
-        View viewRoot = binding.getRoot();
-        setContentView(viewRoot);
+        super.onCreate(savedInstanceState);//fix alıyorsun
+        binding = ActivityOwnPostPageBinding.inflate(getLayoutInflater());//fix alıyorsun
+        View viewRoot = binding.getRoot();//fix alıyorsun
+        setContentView(viewRoot);//fix alıyorsun
 
         postArrayList = new ArrayList<>();
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid(); //kullanıcı id'si için alıyorsun
 
-        loadPostsFromFirebase();
+        loadPostsFromFirebase(); //aşağıdaki işleri yüklüyor
 
-        binding.yourPostsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.yourPostsRecyclerView.setLayoutManager(new LinearLayoutManager(this));// fix
         postAdapter = new PostAdapter(postArrayList, this);
         binding.yourPostsRecyclerView.setAdapter(postAdapter);
     }
@@ -72,12 +73,12 @@ public class OwnPostPage extends AppCompatActivity implements OnPostClickListene
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     postArrayList.clear();
                     for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                        Post post = snapshot.toObject(Post.class);
+                        Post post = snapshot.toObject(Post.class); // postu alıyorsun
                         if (post != null && post.getSharerId().equals(currentUserId)) {
                             postArrayList.add(post);
                         }
                     }
-                    postAdapter.notifyDataSetChanged();
+                    postAdapter.notifyDataSetChanged(); //post Adpter'ını uyarıyorsun
                 })
                 .addOnFailureListener(e -> {
                     // Handle any errors here

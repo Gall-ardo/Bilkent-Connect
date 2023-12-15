@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Chat {
     // Attributes
-    private int user1; // Assuming 'user1' is represented by an integer ID
-    private int user2; // Assuming 'user2' is represented by an integer ID
+    private String user1; // Assuming 'user1' is represented by an integer ID
+    private String user2; // Assuming 'user2' is represented by an integer ID
     private ArrayList<ChatMessage> chatMessages;
 
     // Constructor
-    public Chat(int user1, int user2) {
+    public Chat(String user1, String user2) {
         this.user1 = user1;
         this.user2 = user2;
         this.chatMessages = new ArrayList<>();
@@ -34,19 +34,19 @@ public class Chat {
     }
 
     // Getters and Setters
-    public int getUser1() {
+    public String getUser1() {
         return user1;
     }
 
-    public void setUser1(int user1) {
+    public void setUser1(String user1) {
         this.user1 = user1;
     }
 
-    public int getUser2() {
+    public String getUser2() {
         return user2;
     }
 
-    public void setUser2(int user2) {
+    public void setUser2(String user2) {
         this.user2 = user2;
     }
 

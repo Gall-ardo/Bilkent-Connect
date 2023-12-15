@@ -26,10 +26,10 @@ public class ChatAddActivity extends AppCompatActivity {
         setContentView(viewRoot);
 
         chatArrayList = new ArrayList<>();
-        chatArrayList.add(new Chat(22203359, 2000000));
-        chatArrayList.add(new Chat(22203359, 2000000));
-        chatArrayList.add(new Chat(22203359, 2000000));
-        chatArrayList.add(new Chat(22203359, 2000000));
+        //chatArrayList.add(new Chat(22203359, 2000000));
+        //chatArrayList.add(new Chat(22203359, 2000000));
+        //chatArrayList.add(new Chat(22203359, 2000000));
+        //chatArrayList.add(new Chat(22203359, 2000000));
 
 
         binding.recyclerAddChatView.setLayoutManager(new LinearLayoutManager(this));
