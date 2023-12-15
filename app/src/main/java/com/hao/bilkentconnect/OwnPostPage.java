@@ -46,7 +46,7 @@ public class OwnPostPage extends AppCompatActivity implements OnPostClickListene
         postAdapter = new PostAdapter(postArrayList, this);
         binding.yourPostsRecyclerView.setAdapter(postAdapter);
     }
-    private void loadPostsFromFirebase() {
+    /*private void loadPostsFromFirebase() {
         db.collection("Posts")
                 .whereEqualTo("userId", currentUserId)
                 .get()
@@ -55,6 +55,25 @@ public class OwnPostPage extends AppCompatActivity implements OnPostClickListene
                     for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
                         Post post = snapshot.toObject(Post.class);
                         if (post != null) {
+                            postArrayList.add(post);
+                        }
+                    }
+                    postAdapter.notifyDataSetChanged();
+                })
+                .addOnFailureListener(e -> {
+                    // Handle any errors here
+                    Toast.makeText(OwnPostPage.this, "Error loading posts: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("Firestore Error", e.getMessage());
+                });
+    }*/
+    private void loadPostsFromFirebase() {
+        db.collection("Posts")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    postArrayList.clear();
+                    for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                        Post post = snapshot.toObject(Post.class);
+                        if (post != null && post.getSharerId().equals(currentUserId)) {
                             postArrayList.add(post);
                         }
                     }

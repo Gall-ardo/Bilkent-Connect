@@ -51,23 +51,16 @@ public class ProfilePage extends AppCompatActivity {
             db.collection("Users").document(userId).get().addOnSuccessListener(documentSnapshot -> {
 
                 if (documentSnapshot.exists()) {
-                    System.out.println("Checkpoint 1");
                     User user = documentSnapshot.toObject(User.class);
-                    System.out.println("Checkpoint 2");
                     if (user != null) {
-                        System.out.println("Checkpoint 3");
                         binding.userMailText.setText(user.getEmail());
                         binding.userNameText.setText(user.getUsername());
                         binding.userInfo.setText(user.getBio());
-                        System.out.println("Checkpoint 4");
 
                         if (user.getProfilePhoto() != null) {
-                            System.out.println("Checkpoint 5");
                             Picasso.get().load(user.getProfilePhoto()).into(binding.UserImage);
-                            System.out.println("Checkpoint 6");
                         }
                     }
-                    System.out.println("Checkpoint 7");
                 }
             }).addOnFailureListener(e -> {
                 Toast.makeText(ProfilePage.this, "Error loading user info", Toast.LENGTH_SHORT).show();

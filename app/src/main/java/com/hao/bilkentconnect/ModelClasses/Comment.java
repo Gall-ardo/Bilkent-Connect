@@ -11,8 +11,8 @@ public class Comment {
     private String commentId;
     private String commentText;
     private boolean isAnonymous;
-
     private String postId;
+
     // Constructor
     public Comment(String commentSender, String commentId, String commentText, boolean isAnonymous, String postId) {
         this.commentSenderId = commentSender;
@@ -20,14 +20,15 @@ public class Comment {
         this.commentText = commentText;
         this.isAnonymous = isAnonymous;
         this.postId = postId; // Set the post ID
-
     }
+
     public Comment(String userID, String commentText, boolean isAnonymous, String postId) {
         this.commentSenderId = userID;
         this.commentText = commentText;
         this.isAnonymous = isAnonymous;
         this.postId = postId;
     }
+
     public Comment(){
         this.commentSenderId = null;
         this.commentText = null;

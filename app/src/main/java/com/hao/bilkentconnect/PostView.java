@@ -141,11 +141,9 @@ public class PostView extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> Toast.makeText(PostView.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
 
-
     }
 
-
-    public void shareRegularComment(View view) {
+    /*public void shareRegularComment(View view) {
         String commentText = binding.commentText.getText().toString();
         if (commentText.isEmpty()) {
             Toast.makeText(this, "Empty Comment cannot be shared", Toast.LENGTH_LONG).show();
@@ -166,7 +164,30 @@ public class PostView extends AppCompatActivity {
                     binding.commentText.setText("");
                 })
                 .addOnFailureListener(e -> Toast.makeText(PostView.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
+    }*/
+    public void shareRegularComment(View view) {
+        String commentText = binding.commentText.getText().toString();
+        if (commentText.isEmpty()) {
+            Toast.makeText(this, "Empty Comment cannot be shared", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        String userId = firebaseUser.getUid();
+
+        Comment newComment = new Comment(userId, commentText, false, postId);
+
+        firebaseFirestore.collection("Comments").add(newComment.toMap())
+                .addOnSuccessListener(documentReference -> {
+                    String generatedCommentId = documentReference.getId();
+                    newComment.setCommentId(generatedCommentId);
+                    firebaseFirestore.collection("Comments").document(generatedCommentId).update("commentId", generatedCommentId);
+                    Toast.makeText(PostView.this, "Comment shared successfully", Toast.LENGTH_LONG).show();
+                    binding.commentText.setText("");
+                })
+                .addOnFailureListener(e -> Toast.makeText(PostView.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
     }
+
 
     public void loadCommentsFromFirebase() {
         CollectionReference commentsCollection = firebaseFirestore.collection("Comments");
