@@ -20,6 +20,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
@@ -53,6 +54,7 @@ public class PostView extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     private String postId;
+    private String postSharerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +96,15 @@ public class PostView extends AppCompatActivity {
                                         if (post.isAnonymous) {
                                             binding.topUsernameText.setText("Ghost");
                                             Picasso.get().load(R.drawable.ghost_icon).into(binding.profilePicture);
+                                            binding.connectText.setEnabled(false);
+                                            binding.connectText.setVisibility(View.INVISIBLE);
                                         }
                                         else {
                                             binding.topUsernameText.setText(user.getUsername());
                                             Picasso.get().load(user.getProfilePhoto()).into(binding.profilePicture);
+                                            postSharerId = user.getId();
+                                            binding.connectText.setEnabled(true);
+                                            binding.connectText.setVisibility(View.VISIBLE);
                                         }
                                     }
                                 }
@@ -208,10 +215,11 @@ public class PostView extends AppCompatActivity {
     }
 
 
-    public void SendConnectionRequest(View view) {
-        /*Intent intent = new Intent(this, Profile.class);
-        startActivity(intent);
-        finish();*/
+    public void addFriend(View view) {
+        String currentUserId = firebaseAuth.getCurrentUser().getUid();
+
+        // Add post creator to current user's friend list
+        firebaseFirestore.collection("Users").document(currentUserId).update("friends", FieldValue.arrayUnion(postSharerId)).addOnSuccessListener(aVoid -> Toast.makeText(PostView.this, "Friend added successfully", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(PostView.this, "Error adding friend", Toast.LENGTH_SHORT).show());
     }
 
 

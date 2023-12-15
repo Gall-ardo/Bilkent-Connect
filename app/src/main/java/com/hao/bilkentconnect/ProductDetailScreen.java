@@ -36,12 +36,12 @@ public class ProductDetailScreen extends AppCompatActivity {
         //firebaseFirestore = FirebaseFirestore.getInstance();
 
         String description = getIntent().getStringExtra("productDescription");
-        int price = getIntent().getIntExtra("productPrice", 0);
+        String price = getIntent().getStringExtra("productPrice");
         String title = getIntent().getStringExtra("productTitle");
         String image = getIntent().getStringExtra("productImage");
 
         binding.descriptionText.setText(description);
-        binding.productPrice.setText(String.valueOf(price));
+        binding.productPrice.setText(price);
         binding.productTitle.setText(title);
         Picasso.get().load(image).into(binding.productImage);
     }

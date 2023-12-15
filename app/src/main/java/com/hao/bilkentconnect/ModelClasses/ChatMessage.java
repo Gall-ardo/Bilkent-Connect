@@ -1,26 +1,25 @@
 package com.hao.bilkentconnect.ModelClasses;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class ChatMessage {
     // Attributes
-    private int sender; // Assuming 'sender' is represented by an integer ID
-    private int receiver; // Assuming 'receiver' is represented by an integer ID
+    private String senderId; // Assuming 'sender' is represented by an integer ID
+    private String receiverId; // Assuming 'receiver' is represented by an integer ID
     private String text;
-    private Timestamp time; // Using Timestamp for the timeStap
+
+    private Date timestap; // Using Timestamp for the timeStap
 
     // Constructor
-    public ChatMessage(int sender, int receiver, String text) {
-        this.sender = sender;
-        this.receiver = receiver;
+    public ChatMessage(String sender, String receiver, String text) {
+        this.senderId = sender;
+        this.receiverId = receiver;
         this.text = text;
     }
 
 
 
     // Methods
-
-    //burda send ve delete methodları işlevi çok muhtemel olmayacak zaten send işlemini chat sekmesinde yapacaz
     public void send() {
         // TODO: Implement method logic for sending a message
     }
@@ -31,30 +30,28 @@ public class ChatMessage {
 
     @Override
     public String toString() {
-        // TODO: Implement the toString method
         return "ChatMessage{" +
-                "sender=" + sender +
-                ", receiver=" + receiver +
+                "sender=" + senderId +
+                ", receiver=" + receiverId +
                 ", text='" + text + '\'' +
-                ", time=" + time +
+                ", time=" + timestap +
                 '}';
     }
 
-    // Getters and Setters
-    public int getSender() {
-        return sender;
+    public String getSenderId() {
+        return senderId;
     }
 
-    public void setSender(int sender) {
-        this.sender = sender;
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
     }
 
-    public int getReceiver() {
-        return receiver;
+    public String getReceiverId() {
+        return receiverId;
     }
 
-    public void setReceiver(int receiver) {
-        this.receiver = receiver;
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
     }
 
     public String getText() {
@@ -65,11 +62,11 @@ public class ChatMessage {
         this.text = text;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public Date getTimestap() {
+        return timestap;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
+    public void setTimestap(Date timestap) {
+        this.timestap = timestap;
     }
 }

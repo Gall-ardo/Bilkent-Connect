@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.hao.bilkentconnect.ModelClasses.Chat;
 import com.hao.bilkentconnect.ModelClasses.User;
+import com.hao.bilkentconnect.OnChatClickListener;
 import com.hao.bilkentconnect.R;
 import com.hao.bilkentconnect.databinding.RecyclerChatBinding;
 import com.squareup.picasso.Picasso;
@@ -18,8 +19,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
     private ArrayList<Chat> chats;
 
-    public ChatAdapter(ArrayList<Chat> chats)  {
+    private OnChatClickListener listener;
+
+    public ChatAdapter(ArrayList<Chat> chats, OnChatClickListener listener) {
         this.chats = chats;
+        this.listener = listener;
     }
 
     @NonNull
@@ -33,8 +37,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
 
         Chat currentChat = chats.get(position);
+        holder.chatsBinding.usernameText.setOnClickListener((v -> listener.onChatClick(currentChat)));
+        holder.chatsBinding.userPhoto.setOnClickListener((v -> listener.onChatClick(currentChat)));
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userId = currentChat.getUser2();
 
         // Fetch user by ID to get the username
@@ -54,7 +60,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
             }
 
-        });
+        });*/
 
     }
 

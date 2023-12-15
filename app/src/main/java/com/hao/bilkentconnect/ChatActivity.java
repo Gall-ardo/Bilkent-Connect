@@ -21,7 +21,7 @@ import com.hao.bilkentconnect.databinding.ActivityChatBinding;
 
 import java.util.ArrayList;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity implements OnChatClickListener{
 
     private ChatAdapter chatAdapter;
 
@@ -44,50 +44,53 @@ public class ChatActivity extends AppCompatActivity {
         chatArrayList = new ArrayList<>();
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid(); //kullanıcı id'si için alıyorsun
+        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-
-        loadChatsFromFirebase(); //aşağıdaki işleri yüklüyor
+        loadChatsFromFirebase();
 
 
         binding.recyclerChatView.setLayoutManager(new LinearLayoutManager(this));
-        chatAdapter = new ChatAdapter(chatArrayList);
+        chatAdapter = new ChatAdapter(chatArrayList, this);
         binding.recyclerChatView.setAdapter(chatAdapter);
 
     }
 
 
-
-
-    private void loadChatsFromFirebase(){
-
-        db.collection("Users").get().addOnSuccessListener(queryDocumentSnapshots -> {
-
-            chatArrayList.clear();
-            for (DocumentSnapshot snapshot: queryDocumentSnapshots.getDocuments()){
-                User user = snapshot.toObject(User.class);
-                if (user != null && user.getId().equals(currentUserId)){
-                    for (Chat c: user.getChats()){
-                        chatArrayList.add(c);
+    private void loadChatsFromFirebase() {
+        db.collection("Chats")
+                .whereEqualTo("user1", currentUserId)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                        Chat chat = snapshot.toObject(Chat.class);
+                        if (chat != null) {
+                            chatArrayList.add(chat);
+                        }
                     }
-                }
-            }
-            chatAdapter.notifyDataSetChanged();
-        }).addOnFailureListener(e -> {
-
-            Toast.makeText(ChatActivity.this, "Error loading posts: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            Log.e("Firestore Error at chatpage", e.getMessage());
-        });
-
+                    chatAdapter.notifyDataSetChanged();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Chat Load Error", e.getMessage());
+                    Toast.makeText(ChatActivity.this, "Error loading chats", Toast.LENGTH_LONG).show();
+                });
     }
-
-
-
-
-
 
     public void goToMainPageChatActivity(View view){
         Intent intent = new Intent(ChatActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onChatClick(Chat chat) {
+        // Example implementation: Start TextingScreen activity with chat details
+        Intent intent = new Intent(this, InnerChat.class);
+        intent.putExtra("chatId", chat.getChatId());
+        // Add other necessary chat details to the intent
+        startActivity(intent);
+    }
+
+    public void goToAddChatActivity(View view){
+        Intent intent = new Intent(ChatActivity.this, ChatAddActivity.class);
         startActivity(intent);
         finish();
     }

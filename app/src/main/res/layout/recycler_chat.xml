@@ -3,6 +3,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/linearLayoutChat"
     android:layout_height="90dp"
     android:background="@color/backgroundBlue"
     android:orientation="horizontal"

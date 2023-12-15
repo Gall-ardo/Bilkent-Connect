@@ -1,12 +1,17 @@
 package com.hao.bilkentconnect.ModelClasses;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Chat {
-    // Attributes
+    private String chatId;
     private String user1; // Assuming 'user1' is represented by an integer ID
     private String user2; // Assuming 'user2' is represented by an integer ID
     private ArrayList<ChatMessage> chatMessages;
+    private String lastMessage; // Last message text
+    private Date lastActivityTime;
+
+
 
     // Constructor
     public Chat(String user1, String user2) {
@@ -14,6 +19,10 @@ public class Chat {
         this.user2 = user2;
         this.chatMessages = new ArrayList<>();
     }
+    public Chat() {
+        this.chatMessages = new ArrayList<>();
+    }
+
 
     // Methods
     public void addMessage(ChatMessage message) {
@@ -58,6 +67,27 @@ public class Chat {
         this.chatMessages = chatMessages;
     }
 
+    public String getChatId() {
+        return chatId;
+    }
 
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
+    }
 
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
+    }
+
+    public Date getLastActivityTime() {
+        return lastActivityTime;
+    }
+
+    public void setLastActivityTime(Date lastActivityTime) {
+        this.lastActivityTime = lastActivityTime;
+    }
 }

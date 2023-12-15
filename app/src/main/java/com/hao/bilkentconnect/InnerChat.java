@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.Timestamp;
 import com.hao.bilkentconnect.Adapter.ChatMessageAdapter;
@@ -29,8 +30,7 @@ public class InnerChat extends AppCompatActivity {
         setContentView(viewRoot);
 
         chatMessageArrayList = new ArrayList<>();
-        chatMessageArrayList.add(new ChatMessage(222222, 222222222, "Hello"));
-        chatMessageArrayList.add(new ChatMessage(22222222, 222222222, "Hi"));
+        Toast.makeText(this, "This is inner chat, this will be implemented.", Toast.LENGTH_LONG).show();
 
         binding.recyclerChatMessageView.setLayoutManager(new LinearLayoutManager(this));
         chatMessageAdapter = new ChatMessageAdapter(chatMessageArrayList);

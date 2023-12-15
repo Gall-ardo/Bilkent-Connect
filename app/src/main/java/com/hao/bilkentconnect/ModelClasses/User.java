@@ -11,7 +11,7 @@ public class User {
     private String profilePhoto;
     private ArrayList<Post> savedPosts;
     private ArrayList<Post> sharedPosts;
-    private ArrayList<User> friends;
+    private ArrayList<String> friendIds;
     private ArrayList<Product> products;
     private ArrayList<Chat> chats;
 
@@ -25,7 +25,7 @@ public class User {
         // Initialize the ArrayLists
         savedPosts = new ArrayList<>();
         sharedPosts = new ArrayList<>();
-        friends = new ArrayList<>();
+        friendIds = new ArrayList<>();
         products = new ArrayList<>();
         chats = new ArrayList<>();
     }
@@ -36,7 +36,7 @@ public class User {
         this.username = username;
         this.savedPosts = new ArrayList<>();
         this.sharedPosts = new ArrayList<>();
-        this.friends = new ArrayList<>();
+        this.friendIds = new ArrayList<>();
         this.products = new ArrayList<>();
         this.chats = new ArrayList<>();
         this.profilePhoto = "https://firebasestorage.googleapis.com/v0/b/bilkentconnect-344eb.appspot.com/o/default%20pp.png?alt=media&token=c8bba3a4-34aa-4122-b909-cffc7026128a";
@@ -144,19 +144,19 @@ public class User {
     }
 
 
-    public ArrayList<User> getFriends() {
+    public ArrayList<String> getFriends() {
         // TODO: Implement method logic
-        return friends;
+        return friendIds;
     }
 
-    public void addFriend(User friend) {
+    public void addFriend(String friendId) {
         // TODO: Implement method logic
-        friends.add(friend);
+        friendIds.add(friendId);
     }
 
-    public void removeFriend(User friend) {
+    public void removeFriend(String friendId) {
         // TODO: Implement method logic
-        friends.remove(friend);
+        friendIds.remove(friendId);
     }
 
     public ArrayList<Product> getProducts() {

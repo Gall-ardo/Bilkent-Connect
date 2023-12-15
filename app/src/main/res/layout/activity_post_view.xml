@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="Connect"
-                android:onClick="SendConnectionRequest"
+                android:onClick="addFriend"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="140dp"
                 android:textColor="@color/black"
