@@ -35,7 +35,7 @@ public class OwnHandScreen extends AppCompatActivity implements OnProductClickLi
     public FirebaseAuth firebaseAuth;
     ArrayList<Product> productArrayList;
     ProductAdapter productAdapter;
-    String currentUserId;
+    private String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
