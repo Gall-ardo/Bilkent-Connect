@@ -55,20 +55,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/ubuntu_bold"
             android:text="Öğlen Yemeği/Lunch"
-            android:textColor="#EF9934"
-            android:textSize="15dp"
-
-
-            />
-
-        <TextView
-            android:id="@+id/rateText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:fontFamily="@font/ubuntu_bold"
-            android:text="Rate: 4.3/5"
-            android:textColor="#20A090"
+            android:textColor="#FF5722"
             android:textSize="15dp"
 
 
@@ -111,21 +98,13 @@
 
     </LinearLayout>
 
-    <RatingBar
-        android:id="@+id/mealRatingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mealCommentRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/mealRatingBar"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout9"
         tools:layout_editor_absoluteX="1dp" />
 

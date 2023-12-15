@@ -93,19 +93,6 @@
         app:layout_constraintVertical_bias="0.142" />
 
     <TextView
-        android:id="@+id/dinnerRateText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Rate: 4.7/5"
-        android:textColor="@color/design_default_color_secondary_variant"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.372"
-        app:layout_constraintStart_toEndOf="@+id/dinnerInfoText"
-        app:layout_constraintTop_toBottomOf="@+id/dinnerCommentImage" />
-
-    <TextView
         android:id="@+id/dinnerInfoText"
         android:layout_width="287dp"
         android:layout_height="71dp"
@@ -244,19 +231,6 @@
         app:layout_constraintVertical_bias="0.2" />
 
     <TextView
-        android:id="@+id/lunchRateText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Rate: 4.3/5"
-        android:textColor="@color/design_default_color_secondary_variant"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.395"
-        app:layout_constraintStart_toEndOf="@+id/lunchInfoText"
-        app:layout_constraintTop_toBottomOf="@+id/lunchCommentImage" />
-
-    <TextView
         android:id="@+id/lunchText"
         android:layout_width="386dp"
         android:layout_height="91dp"
@@ -289,6 +263,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
+        android:onClick="goToLunchCommentsPage"
         app:layout_constraintBottom_toBottomOf="@+id/lunchInfoText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.628"
@@ -301,6 +276,7 @@
         android:id="@+id/dinnerCommentImage"
         android:layout_width="36dp"
         android:layout_height="42dp"
+        android:onClick="goToDinnerCommentsPage"
         app:layout_constraintBottom_toBottomOf="@+id/dinnerInfoText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.623"
