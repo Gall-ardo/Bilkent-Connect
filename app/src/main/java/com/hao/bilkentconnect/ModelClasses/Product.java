@@ -24,6 +24,16 @@ public class Product implements Serializable {
         this.seller = seller;
         this.price = price;
     }
+
+    public Product(String productId, String productName, String image, String description, String seller, String price) {
+        this.productId = productId;
+        this.productName = productName;
+        this.image = image;
+        this.description = description;
+        this.seller = seller;
+        this.price = price;
+    }
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("productId", productId);
