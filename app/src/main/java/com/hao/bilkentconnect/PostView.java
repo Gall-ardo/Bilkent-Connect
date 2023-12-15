@@ -96,6 +96,7 @@ public class PostView extends AppCompatActivity {
                                         }
                                         else {
                                             binding.topUsernameText.setText(user.getUsername());
+                                            Picasso.get().load(user.getProfilePhoto()).into(binding.profilePicture);
                                         }
                                     }
                                 }
