@@ -31,6 +31,7 @@ public class Post {
         this.likeCount = 0;
         this.isAnonymous = isAnonymous;
         this.comments = new ArrayList<>();
+        this.timestamp = new Date();
     }
     public Post(String sharerId, String photoUrl, String postDescription, boolean isAnonymous) {
         this.sharerId = sharerId;
@@ -40,6 +41,7 @@ public class Post {
         this.likeCount = 0;
         this.isAnonymous = isAnonymous;
         this.comments = new ArrayList<>();
+        this.timestamp = new Date();
     }
 
     public Post() {
@@ -50,6 +52,7 @@ public class Post {
         this.photoUrl = null;
         this.postDescription = null;
         comments = new ArrayList<>();
+        this.timestamp = new Date();
     }
 
     public Post(String postId, String sharerId, String postDescription) {
@@ -59,6 +62,7 @@ public class Post {
         this.likeCount = 0;
         this.isAnonymous = false;
         this.comments = new ArrayList<>();
+        this.timestamp = new Date();
     }
 
     public Post(String sharerId, int likeCount, String postDescription) {
@@ -69,7 +73,7 @@ public class Post {
         this.photoUrl = null;
         this.postDescription = postDescription;
         this.comments = new ArrayList<>();
-        this.timestamp = null;
+        this.timestamp = new Date();
 
     }
     public Post(String postId, String sharerId, int likeCount, boolean isAnonymous, String photoUrl, String postDescription, ArrayList<Comment> comments, Date timestamp) {

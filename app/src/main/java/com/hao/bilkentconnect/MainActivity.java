@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements OnPostClickListen
 
 
     }
-    private void loadPostsFromFirebase() {
+    /*private void loadPostsFromFirebase() {
         CollectionReference collectionReference = db.collection("Posts");
 
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -103,7 +103,33 @@ public class MainActivity extends AppCompatActivity implements OnPostClickListen
                 }
             }
         });
+    }*/
+    private void loadPostsFromFirebase() {
+        CollectionReference collectionReference = db.collection("Posts");
+
+        collectionReference.orderBy("timestamp", Query.Direction.DESCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
+                                        @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Log.e("Firestore Error", error.getMessage());
+                            Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if (queryDocumentSnapshots != null) {
+                            postArrayList.clear(); // Clear existing data
+                            for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                                Post post = snapshot.toObject(Post.class);
+                                postArrayList.add(post);
+                            }
+                            postAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
     }
+
 
     private void onSideMenuItemClick() {
         // Handle the click event for side menu items
