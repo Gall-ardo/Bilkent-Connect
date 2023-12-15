@@ -161,4 +161,19 @@ public class SecondHandMain extends AppCompatActivity implements OnProductClickL
         Intent intent = new Intent(this, ShareAnnoucementScreen.class);
         startActivity(intent);
     }
+
+    public void goToOwnHandPage(View view){
+        Intent intent = new Intent(this, OwnHandScreen.class);
+        startActivity(intent);
+    }
+
+    public void goToMainActivity(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToBCCDailyPage(View view){
+        Intent intent = new Intent(this, BccCafeteriaPage.class);
+        startActivity(intent);
+    }
 }

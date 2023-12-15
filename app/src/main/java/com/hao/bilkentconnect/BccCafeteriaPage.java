@@ -179,7 +179,7 @@ public class BccCafeteriaPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void gotoChatPage() {
+    public void goToChatPage(View view){
         Intent intent = new Intent(this, ChatActivity.class);
         startActivity(intent);
     }
@@ -190,6 +190,11 @@ public class BccCafeteriaPage extends AppCompatActivity {
 
     public void goToProfilePage(View view){
         Intent intent = new Intent(this, ProfilePage.class);
+        startActivity(intent);
+    }
+
+    public void goToSecondHandSalePageFromBcc(View view){
+        Intent intent = new Intent(this, SecondHandMain.class);
         startActivity(intent);
     }
 }

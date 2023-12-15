@@ -21,7 +21,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="12dp"
-            android:onClick="goToMainPage"
+            android:onClick="goToSecondHandSalePage"
             android:layout_marginLeft="5dp"
             app:srcCompat="@drawable/arrow_vector"
             />
