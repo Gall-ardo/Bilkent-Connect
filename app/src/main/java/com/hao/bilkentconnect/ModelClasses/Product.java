@@ -12,12 +12,12 @@ public class Product implements Serializable {
     private String image;
     private String description;
     private String seller; // Assuming 'seller' is represented by an integer ID
-    private int price;
+    private String price;
     public Date timestamp;
 
 
     // Constructor
-    public Product(String productName, String image, String description, String seller, int price) {
+    public Product(String productName, String image, String description, String seller, String price) {
         this.productName = productName;
         this.image = image;
         this.description = description;
@@ -82,11 +82,11 @@ public class Product implements Serializable {
         this.seller = seller;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

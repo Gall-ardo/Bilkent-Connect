@@ -93,9 +93,9 @@ public class SecondHandMain extends AppCompatActivity implements OnProductClickL
                 if (queryDocumentSnapshots != null) {
                     productArrayList.clear(); // Clear existing data
                     for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                        Product product = snapshot.toObject(Product.class);
-                        productArrayList.add(product);
-                        //System.out.println("snapshot: " + snapshot.getData());
+                        //Product product = snapshot.toObject(Product.class);
+                        //productArrayList.add(product);
+                        System.out.println("snapshot: " + snapshot.getData());
                     }
                     productAdapter.notifyDataSetChanged();
                 }

@@ -86,7 +86,7 @@ public class ShareAnnoucementScreen extends AppCompatActivity {
                     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                     String userId = firebaseUser.getUid();
 
-                    Product newProduct = new Product(title, downloadUrl, description, userId, Integer.parseInt(price));
+                    Product newProduct = new Product(title, downloadUrl, description, userId, price);
 
                     firebaseFirestore.collection("Products").add(newProduct.toMap()).addOnSuccessListener(documentReference -> {
                         String generatedProductId = documentReference.getId();

@@ -30,10 +30,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        //Product currentProduct = products.get(position);
+        Product currentProduct = products.get(position);
 
-        holder.productsBinding.productTitle.setText("currentProduct.getProductName()");
-        holder.productsBinding.productPrice.setText(String.valueOf("currentProduct.getPrice()"));
+        holder.productsBinding.productTitle.setText(currentProduct.getProductName());
+        holder.productsBinding.productPrice.setText(String.valueOf(currentProduct.getPrice()));
 
         // Load product image using Picasso
         /*if (currentProduct.getImage() != null && !currentProduct.getImage().isEmpty()) {
