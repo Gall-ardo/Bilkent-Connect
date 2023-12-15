@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -195,6 +196,20 @@ public class BccCafeteriaPage extends AppCompatActivity {
 
     public void goToSecondHandSalePageFromBcc(View view){
         Intent intent = new Intent(this, SecondHandMain.class);
+        startActivity(intent);
+    }
+
+    public void goToLunchCommentsPage(View view){
+        Intent intent = new Intent(this, MealCommentActivity.class);
+        intent.putExtra("mealType", "Öğlen Yemeği/Lunch");
+        intent.putExtra("textColor", Color.parseColor("#FF5722"));
+        startActivity(intent);
+    }
+
+    public void goToDinnerCommentsPage(View view){
+        Intent intent = new Intent(this, MealCommentActivity.class);
+        intent.putExtra("mealType", "Akşam Yemeği/Dinner");
+        intent.putExtra("textColor", Color.parseColor("#0D99FF"));
         startActivity(intent);
     }
 }

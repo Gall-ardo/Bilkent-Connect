@@ -36,7 +36,7 @@ public class ProductDetailScreen extends AppCompatActivity {
         //firebaseFirestore = FirebaseFirestore.getInstance();
 
         String description = getIntent().getStringExtra("productDescription");
-        int price = getIntent().getIntExtra("productPrice", 0);
+        String price = getIntent().getStringExtra("productPrice");
         String title = getIntent().getStringExtra("productTitle");
         String image = getIntent().getStringExtra("productImage");
 
