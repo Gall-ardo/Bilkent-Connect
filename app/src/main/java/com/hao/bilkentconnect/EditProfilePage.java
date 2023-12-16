@@ -32,7 +32,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.hao.bilkentconnect.ModelClasses.Post;
+import com.hao.bilkentconnect.ModelClasses.User;
 import com.hao.bilkentconnect.databinding.ActivityEditProfilePageBinding;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -61,6 +63,7 @@ public class EditProfilePage extends AppCompatActivity {
         View viewRoot = binding.getRoot();
         setContentView(viewRoot);
         registerLauncher();
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
@@ -129,8 +132,6 @@ public class EditProfilePage extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
 
     public void selectPP(View view) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){

@@ -49,8 +49,9 @@
         app:layout_constraintBottom_toTopOf="@+id/editUsernameText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="#000000"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:srcCompat="@drawable/cropped_profile_photo"
+        app:srcCompat="@drawable/image_image"
         />
 
     <TextView
@@ -114,10 +115,10 @@
         android:ems="10"
         android:fontFamily="@font/ubuntu_light"
         android:inputType="text"
+        android:textColor="#414141"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:text="Old bio"
-        android:textColor="#414141"
+        android:hint="New Biography"
         android:textColorHint="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/confirmButton"
