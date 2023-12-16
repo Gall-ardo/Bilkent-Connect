@@ -52,12 +52,11 @@ public class ChatAddActivity extends AppCompatActivity implements OnChatClickLis
                     if (documentSnapshot.exists()) {
                         User user = documentSnapshot.toObject(User.class);
                         if (user != null && user.getFriends() != null) {
-                            for (User friend : user.getFriends()) {
-                                String friendId = friend.getId(); // Assuming 'getUserId()' gets the friend's ID
-                                Chat chat = new Chat();
-                                chat.setUser1(currentUserId);
-                                chat.setUser2(friendId);
+                            for (String friendId : user.getFriends()) {
+
+                                Chat chat = new Chat(currentUserId, friendId);
                                 chatArrayList.add(chat);
+
                             }
                             chatAdapter.notifyDataSetChanged();
                         }
