@@ -159,7 +159,7 @@ public class PostView extends AppCompatActivity {
                 .addOnFailureListener(e -> Toast.makeText(PostView.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
     }
 
-    /*public void loadCommentsFromFirebase() {
+    public void loadCommentsFromFirebase() {
         CollectionReference commentsCollection = firebaseFirestore.collection("Comments");
         commentsCollection.whereEqualTo("postId", postId)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -186,8 +186,8 @@ public class PostView extends AppCompatActivity {
                         }
                     }
                 });
-    }*/
-    public void loadCommentsFromFirebase() {
+    }
+    /*public void loadCommentsFromFirebase() {
         CollectionReference commentsCollection = firebaseFirestore.collection("Comments");
         commentsCollection.whereEqualTo("postId", postId)
                 .orderBy("timestamp", Query.Direction.DESCENDING) // Sort by timestamp in descending order
@@ -212,7 +212,7 @@ public class PostView extends AppCompatActivity {
                         }
                     }
                 });
-    }
+    }*/
 
 
     public void addFriend(View view) {
