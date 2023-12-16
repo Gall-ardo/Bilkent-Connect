@@ -1,6 +1,7 @@
 package com.hao.bilkentconnect.Adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -30,7 +31,23 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ChatMessageViewHolder holder, int position) {
-        holder.chatMessageBinding.usernameText.setText("Xia055");
+        ChatMessage chatMessage = chatMessages.get(position);
+        String messageText = chatMessage.getText();
+        String senderId = chatMessage.getSenderId();
+        String receiverId = chatMessage.getReceiverId();
+
+        holder.chatMessageBinding.messageText.setText(messageText);
+
+        if (chatMessage.getSenderId().equals(senderId)) {
+            // Apply styling for a sent message (e.g., aligning text to the right)
+            holder.chatMessageBinding.messageText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+            // You can also change background, text color, etc.
+        } else {
+            // Apply styling for a received message (e.g., aligning text to the left)
+            holder.chatMessageBinding.messageText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+            // Additional styling for received messages
+        }
+
     }
 
     @Override

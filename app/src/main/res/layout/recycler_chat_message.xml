@@ -41,6 +41,7 @@
         </TextView>
 
         <TextView
+            android:id="@+id/messageText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ubuntu_regular"

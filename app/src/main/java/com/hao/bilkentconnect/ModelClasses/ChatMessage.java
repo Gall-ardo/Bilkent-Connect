@@ -1,5 +1,7 @@
 package com.hao.bilkentconnect.ModelClasses;
 
+import com.google.firebase.Timestamp;
+
 import java.util.Date;
 
 public class ChatMessage {
@@ -11,7 +13,7 @@ public class ChatMessage {
     private Date timestap; // Using Timestamp for the timeStap
 
     // Constructor
-    public ChatMessage(String sender, String receiver, String text) {
+    public ChatMessage(String sender, String receiver, String text, Timestamp timestamp) {
         this.senderId = sender;
         this.receiverId = receiver;
         this.text = text;
