@@ -5,8 +5,8 @@ import java.util.Date;
 
 public class Chat {
     private String chatId;
-    private String user1; // Assuming 'user1' is represented by an integer ID
-    private String user2; // Assuming 'user2' is represented by an integer ID
+    private String user1; // Assuming 'user1' is represented by an String ID
+    private String user2; // Assuming 'user2' is represented by an String ID
     private ArrayList<ChatMessage> chatMessages;
     private String lastMessage; // Last message text
     private Date lastActivityTime;

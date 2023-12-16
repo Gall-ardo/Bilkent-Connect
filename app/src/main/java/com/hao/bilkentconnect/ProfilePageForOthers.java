@@ -18,4 +18,8 @@ public class ProfilePageForOthers extends AppCompatActivity {
         View viewRoot = binding.getRoot();
         setContentView(viewRoot);
     }
+
+
+
+    
 }
