@@ -20,6 +20,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
     private ArrayList<Chat> chats;
 
+
+
     private OnChatClickListener listener;
 
     public ChatAdapter(ArrayList<Chat> chats, OnChatClickListener listener) {

@@ -1,5 +1,6 @@
 package com.hao.bilkentconnect;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -11,7 +12,10 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.hao.bilkentconnect.Adapter.ChatAdapter;
 import com.hao.bilkentconnect.Adapter.CommentAdapter;
 import com.hao.bilkentconnect.ModelClasses.Chat;
@@ -20,6 +24,8 @@ import com.hao.bilkentconnect.databinding.ActivityChangePasswordPageBinding;
 import com.hao.bilkentconnect.databinding.ActivityChatBinding;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity implements OnChatClickListener{
 
@@ -46,7 +52,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatClickListen
         db = FirebaseFirestore.getInstance();
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        loadChatsFromFirebase();
+        getChats();
 
 
         binding.recyclerChatView.setLayoutManager(new LinearLayoutManager(this));
@@ -56,23 +62,31 @@ public class ChatActivity extends AppCompatActivity implements OnChatClickListen
     }
 
 
-    private void loadChatsFromFirebase() {
-        db.collection("Chats")
-                .whereEqualTo("user1", currentUserId)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                        Chat chat = snapshot.toObject(Chat.class);
-                        if (chat != null) {
-                            chatArrayList.add(chat);
-                        }
-                    }
+    private void getChats() {
+
+        db.collection("Users").whereEqualTo("id", currentUserId).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null){
+                    Toast.makeText(ChatActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                }
+
+                if (value != null){
+
+                    DocumentSnapshot snapshot = value.getDocuments().get(0);
+                    Map<String, Object> data = snapshot.getData();
+
+                    chatArrayList = (ArrayList<Chat>) data.get("chats");
+
+
                     chatAdapter.notifyDataSetChanged();
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("Chat Load Error", e.getMessage());
-                    Toast.makeText(ChatActivity.this, "Error loading chats", Toast.LENGTH_LONG).show();
-                });
+
+
+                }
+            }
+        });
+
+
     }
 
     public void goToMainPageChatActivity(View view){
@@ -87,6 +101,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatClickListen
         intent.putExtra("chatId", chat.getChatId());
         // Add other necessary chat details to the intent
         startActivity(intent);
+        finish();
     }
 
     public void goToAddChatActivity(View view){
