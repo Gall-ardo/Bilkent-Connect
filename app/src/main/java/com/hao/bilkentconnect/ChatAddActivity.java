@@ -17,6 +17,8 @@ import com.hao.bilkentconnect.databinding.ActivityChatAddBinding;
 import com.hao.bilkentconnect.databinding.ActivityChatBinding;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class ChatAddActivity extends AppCompatActivity implements OnChatClickListener {
 
@@ -45,33 +47,44 @@ public class ChatAddActivity extends AppCompatActivity implements OnChatClickLis
         chatAdapter = new ChatAdapter(chatArrayList, this);
         binding.recyclerAddChatView.setAdapter(chatAdapter);
     }
-
-
     private void loadFriendsFromFirebase() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String currentUserId = firebaseAuth.getCurrentUser().getUid();
+
         db.collection("Users").document(currentUserId).get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        User user = documentSnapshot.toObject(User.class);
-                        if (user != null && user.getFriendIds() != null) {
-                            for (String friendId : user.getFriendIds()) {
-                                Chat chat = new Chat();
-                                chat.setUser1(currentUserId);
-                                chat.setUser2(friendId);
-                                chatArrayList.add(chat);
+                        Map<String, Object> userData = documentSnapshot.getData();
+                        if (userData != null) {
+                            List<String> friendIds = (List<String>) userData.get("friends");
+                            if (friendIds != null) {
+                                for (String friendId : friendIds) {
+                                    Chat chat = new Chat();
+                                    chat.setUser1(currentUserId);
+                                    chat.setUser2(friendId);
+
+                                    // Add any additional initialization for the Chat object here
+
+                                    chatArrayList.add(chat);
+                                }
+                                chatAdapter.notifyDataSetChanged();
                             }
-                            chatAdapter.notifyDataSetChanged();
                         }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Document does not exist", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getApplicationContext(), "Error loading friends", Toast.LENGTH_SHORT).show();
-                });
+                .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error loading friends: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
-
 
     @Override
     public void onChatClick(Chat chat) {
-        startActivity(new Intent(ChatAddActivity.this, InnerChat.class));
+        String otherUserId = currentUserId.equals(chat.getUser1()) ? chat.getUser2() : chat.getUser1();
+        Intent intent = new Intent(ChatAddActivity.this, InnerChat.class);
+        intent.putExtra("otherUserId", otherUserId);
+        startActivity(intent);
         finish();
     }
+
 }

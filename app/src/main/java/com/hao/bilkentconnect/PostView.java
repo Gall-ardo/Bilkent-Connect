@@ -218,11 +218,26 @@ public class PostView extends AppCompatActivity {
     public void addFriend(View view) {
         String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
-        firebaseFirestore.collection("Users").document(currentUserId)
-                .update("friendIds", FieldValue.arrayUnion(postSharerId))
-                .addOnSuccessListener(aVoid -> Toast.makeText(PostView.this, "Friend added successfully", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e -> Toast.makeText(PostView.this, "Error adding friend", Toast.LENGTH_SHORT).show());
+        // Fetch the post to get the creator's user ID
+        firebaseFirestore.collection("Posts").document(postId)
+                .get().addOnSuccessListener(postSnapshot -> {
+                    if (postSnapshot.exists()) {
+                        Post post = postSnapshot.toObject(Post.class);
+                        if (post != null && !post.isAnonymous()) {
+                            String postCreatorId = post.getSharerId();
+
+                            // Add post creator to current user's friends list
+                            firebaseFirestore.collection("Users").document(currentUserId)
+                                    .update("friends", FieldValue.arrayUnion(postCreatorId))
+                                    .addOnSuccessListener(aVoid -> Toast.makeText(PostView.this, "Friend added successfully", Toast.LENGTH_SHORT).show())
+                                    .addOnFailureListener(e -> Toast.makeText(PostView.this, "Error adding friend", Toast.LENGTH_SHORT).show());
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> Toast.makeText(PostView.this, "Error fetching post details", Toast.LENGTH_SHORT).show());
     }
+
+
 
 
 

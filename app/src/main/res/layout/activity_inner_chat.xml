@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="60sp"
         android:background="@drawable/linear_gradient_top"
-
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -36,7 +35,7 @@
             app:srcCompat="@drawable/cropped_profile_photo" />
 
         <TextView
-            android:id="@+id/innerChatText"
+            android:id="@+id/FriendNameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -58,7 +57,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <EditText
-            android:id="@+id/commentText"
+            android:id="@+id/directMessageText"
             android:layout_width="0dp"
             android:layout_height="40sp"
             android:layout_marginLeft="10dp"
@@ -67,18 +66,18 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_comment_bar"
             android:ems="10"
-            android:hint="enter comment"
+            android:hint="enter message"
             android:inputType="textPersonName"
             android:textSize="18sp" />
 
         <ImageView
-            android:id="@+id/shareCommentButton"
+            android:id="@+id/sendMessage"
             android:layout_width="40sp"
             android:layout_height="40sp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/circle"
-            android:onClick="shareRegularPost"
+            android:onClick="sendMessage"
             android:src="@drawable/send_button" />
 
 

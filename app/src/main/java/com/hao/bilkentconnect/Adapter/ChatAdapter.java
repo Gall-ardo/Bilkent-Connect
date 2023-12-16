@@ -4,6 +4,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.hao.bilkentconnect.ModelClasses.Chat;
 import com.hao.bilkentconnect.ModelClasses.User;
@@ -35,34 +36,29 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-
         Chat currentChat = chats.get(position);
-        holder.chatsBinding.usernameText.setOnClickListener((v -> listener.onChatClick(currentChat)));
-        holder.chatsBinding.userPhoto.setOnClickListener((v -> listener.onChatClick(currentChat)));
+        String otherUserId = currentChat.getUser1().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()) ?
+                currentChat.getUser2() : currentChat.getUser1();
 
-        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userId = currentChat.getUser2();
-
-        // Fetch user by ID to get the username
-        db.collection("Users").document(userId).get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists()){
-
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Users").document(otherUserId).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
                 User user = documentSnapshot.toObject(User.class);
-                if (user != null){
-
+                if (user != null) {
                     holder.chatsBinding.usernameText.setText(user.getUsername());
-                    if (user.getProfilePhoto() != null){
+                    if (user.getProfilePhoto() != null && !user.getProfilePhoto().isEmpty()) {
                         Picasso.get().load(user.getProfilePhoto()).into(holder.chatsBinding.userPhoto);
-                    }else{
-                        holder.chatsBinding.userPhoto.setImageResource(R.drawable.circle);
+                    } else {
+                        holder.chatsBinding.userPhoto.setImageResource(R.drawable.profile_icon); // Replace with your default image resource
                     }
                 }
-
             }
+        });
 
-        });*/
-
+        holder.chatsBinding.usernameText.setOnClickListener((v -> listener.onChatClick(currentChat)));
+        holder.chatsBinding.userPhoto.setOnClickListener((v -> listener.onChatClick(currentChat)));
     }
+
 
     @Override
     public int getItemCount() {
