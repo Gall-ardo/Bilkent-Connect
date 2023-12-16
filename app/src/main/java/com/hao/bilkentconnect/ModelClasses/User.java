@@ -15,6 +15,42 @@ public class User {
     private ArrayList<Product> products;
     private ArrayList<Chat> chats;
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSavedPosts(ArrayList<Post> savedPosts) {
+        this.savedPosts = savedPosts;
+    }
+
+    public void setSharedPosts(ArrayList<Post> sharedPosts) {
+        this.sharedPosts = sharedPosts;
+    }
+
+    public ArrayList<String> getFriendIds() {
+        return friendIds;
+    }
+
+    public void setFriendIds(ArrayList<String> friendIds) {
+        this.friendIds = friendIds;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
+    }
+
+    public void setChats(ArrayList<Chat> chats) {
+        this.chats = chats;
+    }
+
     // Constructor
     public User() {
         userId = "sample user id";

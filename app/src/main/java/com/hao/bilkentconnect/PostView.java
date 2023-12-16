@@ -218,8 +218,10 @@ public class PostView extends AppCompatActivity {
     public void addFriend(View view) {
         String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
-        // Add post creator to current user's friend list
-        firebaseFirestore.collection("Users").document(currentUserId).update("friends", FieldValue.arrayUnion(postSharerId)).addOnSuccessListener(aVoid -> Toast.makeText(PostView.this, "Friend added successfully", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(PostView.this, "Error adding friend", Toast.LENGTH_SHORT).show());
+        firebaseFirestore.collection("Users").document(currentUserId)
+                .update("friendIds", FieldValue.arrayUnion(postSharerId))
+                .addOnSuccessListener(aVoid -> Toast.makeText(PostView.this, "Friend added successfully", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(PostView.this, "Error adding friend", Toast.LENGTH_SHORT).show());
     }
 
 

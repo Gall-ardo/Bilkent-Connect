@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -51,9 +52,8 @@ public class ChatAddActivity extends AppCompatActivity implements OnChatClickLis
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
                         User user = documentSnapshot.toObject(User.class);
-                        if (user != null && user.getFriends() != null) {
-                            for (User friend : user.getFriends()) {
-                                String friendId = friend.getId(); // Assuming 'getUserId()' gets the friend's ID
+                        if (user != null && user.getFriendIds() != null) {
+                            for (String friendId : user.getFriendIds()) {
                                 Chat chat = new Chat();
                                 chat.setUser1(currentUserId);
                                 chat.setUser2(friendId);
@@ -64,7 +64,7 @@ public class ChatAddActivity extends AppCompatActivity implements OnChatClickLis
                     }
                 })
                 .addOnFailureListener(e -> {
-                    // Handle errors
+                    Toast.makeText(getApplicationContext(), "Error loading friends", Toast.LENGTH_SHORT).show();
                 });
     }
 
