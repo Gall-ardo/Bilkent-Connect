@@ -17,6 +17,7 @@ import com.hao.bilkentconnect.databinding.ActivityChatAddBinding;
 import com.hao.bilkentconnect.databinding.ActivityChatBinding;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -60,12 +61,7 @@ public class ChatAddActivity extends AppCompatActivity implements OnChatClickLis
                             List<String> friendIds = (List<String>) userData.get("friends");
                             if (friendIds != null) {
                                 for (String friendId : friendIds) {
-                                    Chat chat = new Chat();
-                                    chat.setUser1(currentUserId);
-                                    chat.setUser2(friendId);
-
-                                    // Add any additional initialization for the Chat object here
-
+                                    Chat chat = new Chat(currentUserId, friendId);
                                     chatArrayList.add(chat);
                                 }
                                 chatAdapter.notifyDataSetChanged();
@@ -78,9 +74,17 @@ public class ChatAddActivity extends AppCompatActivity implements OnChatClickLis
                 .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error loading friends: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
+
     @Override
     public void onChatClick(Chat chat) {
-        String otherUserId = currentUserId.equals(chat.getUser1()) ? chat.getUser2() : chat.getUser1();
+        List<String> userIds = chat.getUsers();
+        String otherUserId = userIds.stream().filter(id -> !id.equals(currentUserId)).findFirst().orElse(null);
+
+        if (otherUserId == null) {
+            Toast.makeText(this, "Error: Other user ID not found", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(ChatAddActivity.this, InnerChat.class);
         intent.putExtra("otherUserId", otherUserId);
         startActivity(intent);

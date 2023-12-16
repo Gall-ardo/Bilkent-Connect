@@ -2,6 +2,8 @@ package com.hao.bilkentconnect.ModelClasses;
 
 import com.google.firebase.Timestamp;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.Date;
 
 public class ChatMessage {
@@ -9,15 +11,24 @@ public class ChatMessage {
     private String senderId; // Assuming 'sender' is represented by an integer ID
     private String receiverId; // Assuming 'receiver' is represented by an integer ID
     private String text;
-
+    private String chatId;
     private Date timestap; // Using Timestamp for the timeStap
 
     // Constructor
-    public ChatMessage(String sender, String receiver, String text, Timestamp timestamp) {
+    public ChatMessage(String sender, String receiver, String text, String chatId,  Timestamp timestamp) {
         this.senderId = sender;
         this.receiverId = receiver;
         this.text = text;
+        this.chatId = chatId;
+        this.timestap = timestamp.toDate();
     }
+    public ChatMessage(String sender, String receiver, String text,Timestamp timestamp) {
+        this.senderId = sender;
+        this.receiverId = receiver;
+        this.text = text;
+        this.timestap = timestamp.toDate();
+    }
+
 
 
 
@@ -42,6 +53,14 @@ public class ChatMessage {
 
     public String getSenderId() {
         return senderId;
+    }
+
+    public String getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
     }
 
     public void setSenderId(String senderId) {

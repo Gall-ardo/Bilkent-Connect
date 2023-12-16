@@ -63,31 +63,25 @@ public class ChatActivity extends AppCompatActivity implements OnChatClickListen
 
 
     private void getChats() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        db.collection("Users").whereEqualTo("id", currentUserId).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (error != null){
-                    Toast.makeText(ChatActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                }
-
-                if (value != null){
-
-                    DocumentSnapshot snapshot = value.getDocuments().get(0);
-                    Map<String, Object> data = snapshot.getData();
-
-                    chatArrayList = (ArrayList<Chat>) data.get("chats");
-
-
+        db.collection("Chats")
+                .whereArrayContains("users", currentUserId)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    chatArrayList.clear();
+                    for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                        Chat chat = snapshot.toObject(Chat.class);
+                        if (chat != null) {
+                            chatArrayList.add(chat);
+                        }
+                    }
                     chatAdapter.notifyDataSetChanged();
-
-
-                }
-            }
-        });
-
-
+                })
+                .addOnFailureListener(e -> Toast.makeText(ChatActivity.this, "Error fetching chats: " + e.getMessage(), Toast.LENGTH_LONG).show());
     }
+
 
     public void goToMainPageChatActivity(View view){
         Intent intent = new Intent(ChatActivity.this, MainActivity.class);
@@ -96,10 +90,8 @@ public class ChatActivity extends AppCompatActivity implements OnChatClickListen
     }
 
     public void onChatClick(Chat chat) {
-        // Example implementation: Start TextingScreen activity with chat details
         Intent intent = new Intent(this, InnerChat.class);
         intent.putExtra("chatId", chat.getChatId());
-        // Add other necessary chat details to the intent
         startActivity(intent);
         finish();
     }

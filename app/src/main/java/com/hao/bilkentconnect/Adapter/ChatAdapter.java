@@ -19,9 +19,6 @@ import java.util.ArrayList;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder>{
 
     private ArrayList<Chat> chats;
-
-
-
     private OnChatClickListener listener;
 
     public ChatAdapter(ArrayList<Chat> chats, OnChatClickListener listener) {
@@ -39,8 +36,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
         Chat currentChat = chats.get(position);
-        String otherUserId = currentChat.getUser1().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()) ?
-                currentChat.getUser2() : currentChat.getUser1();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String currentUserId = firebaseAuth.getCurrentUser() != null ? firebaseAuth.getCurrentUser().getUid() : "";
+        String otherUserId = currentChat.getUsers().contains(currentUserId) ?
+                currentChat.getUsers().stream().filter(id -> !id.equals(currentUserId)).findFirst().orElse("") :
+                "";
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Users").document(otherUserId).get().addOnSuccessListener(documentSnapshot -> {

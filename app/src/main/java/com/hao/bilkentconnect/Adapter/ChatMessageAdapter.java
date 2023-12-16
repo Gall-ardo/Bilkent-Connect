@@ -11,6 +11,7 @@ import com.hao.bilkentconnect.ModelClasses.Chat;
 import com.hao.bilkentconnect.ModelClasses.ChatMessage;
 import com.hao.bilkentconnect.databinding.RecyclerChatBinding;
 import com.hao.bilkentconnect.databinding.RecyclerChatMessageBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,13 +40,12 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         holder.chatMessageBinding.messageText.setText(messageText);
 
         if (chatMessage.getSenderId().equals(senderId)) {
-            // Apply styling for a sent message (e.g., aligning text to the right)
             holder.chatMessageBinding.messageText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
-            // You can also change background, text color, etc.
+            holder.chatMessageBinding.usernameText.setText(senderId);
+
         } else {
-            // Apply styling for a received message (e.g., aligning text to the left)
             holder.chatMessageBinding.messageText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-            // Additional styling for received messages
+            holder.chatMessageBinding.usernameText.setText(receiverId);
         }
 
     }
