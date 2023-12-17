@@ -72,14 +72,14 @@ public class Register extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
     public void goToLoginPage(View view) {
         Intent intent = new Intent(Register.this, LoginActivity.class);
         startActivity(intent);
         finish();
 
 
-    }*/
+    }
     public void signUpClicked(View view) {
         String email = binding.enterMail.getText().toString();
         String password = binding.enterPassword.getText().toString();
