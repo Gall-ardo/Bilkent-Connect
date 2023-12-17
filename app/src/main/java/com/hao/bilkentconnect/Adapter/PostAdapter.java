@@ -1,14 +1,14 @@
 package com.hao.bilkentconnect.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.hao.bilkentconnect.ModelClasses.Post;
@@ -19,6 +19,8 @@ import com.hao.bilkentconnect.databinding.RecyclerPostBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
@@ -41,46 +43,74 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post currentPost = posts.get(position);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = currentPost.sharerId;
 
         if (currentPost.isAnonymous) {
             holder.binding.topUsernameText.setText("Ghost");
             holder.binding.profilePicture.setImageResource(R.drawable.ghost_icon); // Replace with your ghost drawable resource
 
         } else {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            String userId = currentPost.sharerId;
 
             // Fetch user by ID to get the username
             db.collection("Users").document(userId).get().addOnSuccessListener(documentSnapshot -> {
                 if (documentSnapshot.exists()) {
-                    User user = documentSnapshot.toObject(User.class);
-                    if (user != null) {
-                        // Set the username
-                        holder.binding.topUsernameText.setText(user.getUsername());
-                        if (user.getProfilePhoto() != null) {
-                            Picasso.get().load(user.getProfilePhoto()).into(holder.binding.profilePicture);
-                        }else{
+                    Map<String, Object> userData = documentSnapshot.getData();
+                    if (userData != null) {
+                        String username = (String) userData.get("username");
+                        String profilePhoto = (String) userData.get("profilePhoto");
+                        List<String> likedPosts = (List<String>) userData.get("likedPosts");
+
+                        // Set the username and profile picture
+                        holder.binding.topUsernameText.setText(username);
+                        if (profilePhoto != null) {
+                            Picasso.get().load(profilePhoto).into(holder.binding.profilePicture);
+                        } else {
                             holder.binding.profilePicture.setImageResource(R.drawable.circle);
                         }
                     }
                 }
             });
         }
-
-        holder.binding.saveButton.setOnClickListener(v -> {
-            /*FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            if (currentUser != null) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                String userId = currentUser.getUid();
-                // Add this post to the user's saved posts
-                db.collection("Users").document(userId)
-                        .update("savedPosts", FieldValue.arrayUnion(currentPost.getPostDescription())) // Assuming post ID is available
-                        .addOnSuccessListener(aVoid ->
-                                Toast.makeText(holder.itemView.getContext(), "Post saved!", Toast.LENGTH_SHORT).show())
-                        .addOnFailureListener(e ->
-                                Toast.makeText(holder.itemView.getContext(), "Failed to save post: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-            }*/
+        db.collection("Users").document(userId).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                User user = documentSnapshot.toObject(User.class);
+                if (user != null) {
+                    // Check if the liked posts contain the current post ID
+                    if (user.getLikedPosts().contains(currentPost.getPostId())) {
+                        holder.binding.likeButton.setImageResource(R.drawable.filled_like_button);
+                        holder.binding.likeButton.setEnabled(false);
+                    } else {
+                        holder.binding.likeButton.setImageResource(R.drawable.like_button);
+                        holder.binding.likeButton.setEnabled(true);
+                    }
+                }
+            }
+        }).addOnFailureListener(e -> {
+            // Handle any errors here
+            Log.e("UserDataFetch", "Error fetching user data", e);
         });
+
+
+
+        holder.binding.likeButton.setOnClickListener(v -> {
+            String postId = currentPost.getPostId(); // Assuming 'currentPost' is the post object for this item
+
+            DocumentReference userRef = db.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+            userRef.get().addOnSuccessListener(documentSnapshot -> {
+                User user = documentSnapshot.toObject(User.class);
+                if (user != null && !user.getLikedPosts().contains(postId)) {
+                    userRef.update("likedPosts", FieldValue.arrayUnion(postId));
+                    holder.binding.likeButton.setImageResource(R.drawable.filled_like_button);
+                    holder.binding.likeButton.setEnabled(false); // Disable the button after like
+                }
+            }).addOnFailureListener(e -> {
+                // Handle any errors here
+                Log.e("LikeButton", "Error updating like status", e);
+            });
+        });
+
 
         holder.binding.descriptionText.setText(currentPost.postDescription);
         Picasso.get().load(currentPost.photoUrl).into(holder.binding.postImage);

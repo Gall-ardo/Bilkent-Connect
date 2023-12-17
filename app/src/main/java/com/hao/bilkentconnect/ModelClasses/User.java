@@ -10,6 +10,8 @@ public class User {
     private String bio;
     private String profilePhoto;
     private ArrayList<Post> savedPosts;
+    private ArrayList<Post> likedPosts;
+
     private ArrayList<Post> sharedPosts;
     private ArrayList<String> friendIds;
     private ArrayList<Product> products;
@@ -64,6 +66,7 @@ public class User {
         friendIds = new ArrayList<>();
         products = new ArrayList<>();
         chats = new ArrayList<>();
+        likedPosts = new ArrayList<>();
     }
 
     public User(String userId, String email, String username) {
@@ -75,6 +78,7 @@ public class User {
         this.friendIds = new ArrayList<>();
         this.products = new ArrayList<>();
         this.chats = new ArrayList<>();
+        this.likedPosts = new ArrayList<>();
         this.profilePhoto = "https://firebasestorage.googleapis.com/v0/b/bilkentconnect-344eb.appspot.com/o/default%20pp.png?alt=media&token=c8bba3a4-34aa-4122-b909-cffc7026128a";
         this.bio = "You can add bio in edit profile page!";
     }
@@ -135,6 +139,13 @@ public class User {
         savedPosts.add(post);
     }
 
+    public ArrayList<Post> getLikedPosts() {
+        return likedPosts;
+    }
+
+    public void setLikedPosts(ArrayList<Post> likedPosts) {
+        this.likedPosts = likedPosts;
+    }
 
     public ArrayList<Chat> getChats(){
         return chats;

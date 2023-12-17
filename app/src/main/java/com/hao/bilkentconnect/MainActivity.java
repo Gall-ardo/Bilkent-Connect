@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements OnPostClickListen
     PostAdapter postAdapter;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,28 +77,7 @@ public class MainActivity extends AppCompatActivity implements OnPostClickListen
         binding.recyclerView.setAdapter(postAdapter);
 
     }
-    /*private void loadPostsFromFirebase() {
-        CollectionReference collectionReference = db.collection("Posts");
 
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
-                if(error != null) {
-                    Log.e("Firestore Error", error.getMessage());
-                    Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-
-                if (queryDocumentSnapshots != null) {
-                    postArrayList.clear(); // Clear existing data
-                    for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                        Post post = snapshot.toObject(Post.class);
-                        postArrayList.add(post);
-                    }
-                    postAdapter.notifyDataSetChanged();
-                }
-            }
-        });
-    }*/
     private void loadPostsFromFirebase() {
         CollectionReference collectionReference = db.collection("Posts");
 

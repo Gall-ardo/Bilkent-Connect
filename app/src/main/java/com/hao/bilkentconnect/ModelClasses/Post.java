@@ -22,6 +22,9 @@ public class Post {
     public String getSharerId() {
         return sharerId;
     }
+    public boolean isLikedByCurrentUser(User currentUser) {
+        return currentUser.getLikedPosts().contains(this.postId);
+    }
 
     public Post(String postId, String sharerId, String photoUrl, String postDescription, boolean isAnonymous) {
         this.postId = postId;
