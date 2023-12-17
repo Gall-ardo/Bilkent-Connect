@@ -10,8 +10,7 @@ public class User {
     private String bio;
     private String profilePhoto;
     private ArrayList<Post> savedPosts;
-    private ArrayList<Post> likedPosts;
-
+    private ArrayList<String> likedPosts;
     private ArrayList<Post> sharedPosts;
     private ArrayList<String> friendIds;
     private ArrayList<Product> products;
@@ -139,11 +138,11 @@ public class User {
         savedPosts.add(post);
     }
 
-    public ArrayList<Post> getLikedPosts() {
+    public ArrayList<String> getLikedPosts() {
         return likedPosts;
     }
 
-    public void setLikedPosts(ArrayList<Post> likedPosts) {
+    public void setLikedPosts(ArrayList<String> likedPosts) {
         this.likedPosts = likedPosts;
     }
 

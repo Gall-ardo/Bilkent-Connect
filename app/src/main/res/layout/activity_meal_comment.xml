@@ -72,8 +72,8 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <EditText
-            android:id="@+id/commentText"
-            android:layout_width="0dp"
+            android:id="@+id/commentInputEditText"
+            android:layout_width="334dp"
             android:layout_height="40sp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -92,7 +92,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/circle"
-            android:onClick="shareRegularPost"
+            android:onClick="shareRegularMealComment"
             android:src="@drawable/send_button" />
 
 

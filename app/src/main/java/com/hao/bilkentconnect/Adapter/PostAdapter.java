@@ -45,6 +45,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         Post currentPost = posts.get(position);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userId = currentPost.sharerId;
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         if (currentPost.isAnonymous) {
             holder.binding.topUsernameText.setText("Ghost");
@@ -72,41 +73,42 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 }
             });
         }
-        db.collection("Users").document(userId).get().addOnSuccessListener(documentSnapshot -> {
+
+        DocumentReference userRef = db.collection("Users").document(currentUserId);
+        userRef.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
                 User user = documentSnapshot.toObject(User.class);
                 if (user != null) {
-                    // Check if the liked posts contain the current post ID
-                    if (user.getLikedPosts().contains(currentPost.getPostId())) {
-                        holder.binding.likeButton.setImageResource(R.drawable.filled_like_button);
-                        holder.binding.likeButton.setEnabled(false);
-                    } else {
-                        holder.binding.likeButton.setImageResource(R.drawable.like_button);
-                        holder.binding.likeButton.setEnabled(true);
-                    }
+                    ArrayList<String> likedPosts = user.getLikedPosts();
+                    boolean isLiked = likedPosts != null && likedPosts.contains(currentPost.getPostId());
+                    holder.binding.likeButton.setImageResource(isLiked ? R.drawable.filled_like_button : R.drawable.like_button);
+                    holder.binding.likeButton.setEnabled(true);
                 }
             }
         }).addOnFailureListener(e -> {
-            // Handle any errors here
             Log.e("UserDataFetch", "Error fetching user data", e);
         });
 
-
-
         holder.binding.likeButton.setOnClickListener(v -> {
-            String postId = currentPost.getPostId(); // Assuming 'currentPost' is the post object for this item
-
-            DocumentReference userRef = db.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
             userRef.get().addOnSuccessListener(documentSnapshot -> {
                 User user = documentSnapshot.toObject(User.class);
-                if (user != null && !user.getLikedPosts().contains(postId)) {
-                    userRef.update("likedPosts", FieldValue.arrayUnion(postId));
-                    holder.binding.likeButton.setImageResource(R.drawable.filled_like_button);
-                    holder.binding.likeButton.setEnabled(false); // Disable the button after like
+                if (user != null) {
+                    ArrayList<String> likedPosts = user.getLikedPosts();
+                    boolean isLiked = likedPosts != null && likedPosts.contains(currentPost.getPostId());
+                    if (isLiked) {
+                        likedPosts.remove(currentPost.getPostId());
+                        currentPost.likeCount -= 1; // Decrement like count
+                    } else {
+                        likedPosts.add(currentPost.getPostId());
+                        currentPost.likeCount += 1; // Increment like count
+                    }
+                    userRef.update("likedPosts", likedPosts);
+                    db.collection("Posts").document(currentPost.getPostId()).update("likeCount", currentPost.likeCount);
+
+                    // Update like button UI
+                    holder.binding.likeButton.setImageResource(isLiked ? R.drawable.like_button : R.drawable.filled_like_button);
                 }
             }).addOnFailureListener(e -> {
-                // Handle any errors here
                 Log.e("LikeButton", "Error updating like status", e);
             });
         });

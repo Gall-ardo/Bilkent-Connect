@@ -13,7 +13,6 @@ public class Comment {
     private String commentText;
     private boolean isAnonymous;
     private String postId;
-
     private Date timestamp;
 
     // Constructor
