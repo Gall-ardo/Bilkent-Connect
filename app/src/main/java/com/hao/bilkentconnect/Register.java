@@ -95,6 +95,10 @@ public class Register extends AppCompatActivity {
             Toast.makeText(this, "Please enter email, password, and username!", Toast.LENGTH_LONG).show();
             return;
         }
+        if (!email.endsWith("@ug.bilkent.edu.tr")) {
+            Toast.makeText(this, "Please use a Bilkent email address!", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
             FirebaseUser firebaseUser = mAuth.getCurrentUser();
@@ -114,7 +118,10 @@ public class Register extends AppCompatActivity {
             }
         }).addOnFailureListener(e ->
                 Toast.makeText(Register.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
+
+
     }
+
 
 
 }
