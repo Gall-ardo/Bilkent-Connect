@@ -101,25 +101,25 @@ public class BccCafeteriaPage extends AppCompatActivity {
                 StringBuilder result = new StringBuilder();
 
                 if ( dayOfWeek.toString().equals("MONDAY") ){
-                    result.append(headlines.get(info*(6 + mealType) + mealType));
+                    result.append(headlines.get(info*(12 + mealType) + mealType));
                 }
                 else if ( dayOfWeek.toString().equals("TUESDAY") ){
-                    result.append(headlines.get(info*(11 + mealType) + mealType + 2).text());
+                    result.append(headlines.get(info*(17 + mealType) + mealType + 2).text());
                 }
                 else if ( dayOfWeek.toString().equals("WEDNESDAY") ){
-                    result.append(headlines.get(info*(16 + mealType) + mealType + 4).text());
+                    result.append(headlines.get(info*(22 + mealType) + mealType + 4).text());
                 }
                 else if ( dayOfWeek.toString().equals("THURSDAY") ){
-                    result.append(headlines.get(info*(21 + mealType) + mealType + 6).text());
+                    result.append(headlines.get(info*(27 + mealType) + mealType + 6).text());
                 }
                 else if ( dayOfWeek.toString().equals("FRIDAY") ){
-                    result.append(headlines.get(info*(26 + mealType) + mealType + 8).text());
+                    result.append(headlines.get(info*(32 + mealType) + mealType + 8).text());
                 }
                 else if ( dayOfWeek.toString().equals("SATURDAY") ){
-                    result.append(headlines.get(info*(31 + mealType) + mealType + 10).text());
+                    result.append(headlines.get(info*(37 + mealType) + mealType + 10).text());
                 }
                 else if ( dayOfWeek.toString().equals("SUNDAY") ){
-                    result.append(headlines.get(info*(36 + mealType) + mealType + 12).text());
+                    result.append(headlines.get(info*(42 + mealType) + mealType + 12).text());
                 }
                 return result.toString();
             } catch (IOException e) {
@@ -132,8 +132,12 @@ public class BccCafeteriaPage extends AppCompatActivity {
 
         try {
 
-            // Update the UI with the parsed HTML information
-            targetLocation.setText(futureResult.get());
+            String htmlData = futureResult.get();
+
+            Document htmlDocument = Jsoup.parse(htmlData);
+            String plainText = htmlDocument.text();
+
+            targetLocation.setText(plainText);
             Log.d("", futureResult.get());
         } catch (Exception e) {
             e.printStackTrace();
