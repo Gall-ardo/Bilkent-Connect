@@ -96,12 +96,25 @@
         app:layout_constraintTop_toBottomOf="@+id/postImage"
         app:layout_constraintVertical_bias="0.03" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/view4"
+        android:text="Like Count: "
+        android:textSize="10sp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/ubuntu_regular"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/likeCount"
+
+        />
+
 
     <TextView
         android:id="@+id/descriptionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:fontFamily="@font/ubuntu_bold"
@@ -119,6 +132,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:background="@color/black"
+        android:id="@+id/view4"
         app:layout_constraintTop_toBottomOf="@+id/likeButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

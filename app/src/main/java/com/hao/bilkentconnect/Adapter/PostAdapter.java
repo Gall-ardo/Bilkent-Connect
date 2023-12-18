@@ -73,6 +73,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 }
             });
         }
+        holder.binding.likeCount.setText("Liked: " + String.valueOf(currentPost.likeCount));
 
         DocumentReference userRef = db.collection("Users").document(currentUserId);
         userRef.get().addOnSuccessListener(documentSnapshot -> {

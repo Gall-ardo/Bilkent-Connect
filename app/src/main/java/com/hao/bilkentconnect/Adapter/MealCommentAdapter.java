@@ -40,7 +40,7 @@ public class MealCommentAdapter extends RecyclerView.Adapter<MealCommentAdapter.
         if (comment.isAnonymous()) {
             // For anonymous comments
             holder.mealCommentsBinding.profilePicture.setImageResource(R.drawable.ghost_icon); // Ghost icon for anonymous
-            holder.mealCommentsBinding.usernameText.setText("Anonymous");
+            holder.mealCommentsBinding.usernameText.setText("Ghost");
         } else {
             // For non-anonymous comments
             db = FirebaseFirestore.getInstance();

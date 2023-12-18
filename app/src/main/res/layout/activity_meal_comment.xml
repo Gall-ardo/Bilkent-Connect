@@ -73,7 +73,7 @@
 
         <EditText
             android:id="@+id/commentInputEditText"
-            android:layout_width="334dp"
+            android:layout_width="0dp"
             android:layout_height="40sp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -84,6 +84,16 @@
             android:hint="enter comment"
             android:inputType="textPersonName"
             android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/ghost"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/circle"
+            android:onClick="shareAnonymousMealComment"
+            android:src="@drawable/ghost_icon_white" />
 
         <ImageView
             android:id="@+id/shareCommentButton"
