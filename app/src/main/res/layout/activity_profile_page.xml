@@ -66,9 +66,11 @@
 
     <TextView
         android:id="@+id/userMailText"
-        android:layout_width="317dp"
-        android:layout_height="29dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:fontFamily="@font/ubuntu_regular"
         android:text="name.surname@ug.bilkent.edu.tr"
         android:textAlignment="center"
