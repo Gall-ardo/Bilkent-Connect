@@ -33,13 +33,6 @@
             android:layout_marginLeft="5dp"
             android:textColor="@color/black"
             android:textSize="20sp">
-
-
     </TextView>
-
-
-
-
-
 
 </LinearLayout>

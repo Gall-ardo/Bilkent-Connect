@@ -15,6 +15,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hao.bilkentconnect.Adapter.ChatAdapter;
 import com.hao.bilkentconnect.Adapter.CommentAdapter;
@@ -63,11 +64,9 @@ public class ChatActivity extends AppCompatActivity implements OnChatClickListen
 
 
     private void getChats() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         db.collection("Chats")
                 .whereArrayContains("users", currentUserId)
+                .orderBy("lastActivityTime", Query.Direction.DESCENDING) // Order by most recent activity
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     chatArrayList.clear();

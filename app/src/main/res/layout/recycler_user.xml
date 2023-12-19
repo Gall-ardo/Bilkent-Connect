@@ -1,0 +1,22 @@
+<!-- recycler_user.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/userPhoto"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/profile_icon" />
+
+    <TextView
+        android:id="@+id/usernameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Username"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
+</LinearLayout>

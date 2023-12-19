@@ -23,6 +23,13 @@ public class Chat {
     public Chat() {
         this.chatMessages = new ArrayList<>();
     }
+    public Chat(String chatId, List<String> users, ArrayList<ChatMessage> chatMessages, String lastMessage, Date lastActivityTime) {
+        this.chatId = chatId;
+        this.users = users;
+        this.chatMessages = chatMessages;
+        this.lastMessage = lastMessage;
+        this.lastActivityTime = lastActivityTime;
+    }
 
 
     // Methods

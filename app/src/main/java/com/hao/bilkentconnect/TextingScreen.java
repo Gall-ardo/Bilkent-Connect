@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.hao.bilkentconnect.databinding.ActivityMainBinding;
 import com.hao.bilkentconnect.databinding.ActivityTextingScreenBinding;
+
 
 public class TextingScreen extends AppCompatActivity {
 
