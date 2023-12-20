@@ -22,7 +22,7 @@
             android:layout_height="35dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="12dp"
-            android:onClick="goBackToMainPage"
+            android:onClick="goBacktoPostView"
             app:srcCompat="@drawable/arrow_vector" />
 
         <TextView
@@ -69,6 +69,7 @@
         />
 
     <TextView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -109,6 +110,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             app:srcCompat="@drawable/connect_button_image"
+            android:onClick="addFriendProfilePageForOthers"
             tools:layout_editor_absoluteX="67dp"
             tools:layout_editor_absoluteY="486dp"></ImageView>
 
@@ -118,6 +120,7 @@
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/ubuntu_regular"
             android:text="Connect"
+            android:onClick="addFriendProfilePageForOthers"
             android:textAlignment="center"
             android:textColor="#008952"
             android:textSize="30sp"></TextView>
@@ -127,6 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="123dp"
             android:layout_marginRight="10dp"
+            android:onClick="addFriendProfilePageForOthers"
             android:layout_weight="1"
             app:srcCompat="@drawable/right_vector" />
 

@@ -79,7 +79,7 @@ public class PostView extends AppCompatActivity {
         commentAdapter = new CommentAdapter(commentArrayList);
         binding.recyclerCommentView.setAdapter(commentAdapter);
     }
-    private void loadPostDetails(String postId) {
+    /*private void loadPostDetails(String postId) {
         firebaseFirestore.collection("Posts").document(postId).get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
                 Post post = documentSnapshot.toObject(Post.class);
@@ -105,6 +105,15 @@ public class PostView extends AppCompatActivity {
                                             postSharerId = user.getId();
                                             binding.connectText.setEnabled(true);
                                             binding.connectText.setVisibility(View.VISIBLE);
+
+                                            binding.topUsernameText.setOnClickListener(v -> {
+                                                Intent intent = new Intent(PostView.this, ProfilePageForOthers.class);
+                                                intent.putExtra("userId", user.getUserId());
+                                                intent.putExtra("username", user.getUsername());
+                                                intent.putExtra("profilePhoto", user.getProfilePhoto());
+                                                intent.putExtra("biography", user.getBio());
+                                                startActivity(intent);
+                                            });
                                         }
                                     }
                                 }
@@ -112,7 +121,54 @@ public class PostView extends AppCompatActivity {
                 }
             }
         }).addOnFailureListener(e -> Toast.makeText(this, "Error loading post", Toast.LENGTH_SHORT).show());
+    }*/
+    private void loadPostDetails(String postId) {
+        firebaseFirestore.collection("Posts").document(postId).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        Post post = documentSnapshot.toObject(Post.class);
+                        if (post != null) {
+                            binding.descriptionText.setText(post.getPostDescription());
+                            Picasso.get().load(post.getPhotoUrl()).into(binding.postImage);
+
+                            // Handle anonymous posts
+                            if (post.isAnonymous()) {
+                                binding.topUsernameText.setText("Ghost");
+                                binding.profilePicture.setImageResource(R.drawable.ghost_icon); // Set to ghost icon
+                                binding.topUsernameText.setOnClickListener(null); // Remove click listener
+                                binding.connectText.setVisibility(View.INVISIBLE); // Hide connect button
+                            } else {
+                                // Fetch the username using the sharerId for non-anonymous posts
+                                firebaseFirestore.collection("Users").document(post.getSharerId())
+                                        .get().addOnSuccessListener(userSnapshot -> {
+                                            if (userSnapshot.exists()) {
+                                                User user = userSnapshot.toObject(User.class);
+                                                if (user != null) {
+                                                    binding.topUsernameText.setText(user.getUsername());
+                                                    Picasso.get().load(user.getProfilePhoto()).into(binding.profilePicture);
+                                                    postSharerId = user.getUserId();
+
+                                                    // Set click listener for non-anonymous user
+                                                    binding.topUsernameText.setOnClickListener(v -> {
+                                                        Intent intent = new Intent(PostView.this, ProfilePageForOthers.class);
+                                                        intent.putExtra("userId", user.getUserId());
+                                                        intent.putExtra("username", user.getUsername());
+                                                        intent.putExtra("profilePhoto", user.getProfilePhoto());
+                                                        intent.putExtra("biography", user.getBio());
+                                                        startActivity(intent);
+                                                    });
+
+                                                    // Show and enable connect button
+                                                    binding.connectText.setVisibility(View.VISIBLE);
+                                                }
+                                            }
+                                        });
+                            }
+                        }
+                    }
+                }).addOnFailureListener(e -> Toast.makeText(this, "Error loading post", Toast.LENGTH_SHORT).show());
     }
+
 
     public void goToMainPage(View view) {
         Intent intent = new Intent(this, MainActivity.class);
@@ -235,6 +291,10 @@ public class PostView extends AppCompatActivity {
                     }
                 })
                 .addOnFailureListener(e -> Toast.makeText(PostView.this, "Error fetching post details", Toast.LENGTH_SHORT).show());
+    }
+    public void goToProfilePageForOthers(View view) {
+        Intent intent = new Intent(this, ProfilePageForOthers.class);
+        startActivity(intent);
     }
 
 
