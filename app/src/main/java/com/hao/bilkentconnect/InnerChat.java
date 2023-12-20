@@ -53,15 +53,35 @@ public class InnerChat extends AppCompatActivity {
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         otherUserId = getIntent().getStringExtra("otherUserId");
 
-
-        checkOrCreateChat(currentUserId, otherUserId, (chatId) -> {
-            this.chatId = chatId;
-            loadChatMessages(chatId);
-        });
         chatMessageArrayList = new ArrayList<>();
         chatMessageAdapter = new ChatMessageAdapter(chatMessageArrayList);
         binding.recyclerChatMessageView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerChatMessageView.setAdapter(chatMessageAdapter);
+
+        if (otherUserId != null) {
+            loadOtherUserDetails(otherUserId);
+            checkOrCreateChat(currentUserId, otherUserId, (chatId) -> {
+                this.chatId = chatId;
+                loadChatMessages(chatId);
+            });
+        }
+    }
+
+    private void loadOtherUserDetails(String userId) {
+        db.collection("Users").document(userId).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        User otherUser = documentSnapshot.toObject(User.class);
+                        if (otherUser != null) {
+                            // Assuming you have TextView for username and ImageView for profile in your layout
+                            binding.FriendNameText.setText(otherUser.getUsername());
+                            if (otherUser.getProfilePhoto() != null && !otherUser.getProfilePhoto().isEmpty()) {
+                                Picasso.get().load(otherUser.getProfilePhoto()).into(binding.profilePicture);
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("InnerChat", "Error loading user details", e));
     }
     private void checkOrCreateChat(String currentUserId, String otherUserId, OnChatIdGeneratedListener callback) {
         db.collection("Chats")
