@@ -45,24 +45,22 @@
         android:id="@+id/postImage"
         android:layout_width="match_parent"
         android:layout_height="221dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="150dp"
         android:background="@color/backgroundBlue"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/viewBottomImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/viewImageTop" />
 
     <ImageView
         android:id="@+id/likeButton"
         android:layout_width="42dp"
         android:layout_height="42dp"
         android:onClick="addToLikedPosts"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.019"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postImage"
+        app:layout_constraintTop_toBottomOf="@+id/viewBottomImage"
         app:layout_constraintVertical_bias="0.1"
         app:srcCompat="@drawable/like_button" />
 
@@ -71,14 +69,13 @@
         android:layout_width="42dp"
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:onClick="goToCommentPage"
         app:srcCompat="@drawable/comment_button"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/likeButton"
-        app:layout_constraintTop_toBottomOf="@+id/postImage"
+        app:layout_constraintTop_toBottomOf="@+id/viewBottomImage"
         app:layout_constraintVertical_bias="0.03" />
 
     <TextView
@@ -101,6 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:fontFamily="@font/ubuntu_bold"
         android:text="Username free basys! Just kidding"
@@ -127,12 +125,14 @@
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:id="@+id/viewImageTop"
         android:background="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/profilePicture"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
     <View
         android:layout_width="match_parent"
+        android:id="@+id/viewBottomImage"
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"

@@ -58,6 +58,19 @@
         android:background="@drawable/linear_gradient_top"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:textAlignment="center"
+            android:textSize="28sp"
+            android:text="Bilkent Connect"
+            android:textColor="@color/menuGray"
+
+            />
     </LinearLayout>
 
     <LinearLayout
