@@ -99,7 +99,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:onClick="createChat"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -126,15 +125,6 @@
             android:textColor="#008952"
             android:textSize="30sp"></TextView>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="123dp"
-            android:layout_marginRight="10dp"
-            android:onClick="addFriendProfilePageForOthers"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/right_vector" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -142,7 +132,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:onClick="goToChatPage"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
         >
@@ -153,26 +142,21 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             app:srcCompat="@drawable/go_chat_button_in_profile"
+            android:onClick="goToChatPage"
             tools:layout_editor_absoluteX="67dp"
             tools:layout_editor_absoluteY="486dp"></ImageView>
 
         <TextView
+            android:id="@+id/mailText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/ubuntu_regular"
-            android:text="Message"
+            android:text="Mail"
             android:textAlignment="center"
+            android:onClick="goToChatPage"
             android:textColor="#008952"
             android:textSize="30sp"></TextView>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="123dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/right_vector" />
 
     </LinearLayout>
 
