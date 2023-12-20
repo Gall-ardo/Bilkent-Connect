@@ -111,13 +111,27 @@ public class InnerChat extends AppCompatActivity {
                     }
 
                     chatMessageArrayList.clear();
-                    for (DocumentSnapshot doc : queryDocumentSnapshots.getDocuments()) {
-                        ChatMessage message = doc.toObject(ChatMessage.class);
-                        chatMessageArrayList.add(message);
+                    if (queryDocumentSnapshots != null) {
+                        for (DocumentSnapshot doc : queryDocumentSnapshots.getDocuments()) {
+                            ChatMessage message = doc.toObject(ChatMessage.class);
+                            if (message != null) {
+                                chatMessageArrayList.add(message);
+                            } else {
+                                Log.e("InnerChat", "Message is null");
+                            }
+                        }
+                        chatMessageAdapter.notifyDataSetChanged();
+                        // Scroll to the bottom of the list to show the latest message
+                        if (!chatMessageArrayList.isEmpty()) {
+                            binding.recyclerChatMessageView.scrollToPosition(chatMessageArrayList.size() - 1);
+                        }
+                    } else {
+                        Log.e("InnerChat", "QuerySnapshot is null");
                     }
-                    chatMessageAdapter.notifyDataSetChanged();
                 });
     }
+
+
 
     public void sendMessage(View view) {
         String messageText = binding.directMessageText.getText().toString().trim();

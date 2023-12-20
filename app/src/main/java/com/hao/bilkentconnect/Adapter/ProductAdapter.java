@@ -68,9 +68,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         });
     }
 
-    public void updateList(ArrayList<Product> newList) {
+    /*public void updateList(ArrayList<Product> newList) {
         products.clear();
         products.addAll(newList);
+        notifyDataSetChanged();
+    }*/
+    public void updateList(ArrayList<Product> newProductList) {
+        products = newProductList;
         notifyDataSetChanged();
     }
 
