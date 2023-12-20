@@ -53,11 +53,13 @@
 
     <TextView
         android:id="@+id/dinnerText"
-        android:layout_width="386dp"
-        android:layout_height="91dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Sebze Çorba / Vegetable soup&#xA;Chickpeas with meat veya / or Vegan Nohut / Chickpeas(Vegan)&#xA;Bulgur Pilavı /
  Pounded wheat&#xA;Yoğurt / Yoghurt"
         android:textAllCaps="false"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -232,9 +234,11 @@
 
     <TextView
         android:id="@+id/lunchText"
-        android:layout_width="386dp"
-        android:layout_height="91dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:text="Romen Çorba / Roman soup (ground beef and creamy sauce)&#xA;Mantarlı Et Sote / Beef sautéed with mushrooms veya / or Vegan Sebze Kavurma /Braised vegetables (Vegan)&#xA;Zeytinyağlı Brokoli / Broccoli cooked with olive oil&#xA;Sütlaç / Rice pudding"
         android:textAllCaps="false"
         android:textStyle="bold"
