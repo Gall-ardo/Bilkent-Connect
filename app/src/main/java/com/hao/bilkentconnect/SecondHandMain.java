@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -77,6 +79,21 @@ public class SecondHandMain extends AppCompatActivity implements OnProductClickL
         binding.recyclerViewSecondHand.setLayoutManager(new LinearLayoutManager(this));
         productAdapter = new ProductAdapter(productArrayList, this, false);
         binding.recyclerViewSecondHand.setAdapter(productAdapter);
+
+        binding.searchBarEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterProducts(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
 
     }
 
@@ -176,4 +193,17 @@ public class SecondHandMain extends AppCompatActivity implements OnProductClickL
         Intent intent = new Intent(this, BccCafeteriaPage.class);
         startActivity(intent);
     }
+    private void filterProducts(String query) {
+        ArrayList<Product> filteredList = new ArrayList<>();
+
+        for (Product product : productArrayList) {
+            // Check if the product name contains the search query
+            if (product.getProductName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(product);
+            }
+        }
+
+        productAdapter.updateList(filteredList);
+    }
+
 }

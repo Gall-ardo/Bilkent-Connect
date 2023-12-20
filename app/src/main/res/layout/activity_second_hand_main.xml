@@ -144,7 +144,7 @@
             android:ems="10"
             android:fontFamily="@font/ubuntu_light"
             android:inputType="text"
-            android:text="Search"
+            android:hint="Search"
             android:textColor="@color/black"
             android:textSize="20dp" />
 

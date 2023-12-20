@@ -68,6 +68,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         });
     }
 
+    public void updateList(ArrayList<Product> newList) {
+        products.clear();
+        products.addAll(newList);
+        notifyDataSetChanged();
+    }
+
     private void deleteProduct(ProductViewHolder holder, String productId, int position) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Products").document(productId)
