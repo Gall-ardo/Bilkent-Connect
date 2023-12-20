@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/UserImage"
-        app:layout_constraintVertical_bias="0.087" />
+        app:layout_constraintVertical_bias="0.02" />
 
     <TextView
         android:id="@+id/userMailText"
@@ -81,33 +81,36 @@
 
     <TextView
         android:id="@+id/userInfo"
-        android:layout_width="343dp"
+        android:layout_width="match_parent"
         android:layout_height="81dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="48dp"
+        android:layout_marginEnd="10dp"
         android:fontFamily="@font/ubuntu_light"
         android:text="Hello Bilkenters!  Computer Science Department.  Math is my playground. Love music, love you."
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/editProfileLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userNameText" />
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/editProfileLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="176dp"
+        android:layout_marginBottom="10dp"
         android:onClick="goToEditProfilePage"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/userNameText">
+        app:layout_constraintBottom_toTopOf="@+id/yourPostsLayout">
 
 
         <ImageView
             android:id="@+id/imageView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             app:srcCompat="@drawable/edit_profile_vector"
             tools:layout_editor_absoluteX="67dp"
@@ -124,8 +127,8 @@
             android:textSize="30sp"></TextView>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="123dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
@@ -135,21 +138,23 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout5"
+        android:id="@+id/likedPostLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
         android:onClick="goToSavedPostsPage"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userInfo">
+        app:layout_constraintBottom_toTopOf="@+id/securityLayout"
+        >
 
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             app:srcCompat="@drawable/saved_post"
             tools:layout_editor_absoluteX="67dp"
@@ -167,9 +172,9 @@
             android:textSize="30sp"></TextView>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="112dp"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="130dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/right_vector" />
@@ -178,6 +183,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/logOutLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="220dp"
@@ -186,11 +192,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userInfo">
+        app:layout_constraintBottom_toTopOf="@+id/linearLayoutMenu"
+
+        >
+
 
         <ImageView
             android:layout_width="40dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             app:srcCompat="@drawable/power_vector"
             tools:layout_editor_absoluteX="67dp"
@@ -207,9 +216,9 @@
             android:textSize="30sp"></TextView>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="171dp"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="172dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/arrow_right_red" />
@@ -218,21 +227,23 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout6"
+        android:id="@+id/yourPostsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:onClick="goToYourPostsPage"
         android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userInfo">
+
+        app:layout_constraintBottom_toTopOf="@+id/likedPostLayout">
 
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             app:srcCompat="@drawable/file_vector"
             tools:layout_editor_absoluteX="67dp"
@@ -249,8 +260,8 @@
             android:textSize="30sp"></TextView>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="133dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
@@ -260,21 +271,24 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/securityLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="168dp"
         android:onClick="goToSecurityPage"
         android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userInfo">
+        app:layout_constraintBottom_toTopOf="@+id/logOutLayout"
+
+        >
 
 
         <ImageView
             android:layout_width="40dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             app:srcCompat="@drawable/security"
             tools:layout_editor_absoluteX="67dp"
@@ -291,9 +305,9 @@
             android:textSize="30sp"></TextView>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="167dp"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="170dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/right_vector" />

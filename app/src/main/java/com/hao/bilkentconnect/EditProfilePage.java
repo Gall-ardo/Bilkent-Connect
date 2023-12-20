@@ -118,9 +118,17 @@ public class EditProfilePage extends AppCompatActivity {
             Toast.makeText(this,"Both empty",Toast.LENGTH_LONG).show();
         }else {
             if (!newUserName.isEmpty()) {
+                if(newUserName.length() > 20){
+                    Toast.makeText(this,"Username too long",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 updates.put("username", newUserName);
             }
             if (!newDescription.isEmpty()) {
+                if(newDescription.length() > 60){
+                    Toast.makeText(this,"Bio too long",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 updates.put("bio", newDescription);
             }
         }
