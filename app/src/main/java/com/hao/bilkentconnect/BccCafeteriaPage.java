@@ -83,6 +83,8 @@ public class BccCafeteriaPage extends AppCompatActivity {
     }
 
 
+
+
     private void parseHtmlInBackground(String url, String targetElement, TextView targetLocation, int mealType, int info) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -107,7 +109,7 @@ public class BccCafeteriaPage extends AppCompatActivity {
                     result.append(headlines.get(info*(17 + mealType) + mealType + 2).text());
                 }
                 else if ( dayOfWeek.toString().equals("WEDNESDAY") ){
-                    result.append(headlines.get(info*(22 + mealType) + mealType + 4).text());
+                    result.append(headlines.get(info*(18 + mealType) + mealType + 4).text());
                 }
                 else if ( dayOfWeek.toString().equals("THURSDAY") ){
                     result.append(headlines.get(info*(27 + mealType) + mealType + 6).text());
@@ -138,7 +140,6 @@ public class BccCafeteriaPage extends AppCompatActivity {
             String plainText = htmlDocument.text();
 
             targetLocation.setText(plainText);
-            Log.d("", futureResult.get());
         } catch (Exception e) {
             e.printStackTrace();
         }
