@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="bilkent_connect_logo.png" alt="Project Logo" width="200" height="200">
+  <img src="bilkent_connect_logo.jpg" alt="Project Logo" width="200" height="200">
 </p>
 
 ### This repository contains all of the code and reports for the term project of CS102 course I've taken in 23-24 fall semester.
