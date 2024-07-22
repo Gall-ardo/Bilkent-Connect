@@ -1,5 +1,6 @@
 package com.hao.bilkentconnect;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,6 +69,7 @@ public class ProfilePageForOthers extends AppCompatActivity {
     }
 
     public void addFriendProfilePageForOthers(View view) {
+
         if (userId == null) {
             Toast.makeText(this, "Profile user ID is not available.", Toast.LENGTH_SHORT).show();
             return;
@@ -75,8 +79,19 @@ public class ProfilePageForOthers extends AppCompatActivity {
 
         db.collection("Users").document(currentUserId)
                 .update("friendIds", FieldValue.arrayUnion(userId))
-                .addOnSuccessListener(aVoid -> Toast.makeText(this, "Friend added successfully!", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e -> Toast.makeText(this, "Failed to add friend: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(ProfilePageForOthers.this, "Friend added successfully!", Toast.LENGTH_SHORT).show();
+                        Chat.createChat(ProfilePageForOthers.this, db, currentUserId, userId);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ProfilePageForOthers.this, "Failed to add friend: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override

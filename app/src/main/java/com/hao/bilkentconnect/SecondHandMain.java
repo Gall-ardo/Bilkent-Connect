@@ -171,6 +171,7 @@ public class SecondHandMain extends AppCompatActivity implements OnProductClickL
         intent.putExtra("productPrice", product.getPrice());
         intent.putExtra("productTitle", product.getProductName());
         intent.putExtra("productImage", product.getImage());
+        intent.putExtra("sellerId", product.getSeller());
         startActivity(intent);
     }
 

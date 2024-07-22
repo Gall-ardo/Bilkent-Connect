@@ -1,69 +1,78 @@
 package com.hao.bilkentconnect.ModelClasses;
 
+import android.content.Context;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 public class Chat {
+
+
+    //TODO may be unnecassary
     private String chatId;
-    private List<String> users; // Stores the user IDs
+
+    private String firstUserId;
+    private String secondUserId;
+    private ArrayList<String> users;
+
     private ArrayList<ChatMessage> chatMessages;
-    private String lastMessage; // Last message text
-    private Date lastActivityTime;
+    private int unreadMessageCount;
 
 
+    public Chat(String firstUserId, String secondUserId) {
+        this.firstUserId = firstUserId;
+        this.secondUserId = secondUserId;
 
-    // Constructor
-    public Chat(String... users) {
-        this.users = Arrays.asList(users);
+        this.users = new ArrayList<>();
+        users.add(firstUserId);
+        users.add(secondUserId);
+
         this.chatMessages = new ArrayList<>();
+
+        this.unreadMessageCount = 0;
     }
 
-    public Chat() {
-        this.chatMessages = new ArrayList<>();
-    }
-    public Chat(String chatId, List<String> users, ArrayList<ChatMessage> chatMessages, String lastMessage, Date lastActivityTime) {
-        this.chatId = chatId;
-        this.users = users;
-        this.chatMessages = chatMessages;
-        this.lastMessage = lastMessage;
-        this.lastActivityTime = lastActivityTime;
+    public String getFirstUserId() {
+        return firstUserId;
     }
 
-
-    // Methods
-    public void addMessage(ChatMessage message) {
-        // TODO: Implement method logic for adding a message to the chat
-        chatMessages.add(message);
+    public void setFirstUserId(String firstUserId) {
+        this.firstUserId = firstUserId;
     }
 
-    // sanırım bu methodu pek kullanmayacağız mesajları silmeyeceğimiz için
-    public void removeMessage(ChatMessage message) {
-        // TODO: Implement method logic for removing a message from the chat
-        chatMessages.remove(message);
+    public String getSecondUserId() {
+        return secondUserId;
     }
 
-    @Override
-    public String toString() {
-        // TODO: Implement the toString method
-        return null;
+    public void setSecondUserId(String secondUserId) {
+        this.secondUserId = secondUserId;
     }
 
-    public List<String> getUsers() {
+    public ArrayList<String> getUsers() {
         return users;
-    }
-
-    public void setUsers(List<String> users) {
-        this.users = users;
     }
 
     public ArrayList<ChatMessage> getChatMessages() {
         return chatMessages;
     }
 
-    public void setChatMessages(ArrayList<ChatMessage> chatMessages) {
-        this.chatMessages = chatMessages;
+    public int getUnreadMessageCount() {
+        return unreadMessageCount;
+    }
+
+    public void setUnreadMessageCount(int unreadMessageCount) {
+        this.unreadMessageCount = unreadMessageCount;
     }
 
     public String getChatId() {
@@ -74,19 +83,42 @@ public class Chat {
         this.chatId = chatId;
     }
 
-    public String getLastMessage() {
-        return lastMessage;
+    public static void createChat(Context con,FirebaseFirestore db, String firstUserId, String secondUserId){
+
+        boolean isExist = false;
+
+        db.collection("Chats")
+                .whereIn("firstUserId", Arrays.asList(firstUserId, secondUserId))
+                .whereIn("secondUserId", Arrays.asList(firstUserId, secondUserId)).get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (queryDocumentSnapshots.isEmpty()){
+                            Chat newChat = new Chat(firstUserId, secondUserId);
+
+                            db.collection("Chats").add(newChat).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Toast.makeText(con, "Chat is created", Toast.LENGTH_LONG).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(con, "Error adding to chats", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+
+                        else{
+                            Toast.makeText(con, "Chat is already", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(con, "Failed to retrieve data /chat_class_static method", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
-    public void setLastMessage(String lastMessage) {
-        this.lastMessage = lastMessage;
-    }
-
-    public Date getLastActivityTime() {
-        return lastActivityTime;
-    }
-
-    public void setLastActivityTime(Date lastActivityTime) {
-        this.lastActivityTime = lastActivityTime;
-    }
 }

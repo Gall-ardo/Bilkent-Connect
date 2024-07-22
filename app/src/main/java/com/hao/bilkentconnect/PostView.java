@@ -30,6 +30,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.hao.bilkentconnect.Adapter.CommentAdapter;
 import com.hao.bilkentconnect.Adapter.PostAdapter;
+import com.hao.bilkentconnect.ModelClasses.Chat;
 import com.hao.bilkentconnect.ModelClasses.Comment;
 import com.hao.bilkentconnect.ModelClasses.Post;
 import com.hao.bilkentconnect.ModelClasses.User;
@@ -65,7 +66,9 @@ public class PostView extends AppCompatActivity {
 
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
+
         firebaseAuth = FirebaseAuth.getInstance();
+
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         postId = getIntent().getStringExtra("post_id"); // Retrieve post ID
@@ -272,7 +275,7 @@ public class PostView extends AppCompatActivity {
 
 
     public void addFriend(View view) {
-        String currentUserId = firebaseAuth.getCurrentUser().getUid();
+        String currentUserId = firebaseAuth.getCurrentUser().getUid(); // current user_id taken
 
         // Fetch the post to get the creator's user ID
         firebaseFirestore.collection("Posts").document(postId)
@@ -282,20 +285,37 @@ public class PostView extends AppCompatActivity {
                         if (post != null && !post.isAnonymous()) {
                             String postCreatorId = post.getSharerId();
 
+
+
                             // Add post creator to current user's friends list
                             firebaseFirestore.collection("Users").document(currentUserId)
                                     .update("friends", FieldValue.arrayUnion(postCreatorId))
                                     .addOnSuccessListener(aVoid -> Toast.makeText(PostView.this, "Friend added successfully", Toast.LENGTH_SHORT).show())
                                     .addOnFailureListener(e -> Toast.makeText(PostView.this, "Error adding friend", Toast.LENGTH_SHORT).show());
+
+                            Chat.createChat(this, firebaseFirestore, currentUserId, postCreatorId);
+
+
                         }
                     }
                 })
                 .addOnFailureListener(e -> Toast.makeText(PostView.this, "Error fetching post details", Toast.LENGTH_SHORT).show());
     }
+
+
+
+
+
+
+
     public void goToProfilePageForOthers(View view) {
         Intent intent = new Intent(this, ProfilePageForOthers.class);
         startActivity(intent);
     }
+
+
+
+
 
 
 

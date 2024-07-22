@@ -35,7 +35,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-        Chat currentChat = chats.get(position);
+        /*Chat currentChat = chats.get(position);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         String currentUserId = firebaseAuth.getCurrentUser() != null ? firebaseAuth.getCurrentUser().getUid() : "";
         String otherUserId = currentChat.getUsers().contains(currentUserId) ?
@@ -58,7 +58,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         });
 
         holder.chatsBinding.usernameText.setOnClickListener((v -> listener.onChatClick(currentChat)));
-        holder.chatsBinding.userPhoto.setOnClickListener((v -> listener.onChatClick(currentChat)));
+        holder.chatsBinding.userPhoto.setOnClickListener((v -> listener.onChatClick(currentChat)));*/
     }
 
 

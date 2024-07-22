@@ -8,9 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.hao.bilkentconnect.ModelClasses.Chat;
 import com.hao.bilkentconnect.ModelClasses.Product;
 import com.hao.bilkentconnect.ModelClasses.User;
@@ -23,7 +25,8 @@ public class ProductDetailScreen extends AppCompatActivity {
 
     private ActivityProductDetailScreenBinding binding;
 
-    FirebaseFirestore firebaseFirestore;
+    private FirebaseFirestore firebaseFirestore;
+    private String sellerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +36,14 @@ public class ProductDetailScreen extends AppCompatActivity {
         setContentView(viewRoot);
 
         //loadProductDetails(productId);
-        //firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         String description = getIntent().getStringExtra("productDescription");
         String price = getIntent().getStringExtra("productPrice");
         String title = getIntent().getStringExtra("productTitle");
         String image = getIntent().getStringExtra("productImage");
+
+        sellerId = getIntent().getStringExtra("sellerId");
 
         binding.descriptionText.setText(description);
         binding.productPrice.setText(price);
@@ -96,33 +101,14 @@ public class ProductDetailScreen extends AppCompatActivity {
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-        String curr_ıd = firebaseAuth.getCurrentUser().getUid();
+        String curr_ıd = firebaseAuth.getCurrentUser().getUid(); // curr user_id
 
-
-        firebaseFirestore = FirebaseFirestore.getInstance();
-
-        firebaseFirestore.collection("Users").get().addOnSuccessListener(queryDocumentSnapshots -> {
-           for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()){
-               User user = snapshot.toObject(User.class);
-               if (user.getId().equals(curr_ıd)){
-                   User user_2 = new User();
-                   Chat chat = new Chat(user.getId(), user_2.getId());
-                   user.addChat(chat);
-               }
-           }
-        });
+        Chat.createChat(this, firebaseFirestore, curr_ıd, sellerId);
 
 
         Intent intent = new Intent(ProductDetailScreen.this, ChatActivity.class);
         startActivity(intent);
         finish();
 
-        
-
-
-
-
-
-        // to do
     }
 }
