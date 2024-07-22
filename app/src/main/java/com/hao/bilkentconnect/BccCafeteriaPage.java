@@ -103,25 +103,25 @@ public class BccCafeteriaPage extends AppCompatActivity {
                 StringBuilder result = new StringBuilder();
 
                 if ( dayOfWeek.toString().equals("MONDAY") ){
-                    result.append(headlines.get(info*(12 + mealType) + mealType));
+                    result.append(headlines.get(info*(8 + mealType) + mealType));
                 }
                 else if ( dayOfWeek.toString().equals("TUESDAY") ){
-                    result.append(headlines.get(info*(17 + mealType) + mealType + 2).text());
+                    result.append(headlines.get(info*(13 + mealType) + mealType + 2).text());
                 }
                 else if ( dayOfWeek.toString().equals("WEDNESDAY") ){
                     result.append(headlines.get(info*(18 + mealType) + mealType + 4).text());
                 }
                 else if ( dayOfWeek.toString().equals("THURSDAY") ){
-                    result.append(headlines.get(info*(27 + mealType) + mealType + 6).text());
+                    result.append(headlines.get(info*(23 + mealType) + mealType + 6).text());
                 }
                 else if ( dayOfWeek.toString().equals("FRIDAY") ){
-                    result.append(headlines.get(info*(32 + mealType) + mealType + 8).text());
+                    result.append(headlines.get(info*(24 + mealType) + mealType + 8).text());
                 }
                 else if ( dayOfWeek.toString().equals("SATURDAY") ){
-                    result.append(headlines.get(info*(37 + mealType) + mealType + 10).text());
+                    result.append(headlines.get(info*(29 + mealType) + mealType + 10).text());
                 }
                 else if ( dayOfWeek.toString().equals("SUNDAY") ){
-                    result.append(headlines.get(info*(42 + mealType) + mealType + 12).text());
+                    result.append(headlines.get(info*(38 + mealType) + mealType + 12).text());
                 }
                 return result.toString();
             } catch (IOException e) {

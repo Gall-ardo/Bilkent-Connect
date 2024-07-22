@@ -1,6 +1,7 @@
 package com.hao.bilkentconnect.ModelClasses;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     // Attributes
@@ -15,6 +16,21 @@ public class User {
     private ArrayList<String> friendIds;
     private ArrayList<Product> products;
     private ArrayList<Chat> chats;
+
+    public User(String userId, String email, String username, String bio, String profilePhoto, List<String> savedPosts, List<String> likedPosts, List<String> sharedPosts, List<String> friendIds, List<String> products, List<String> chats) {
+        this.userId = userId;
+        this.email = email;
+        this.username = username;
+        this.bio = bio;
+        this.profilePhoto = profilePhoto;
+        this.savedPosts = new ArrayList<>();
+        this.likedPosts = new ArrayList<>();
+        this.sharedPosts = new ArrayList<>();
+        this.friendIds = new ArrayList<>();
+        this.products = new ArrayList<>();
+        this.chats = new ArrayList<>();
+
+    }
 
     public String getUserId() {
         return userId;

@@ -53,15 +53,35 @@ public class InnerChat extends AppCompatActivity {
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         otherUserId = getIntent().getStringExtra("otherUserId");
 
-
-        checkOrCreateChat(currentUserId, otherUserId, (chatId) -> {
-            this.chatId = chatId;
-            loadChatMessages(chatId);
-        });
         chatMessageArrayList = new ArrayList<>();
         chatMessageAdapter = new ChatMessageAdapter(chatMessageArrayList);
         binding.recyclerChatMessageView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerChatMessageView.setAdapter(chatMessageAdapter);
+
+        if (otherUserId != null) {
+            loadOtherUserDetails(otherUserId);
+            checkOrCreateChat(currentUserId, otherUserId, (chatId) -> {
+                this.chatId = chatId;
+                loadChatMessages(chatId);
+            });
+        }
+    }
+
+    private void loadOtherUserDetails(String userId) {
+        db.collection("Users").document(userId).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        User otherUser = documentSnapshot.toObject(User.class);
+                        if (otherUser != null) {
+                            // Assuming you have TextView for username and ImageView for profile in your layout
+                            binding.FriendNameText.setText(otherUser.getUsername());
+                            if (otherUser.getProfilePhoto() != null && !otherUser.getProfilePhoto().isEmpty()) {
+                                Picasso.get().load(otherUser.getProfilePhoto()).into(binding.profilePicture);
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("InnerChat", "Error loading user details", e));
     }
     private void checkOrCreateChat(String currentUserId, String otherUserId, OnChatIdGeneratedListener callback) {
         db.collection("Chats")
@@ -91,13 +111,27 @@ public class InnerChat extends AppCompatActivity {
                     }
 
                     chatMessageArrayList.clear();
-                    for (DocumentSnapshot doc : queryDocumentSnapshots.getDocuments()) {
-                        ChatMessage message = doc.toObject(ChatMessage.class);
-                        chatMessageArrayList.add(message);
+                    if (queryDocumentSnapshots != null) {
+                        for (DocumentSnapshot doc : queryDocumentSnapshots.getDocuments()) {
+                            ChatMessage message = doc.toObject(ChatMessage.class);
+                            if (message != null) {
+                                chatMessageArrayList.add(message);
+                            } else {
+                                Log.e("InnerChat", "Message is null");
+                            }
+                        }
+                        chatMessageAdapter.notifyDataSetChanged();
+                        // Scroll to the bottom of the list to show the latest message
+                        if (!chatMessageArrayList.isEmpty()) {
+                            binding.recyclerChatMessageView.scrollToPosition(chatMessageArrayList.size() - 1);
+                        }
+                    } else {
+                        Log.e("InnerChat", "QuerySnapshot is null");
                     }
-                    chatMessageAdapter.notifyDataSetChanged();
                 });
     }
+
+
 
     public void sendMessage(View view) {
         String messageText = binding.directMessageText.getText().toString().trim();

@@ -194,17 +194,30 @@ public class SecondHandMain extends AppCompatActivity implements OnProductClickL
         Intent intent = new Intent(this, BccCafeteriaPage.class);
         startActivity(intent);
     }
-    private void filterProducts(String query) {
+    /*private void filterProducts(String query) {
         ArrayList<Product> filteredList = new ArrayList<>();
-
         for (Product product : productArrayList) {
-            // Check if the product name contains the search query
             if (product.getProductName().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(product);
             }
         }
-
         productAdapter.updateList(filteredList);
+    }*/
+    private void filterProducts(String query) {
+        if (query.isEmpty()) {
+            // If search query is empty, display the full product list
+            productAdapter.updateList(productArrayList);
+        } else {
+            // Otherwise, filter the list based on the query
+            ArrayList<Product> filteredList = new ArrayList<>();
+            for (Product product : productArrayList) {
+                if (product.getProductName().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(product);
+                }
+            }
+            productAdapter.updateList(filteredList);
+        }
     }
+
 
 }
