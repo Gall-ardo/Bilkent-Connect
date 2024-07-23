@@ -72,6 +72,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         });
 
 
+        if (currentChat.getUnreadMessageCount() == 0){
+            holder.chatsBinding.unreadMessage.setVisibility(View.GONE);
+        }
+
+        else{
+            holder.chatsBinding.unreadMessage.setVisibility(View.VISIBLE);
+            holder.chatsBinding.unreadMessage.setText(currentChat.getUnreadMessageCount() + "");
+        }
+
+
 
         //holder.chatsBinding.usernameText.setOnClickListener((v -> listener.onChatClick(currentChat)));
         //holder.chatsBinding.userPhoto.setOnClickListener((v -> listener.onChatClick(currentChat)));

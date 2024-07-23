@@ -22,8 +22,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.hao.bilkentconnect.Adapter.ChatAdapter;
 import com.hao.bilkentconnect.Adapter.CommentAdapter;
 import com.hao.bilkentconnect.ModelClasses.Chat;
+import com.hao.bilkentconnect.ModelClasses.ChatMessage;
 import com.hao.bilkentconnect.ModelClasses.User;
-import com.hao.bilkentconnect.databinding.ActivityChangePasswordPageBinding;
 import com.hao.bilkentconnect.databinding.ActivityChatBinding;
 
 import java.util.ArrayList;
@@ -82,6 +82,17 @@ public class ChatActivity extends AppCompatActivity{
 
                             for (QueryDocumentSnapshot q: value){
                                 Chat c = q.toObject(Chat.class);
+
+                                int counter = 0;
+                                for (int i = 0; i < c.getChatMessages().size(); i++){
+                                    ChatMessage cm = c.getChatMessages().get(i);
+                                    if (!cm.getSenderId().equals(currentUserId) && !cm.isRead()){
+                                        counter++;
+                                    }
+                                }
+
+                                c.setUnreadMessageCount(counter);
+
                                 chatArrayList.add(c);
                             }
 
@@ -107,6 +118,8 @@ public class ChatActivity extends AppCompatActivity{
         ChatAdapter chatAdapter = new ChatAdapter(chatArrayList);
         binding.recyclerChatView.setAdapter(chatAdapter);
         chatAdapter.notifyDataSetChanged();
+
+
 
     }
 

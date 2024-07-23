@@ -7,8 +7,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.hao.bilkentconnect.ModelClasses.Chat;
 import com.hao.bilkentconnect.ModelClasses.ChatMessage;
+import com.hao.bilkentconnect.ModelClasses.User;
 import com.hao.bilkentconnect.databinding.RecyclerChatBinding;
 import com.hao.bilkentconnect.databinding.RecyclerChatMessageBinding;
 import com.squareup.picasso.Picasso;
@@ -19,9 +23,13 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
 
     private ArrayList<ChatMessage> chatMessages;
 
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     public ChatMessageAdapter(ArrayList<ChatMessage> chatMessages)  {
         this.chatMessages = chatMessages;
     }
+
+
 
     @NonNull
     @Override
@@ -35,18 +43,25 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         ChatMessage chatMessage = chatMessages.get(position);
         String messageText = chatMessage.getText();
         String senderId = chatMessage.getSenderId();
-        String receiverId = chatMessage.getReceiverId();
 
         holder.chatMessageBinding.messageText.setText(messageText);
 
-        if (chatMessage.getSenderId().equals(senderId)) {
-            holder.chatMessageBinding.messageText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
-            holder.chatMessageBinding.usernameText.setText(senderId);
+        holder.chatMessageBinding.messageText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
 
-        } else {
-            holder.chatMessageBinding.messageText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-            holder.chatMessageBinding.usernameText.setText(receiverId);
-        }
+        db.collection("Users").document(senderId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                String url = user.getProfilePhoto();
+
+                holder.chatMessageBinding.usernameText.setText(user.getUsername());
+
+                Picasso.get().load(url).into(holder.chatMessageBinding.profilePicture);
+
+
+            }
+        });
+
 
     }
 

@@ -21,6 +21,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hao.bilkentconnect.Adapter.ChatMessageAdapter;
 import com.hao.bilkentconnect.Adapter.CommentAdapter;
@@ -95,6 +96,8 @@ public class InnerChat extends AppCompatActivity {
 
         loadOtherUserDetails(otherUserId);
 
+        startMessaging();
+
 
 
     }
@@ -122,7 +125,9 @@ public class InnerChat extends AppCompatActivity {
 
     private void startMessaging(){
 
-        db.collection("Chats").whereArrayContains("users", Arrays.asList(currentUserId, otherUserId))
+        db.collection("Chats")
+                .whereIn("firstUserId", Arrays.asList(currentUserId, otherUserId))
+                .whereIn("secondUserId", Arrays.asList(currentUserId, otherUserId))
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -177,12 +182,16 @@ public class InnerChat extends AppCompatActivity {
 
     public void backButtonClicked(View view){
 
+
+
         db.collection("Chats")
-                .whereArrayContains("users", Arrays.asList(currentUserId, otherUserId))
+                .whereIn("firstUserId", Arrays.asList(currentUserId, otherUserId))
+                .whereIn("secondUserId", Arrays.asList(currentUserId, otherUserId))
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
+                        //buraya kadar geliyor
 
 
                         for (DocumentSnapshot doc: queryDocumentSnapshots){
@@ -198,9 +207,9 @@ public class InnerChat extends AppCompatActivity {
 
                             db.collection("Chats").document(docId).update("chatMessages", c.getChatMessages());
 
+
                             Intent intent = new Intent(InnerChat.this,ChatActivity.class);
                             startActivity(intent);
-                            finish();
                             break;
                         }
 
@@ -213,6 +222,58 @@ public class InnerChat extends AppCompatActivity {
                 });
 
     }
+
+
+    public void sendMessageButtonClicked(View view){
+
+        String text = binding.directMessageText.getText().toString().trim();
+
+        if (!text.isEmpty()){
+
+            ChatMessage chatMessage = new ChatMessage();
+
+            chatMessage.setSenderId(currentUserId);
+            chatMessage.setReceiverId(otherUserId);
+            chatMessage.setText(text);
+
+            db.collection("Chats")
+                    .whereIn("firstUserId", Arrays.asList(currentUserId, otherUserId))
+                    .whereIn("secondUserId", Arrays.asList(currentUserId, otherUserId))
+                    .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+
+                            for (DocumentSnapshot doc: queryDocumentSnapshots){
+
+                                Chat currChat = doc.toObject(Chat.class);
+
+                                ArrayList<ChatMessage> messages = currChat.getChatMessages();
+                                messages.add(chatMessage);
+
+                                String docId = doc.getId();
+                                db.collection("Chats").document(docId).update("chatMessages", messages);
+
+                                binding.directMessageText.setText("");
+                            }
+
+
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(InnerChat.this, e.getLocalizedMessage(), Toast.LENGTH_LONG);
+                        }
+                    });
+
+        }
+
+    }
+
+
+
+
 
 
 
