@@ -80,6 +80,7 @@ public class ChatActivity extends AppCompatActivity{
 
                         if (value != null){
 
+                            chatArrayList.clear();
                             for (QueryDocumentSnapshot q: value){
                                 Chat c = q.toObject(Chat.class);
 
@@ -98,8 +99,6 @@ public class ChatActivity extends AppCompatActivity{
 
 
                             settingRecyclerView();
-
-
 
                         }
 
