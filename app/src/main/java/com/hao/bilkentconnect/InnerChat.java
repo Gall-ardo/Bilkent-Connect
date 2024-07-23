@@ -1,18 +1,25 @@
 package com.hao.bilkentconnect;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hao.bilkentconnect.Adapter.ChatMessageAdapter;
@@ -32,9 +39,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.internal.Internal;
+import okhttp3.internal.Util;
+
 public class InnerChat extends AppCompatActivity {
     private ActivityInnerChatBinding binding;
     private FirebaseFirestore db;
+
+    private FirebaseAuth myAuth;
     private String currentUserId;
     private String otherUserId;
     private String chatId;
@@ -49,23 +61,46 @@ public class InnerChat extends AppCompatActivity {
         View viewRoot = binding.getRoot();
         setContentView(viewRoot);
 
+
         db = FirebaseFirestore.getInstance();
-        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        otherUserId = getIntent().getStringExtra("otherUserId");
+        myAuth = FirebaseAuth.getInstance();
 
-        chatMessageArrayList = new ArrayList<>();
-        chatMessageAdapter = new ChatMessageAdapter(chatMessageArrayList);
-        binding.recyclerChatMessageView.setLayoutManager(new LinearLayoutManager(this));
-        binding.recyclerChatMessageView.setAdapter(chatMessageAdapter);
+        currentUserId = myAuth.getCurrentUser().getUid();
 
-        if (otherUserId != null) {
-            loadOtherUserDetails(otherUserId);
-            checkOrCreateChat(currentUserId, otherUserId, (chatId) -> {
-                this.chatId = chatId;
-                loadChatMessages(chatId);
-            });
-        }
+        Intent intent = getIntent();
+        otherUserId = intent.getStringExtra("otherId");
+
+
+
+        db.collection("Chats")
+                .whereIn("firstUserId",Arrays.asList(currentUserId, otherUserId))
+                .whereIn("secondUserId", Arrays.asList(currentUserId, otherUserId)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+
+                        for (DocumentSnapshot doc: queryDocumentSnapshots){
+
+                            //TODO burda bir şeyler yapmamız gerekiyor sanırım ama anlamadın
+                        }
+
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(InnerChat.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        loadOtherUserDetails(otherUserId);
+
+
+
     }
+
+
+
 
     private void loadOtherUserDetails(String userId) {
         db.collection("Users").document(userId).get()
@@ -83,103 +118,127 @@ public class InnerChat extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> Log.e("InnerChat", "Error loading user details", e));
     }
-    private void checkOrCreateChat(String currentUserId, String otherUserId, OnChatIdGeneratedListener callback) {
-        db.collection("Chats")
-                .whereArrayContains("users", Arrays.asList(currentUserId, otherUserId))
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        QuerySnapshot querySnapshot = task.getResult();
-                        if (!querySnapshot.isEmpty()) {
-                            chatId = querySnapshot.getDocuments().get(0).getId();
-                            callback.onChatIdGenerated(chatId);
-                        } else {
-                            createChat(currentUserId, otherUserId, callback);
-                        }
-                    } else {
-                        Log.e("InnerChat", "Error checking or creating chat", task.getException());
-                    }
-                });
-    }
-    private void loadChatMessages(String chatId) {
-        db.collection("Chats").document(chatId).collection("Messages")
-                .orderBy("timestamp", Query.Direction.ASCENDING)
-                .addSnapshotListener((queryDocumentSnapshots, e) -> {
-                    if (e != null) {
-                        Log.e("InnerChat", "Error loading messages: ", e);
-                        return;
-                    }
 
-                    chatMessageArrayList.clear();
-                    if (queryDocumentSnapshots != null) {
-                        for (DocumentSnapshot doc : queryDocumentSnapshots.getDocuments()) {
-                            ChatMessage message = doc.toObject(ChatMessage.class);
-                            if (message != null) {
-                                chatMessageArrayList.add(message);
-                            } else {
-                                Log.e("InnerChat", "Message is null");
-                            }
+
+    private void startMessaging(){
+
+        db.collection("Chats").whereArrayContains("users", Arrays.asList(currentUserId, otherUserId))
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null){
+                            Toast.makeText(InnerChat.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+
                         }
-                        chatMessageAdapter.notifyDataSetChanged();
-                        // Scroll to the bottom of the list to show the latest message
-                        if (!chatMessageArrayList.isEmpty()) {
-                            binding.recyclerChatMessageView.scrollToPosition(chatMessageArrayList.size() - 1);
+
+                        if (value != null){
+                            updateUI(value);
                         }
-                    } else {
-                        Log.e("InnerChat", "QuerySnapshot is null");
                     }
                 });
+
     }
 
 
+    private void updateUI(QuerySnapshot query){
 
-    public void sendMessage(View view) {
-        String messageText = binding.directMessageText.getText().toString().trim();
-        if (messageText.isEmpty()) {
-            Toast.makeText(this, "Message cannot be empty", Toast.LENGTH_SHORT).show();
-            return;
+
+        for (DocumentSnapshot doc: query){
+
+            Chat currChat = doc.toObject(Chat.class);
+
+            ArrayList<ChatMessage> messages = currChat.getChatMessages();
+
+            for (ChatMessage m: messages){
+                if (currentUserId.equals(m.getSenderId())){
+                    m.setMine(true);
+                }
+            }
+
+            settingRecyclerView(messages);
+            break;
+
         }
 
-        ChatMessage message = new ChatMessage(currentUserId, otherUserId, messageText, chatId, new Timestamp(new Date()));
-        db.collection("Chats").document(chatId).collection("Messages").add(message)
-                .addOnSuccessListener(documentReference -> {
-                    updateChatLastMessage(chatId, messageText);
-                    binding.directMessageText.setText("");
-                })
-                .addOnFailureListener(e -> Toast.makeText(this, "Error sending message: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
-    private void updateChatLastMessage(String chatId, String lastMessage) {
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("lastMessage", lastMessage);
-        updates.put("lastActivityTime", new Timestamp(new Date()));
+    private void settingRecyclerView(ArrayList<ChatMessage> messages){
 
-        db.collection("Chats").document(chatId).update(updates)
-                .addOnFailureListener(e -> Log.e("InnerChat", "Failed to update chat: " + e.getMessage()));
+        binding.recyclerChatMessageView.setLayoutManager(new LinearLayoutManager(InnerChat.this));
+        ChatMessageAdapter chatMessageAdapter = new ChatMessageAdapter(messages);
+
+        binding.recyclerChatMessageView.scrollToPosition(chatMessageAdapter.getItemCount() - 1);
+        binding.recyclerChatMessageView.setAdapter(chatMessageAdapter);
+
+        chatMessageAdapter.notifyDataSetChanged();
+
     }
 
 
+    public void backButtonClicked(View view){
 
-    private void createChat(String currentUserId, String otherUserId, OnChatIdGeneratedListener callback) {
-        Map<String, Object> newChatData = new HashMap<>();
-        newChatData.put("users", Arrays.asList(currentUserId, otherUserId));
-        db.collection("Chats").add(newChatData)
-                .addOnSuccessListener(documentReference -> {
-                    chatId = documentReference.getId();
-                    callback.onChatIdGenerated(chatId);
-                })
-                .addOnFailureListener(e -> Log.e("InnerChat", "Error creating new chat", e));
+        db.collection("Chats")
+                .whereArrayContains("users", Arrays.asList(currentUserId, otherUserId))
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+
+
+                        for (DocumentSnapshot doc: queryDocumentSnapshots){
+                            String docId = doc.getId();
+
+                            Chat c = doc.toObject(Chat.class);
+
+                            for (ChatMessage m: c.getChatMessages()){
+                                if (m.getSenderId().equals(otherUserId) && !m.isRead()){
+                                    m.setRead(true);
+                                }
+                            }
+
+                            db.collection("Chats").document(docId).update("chatMessages", c.getChatMessages());
+
+                            Intent intent = new Intent(InnerChat.this,ChatActivity.class);
+                            startActivity(intent);
+                            finish();
+                            break;
+                        }
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(InnerChat.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
     }
 
 
-    public void goToProfilePage(View view) {
-        startActivity(new Intent(InnerChat.this, ChatActivity.class));
-        finish();
-    }
 
 
 
-    public interface OnChatIdGeneratedListener {
-        void onChatIdGenerated(String chatId);
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -7,16 +7,18 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class Chat {
+public class Chat implements Serializable {
 
 
     //TODO may be unnecassary
@@ -28,6 +30,21 @@ public class Chat {
 
     private ArrayList<ChatMessage> chatMessages;
     private int unreadMessageCount;
+
+    private FirebaseAuth myauth = FirebaseAuth.getInstance();
+
+    public Chat(){
+        chatId = null;
+        firstUserId = null;
+        secondUserId = null;
+
+        users = new ArrayList<>();
+        chatMessages = new ArrayList<>();
+
+        unreadMessageCount = 0;
+
+    }
+
 
 
     public Chat(String firstUserId, String secondUserId) {
@@ -119,6 +136,17 @@ public class Chat {
                         Toast.makeText(con, "Failed to retrieve data /chat_class_static method", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+
+    public String getOthersId(){
+
+        if (myauth.getCurrentUser().getUid().equals(firstUserId)){
+            return secondUserId;
+        }
+
+        return firstUserId;
+
     }
 
 }

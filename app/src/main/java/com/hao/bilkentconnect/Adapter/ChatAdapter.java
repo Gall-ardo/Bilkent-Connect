@@ -1,11 +1,14 @@
 package com.hao.bilkentconnect.Adapter;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.hao.bilkentconnect.InnerChat;
 import com.hao.bilkentconnect.ModelClasses.Chat;
 import com.hao.bilkentconnect.ModelClasses.User;
 import com.hao.bilkentconnect.OnChatClickListener;
@@ -21,10 +24,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     private ArrayList<Chat> chats;
     private OnChatClickListener listener;
 
-    public ChatAdapter(ArrayList<Chat> chats, OnChatClickListener listener) {
+    private FirebaseFirestore db;
+    private FirebaseAuth myAuth;
+
+    public ChatAdapter(ArrayList<Chat> chats) {
         this.chats = chats;
-        this.listener = listener;
+
+        db = FirebaseFirestore.getInstance();
+        myAuth = FirebaseAuth.getInstance();
+
     }
+
+
 
     @NonNull
     @Override
@@ -33,14 +44,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         return new ChatViewHolder(chatsBinding);
     }
 
+
+
+
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-        /*Chat currentChat = chats.get(position);
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        String currentUserId = firebaseAuth.getCurrentUser() != null ? firebaseAuth.getCurrentUser().getUid() : "";
-        String otherUserId = currentChat.getUsers().contains(currentUserId) ?
-                currentChat.getUsers().stream().filter(id -> !id.equals(currentUserId)).findFirst().orElse("") :
-                "";
+        Chat currentChat = chats.get(position);
+
+        String currentUserId = myAuth.getCurrentUser().getUid();
+
+        String otherUserId = chats.get(position).getOthersId();
+
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Users").document(otherUserId).get().addOnSuccessListener(documentSnapshot -> {
@@ -57,8 +71,25 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             }
         });
 
-        holder.chatsBinding.usernameText.setOnClickListener((v -> listener.onChatClick(currentChat)));
-        holder.chatsBinding.userPhoto.setOnClickListener((v -> listener.onChatClick(currentChat)));*/
+
+
+        //holder.chatsBinding.usernameText.setOnClickListener((v -> listener.onChatClick(currentChat)));
+        //holder.chatsBinding.userPhoto.setOnClickListener((v -> listener.onChatClick(currentChat)));
+
+
+        String otherId = chats.get(position).getOthersId();
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(holder.itemView.getContext(), InnerChat.class);
+                intent.putExtra("otherId", otherId);
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
+
+
+
     }
 
 

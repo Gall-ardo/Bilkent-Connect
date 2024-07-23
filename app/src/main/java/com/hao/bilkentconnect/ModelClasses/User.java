@@ -1,9 +1,10 @@
 package com.hao.bilkentconnect.ModelClasses;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class User implements Serializable {
     // Attributes
     private String userId; // to reach unique user in database
     private String email;

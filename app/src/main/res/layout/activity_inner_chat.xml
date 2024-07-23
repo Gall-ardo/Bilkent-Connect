@@ -22,7 +22,7 @@
             android:layout_height="35dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="12dp"
-            android:onClick="goToProfilePage"
+            android:onClick="backButtonClicked"
             app:srcCompat="@drawable/arrow_vector" />
 
 

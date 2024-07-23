@@ -14,6 +14,10 @@ public class ChatMessage {
     private String chatId;
     private Date timestap; // Using Timestamp for the timeStap
 
+    private boolean isMine;
+
+    private boolean isRead;
+
     // Constructor
     public ChatMessage(String sender, String receiver, String text, String chatId,  Timestamp timestamp) {
         this.senderId = sender;
@@ -21,12 +25,14 @@ public class ChatMessage {
         this.text = text;
         this.chatId = chatId;
         this.timestap = timestamp.toDate();
+        isMine = false;
     }
     public ChatMessage(String sender, String receiver, String text,Timestamp timestamp) {
         this.senderId = sender;
         this.receiverId = receiver;
         this.text = text;
         this.timestap = timestamp.toDate();
+        isMine = false;
     }
 
 
@@ -89,5 +95,22 @@ public class ChatMessage {
 
     public void setTimestap(Date timestap) {
         this.timestap = timestap;
+    }
+
+
+    public boolean isMine() {
+        return isMine;
+    }
+
+    public void setMine(boolean mine) {
+        isMine = mine;
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean read) {
+        isRead = read;
     }
 }

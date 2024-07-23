@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hao.bilkentconnect.Adapter.ChatAdapter;
 import com.hao.bilkentconnect.Adapter.CommentAdapter;
@@ -28,9 +30,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
-public class ChatActivity extends AppCompatActivity implements OnChatClickListener{
+public class ChatActivity extends AppCompatActivity{
 
-    private ChatAdapter chatAdapter;
 
     private ArrayList<Chat> chatArrayList;
     private ActivityChatBinding binding;
@@ -43,12 +44,15 @@ public class ChatActivity extends AppCompatActivity implements OnChatClickListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         super.onCreate(savedInstanceState);
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         View viewRoot = binding.getRoot();
         setContentView(viewRoot);
 
+
         chatArrayList = new ArrayList<>();
+
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -56,29 +60,54 @@ public class ChatActivity extends AppCompatActivity implements OnChatClickListen
         getChats();
 
 
-        binding.recyclerChatView.setLayoutManager(new LinearLayoutManager(this));
-        chatAdapter = new ChatAdapter(chatArrayList, this);
-        binding.recyclerChatView.setAdapter(chatAdapter);
+
+
 
     }
 
+    private void getChats(){
 
-    private void getChats() {
         db.collection("Chats")
                 .whereArrayContains("users", currentUserId)
-                .orderBy("lastActivityTime", Query.Direction.DESCENDING) // Order by most recent activity
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    chatArrayList.clear();
-                    for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                        Chat chat = snapshot.toObject(Chat.class);
-                        if (chat != null) {
-                            chatArrayList.add(chat);
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null){
+
+                            System.out.println("Error burada");
+                            Toast.makeText(ChatActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
+
+                        if (value != null){
+
+                            for (QueryDocumentSnapshot q: value){
+                                Chat c = q.toObject(Chat.class);
+                                chatArrayList.add(c);
+                            }
+
+
+                            settingRecyclerView();
+
+
+
+                        }
+
                     }
-                    chatAdapter.notifyDataSetChanged();
-                })
-                .addOnFailureListener(e -> Toast.makeText(ChatActivity.this, "Error fetching chats: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                });
+    }
+
+
+    private void settingRecyclerView(){
+
+
+        System.out.println("sistem buraya girdi chat arrayi karşıdaki gibidir: ");
+        System.out.println(chatArrayList);
+
+        binding.recyclerChatView.setLayoutManager(new LinearLayoutManager(ChatActivity.this));
+        ChatAdapter chatAdapter = new ChatAdapter(chatArrayList);
+        binding.recyclerChatView.setAdapter(chatAdapter);
+        chatAdapter.notifyDataSetChanged();
+
     }
 
 
@@ -88,12 +117,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatClickListen
         finish();
     }
 
-    public void onChatClick(Chat chat) {
-        Intent intent = new Intent(this, InnerChat.class);
-        intent.putExtra("chatId", chat.getChatId());
-        startActivity(intent);
-        finish();
-    }
+   
 
     public void goToAddChatActivity(View view){
         Intent intent = new Intent(ChatActivity.this, ChatAddActivity.class);
