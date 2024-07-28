@@ -69,87 +69,63 @@ public class BccCafeteriaPage extends AppCompatActivity {
             }
         });
 
-        //gotoMainFragment();
-
-        // Replace this URL with the URL of the HTML page you want to parse
         String url = "http://kafemud.bilkent.edu.tr/monu_eng.html";
 
-        // Execute the AsyncTask to perform HTML parsing in the background
-        parseHtmlInBackground(url,"td.style18", findViewById(R.id.lunchText), 0, 0);
-        parseHtmlInBackground(url,"td.style18", findViewById(R.id.dinnerText), 1, 0);
-        parseHtmlInBackground(url,"td", findViewById(R.id.lunchInfoText), 0, 1);
-        parseHtmlInBackground(url,"td", findViewById(R.id.dinnerInfoText), 1, 1);
-        //parseHtmlInBackground(url, dinnerTextView);
+        parseHtmlInBackground(url, findViewById(R.id.lunchText), findViewById(R.id.lunchInfoText), 0);
+        parseHtmlInBackground(url, findViewById(R.id.dinnerText), findViewById(R.id.dinnerInfoText), 1);
     }
 
 
 
 
-    private void parseHtmlInBackground(String url, String targetElement, TextView targetLocation, int mealType, int info) {
+    private void parseHtmlInBackground(String url, TextView mealView, TextView calorieView, int mealType) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
-        Future<String> futureResult = executor.submit(() -> {
+        Future<String[]> futureResult = executor.submit(() -> {
             try {
-                // Fetch the HTML content from the URL
                 Document document = Jsoup.connect(url).get();
-
-                // Extract information from the HTML
-                Elements headlines = document.select(targetElement);
 
                 LocalDate currentDate = LocalDate.now();
                 DayOfWeek dayOfWeek = currentDate.getDayOfWeek();
+                int dayIndex = dayOfWeek.getValue() - 1;
 
-                // Build a string with the extracted information
-                StringBuilder result = new StringBuilder();
+                Elements rows = document.select("tr");
+                int rowIndex = dayIndex * 12 + 2 + mealType * 6;
 
-                if ( dayOfWeek.toString().equals("MONDAY") ){
-                    result.append(headlines.get(info*(8 + mealType) + mealType));
+                String mealName = "";
+                for (int i = 7; i < 12; i++)
+                {
+                    mealName += rows.get(rowIndex + i).select("td").text() + "\n";
                 }
-                else if ( dayOfWeek.toString().equals("TUESDAY") ){
-                    result.append(headlines.get(info*(13 + mealType) + mealType + 2).text());
-                }
-                else if ( dayOfWeek.toString().equals("WEDNESDAY") ){
-                    result.append(headlines.get(info*(18 + mealType) + mealType + 4).text());
-                }
-                else if ( dayOfWeek.toString().equals("THURSDAY") ){
-                    result.append(headlines.get(info*(23 + mealType) + mealType + 6).text());
-                }
-                else if ( dayOfWeek.toString().equals("FRIDAY") ){
-                    result.append(headlines.get(info*(24 + mealType) + mealType + 8).text());
-                }
-                else if ( dayOfWeek.toString().equals("SATURDAY") ){
-                    result.append(headlines.get(info*(29 + mealType) + mealType + 10).text());
-                }
-                else if ( dayOfWeek.toString().equals("SUNDAY") ){
-                    result.append(headlines.get(info*(38 + mealType) + mealType + 12).text());
-                }
-                return result.toString();
+                String calorieInfo = rows.get(rowIndex + 6).select("td").text();
+
+                return new String[] { mealName, calorieInfo };
             } catch (IOException e) {
                 e.printStackTrace();
-                return "Error occurred during HTML parsing";
+                return new String[] { "Error occurred during HTML parsing", "" };
             }
         });
 
         executor.shutdown();
 
         try {
+            String[] result = futureResult.get();
+            String mealName = result[0];
+            String calorieInfo = result[1];
 
-            String htmlData = futureResult.get();
+            runOnUiThread(() -> {
+                mealView.setText(mealName);
+                calorieView.setText(calorieInfo);
+            });
 
-            Document htmlDocument = Jsoup.parse(htmlData);
-            String plainText = htmlDocument.text();
-
-            targetLocation.setText(plainText);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void onSideMenuItemClick() {
-        // Handle the click event for side menu items
         Log.d("ClickEvent", "Clicked on: ");
 
-        // Close the side menu after handling the click
         toggleSideMenu();
     }
 
@@ -159,11 +135,11 @@ public class BccCafeteriaPage extends AppCompatActivity {
         float fromXDelta, toXDelta;
 
         if (isSideMenuVisible) {
-            fromXDelta = -1f; // Start from the left edge
+            fromXDelta = -1f;
             toXDelta = 0f;
         } else {
             fromXDelta = 0f;
-            toXDelta = -1f; // Move back to the left edge
+            toXDelta = -1f;
         }
 
         Animation animation = new TranslateAnimation(

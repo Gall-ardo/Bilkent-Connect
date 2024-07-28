@@ -139,7 +139,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/cafeteriText"
+            android:id="@+id/cafeteriaText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -218,7 +218,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/lunchHedaingText"
+        android:id="@+id/lunchHeadingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
